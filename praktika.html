@@ -21,7 +21,7 @@
 </nav>
 <main class="max-w-6xl mx-auto px-4 py-6">
 <h1 class="font-black text-2xl">🧮 Praktika — istorijos pratybos</h1>
-<p class="text-sm text-slate-500 mb-4">7 interaktyvios užduotys. Tik datos, sąvokos ir loginis mąstymas.</p>
+<p class="text-sm text-slate-500 mb-4">8 interaktyvios užduotys. Tik datos, sąvokos ir loginis mąstymas.</p>
 <div class="grid md:grid-cols-2 gap-4">
 
   <div class="bg-white border rounded-2xl p-5">
@@ -91,6 +91,18 @@
     <div class="mt-4 bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs leading-relaxed">
       <b>Kaip atsiminti:</b> <b>Antantė</b> = Prancūzija + Rusija + Britanija (+ Serbija, Belgija, Japonija, vėliau Italija nuo 1915 ir JAV nuo 1917).
       <b>Trilypė / Centrinės</b> = Vokietija + Austrija-Vengrija (+ Osmanų imperija ir Bulgarija kare). Italija pradėjo Trilypėje, bet perėjo pas Antantę.
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-emerald-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">8. Maskvos taika ir karo žemėlapis</h3>
+    <p class="text-xs text-slate-500 mb-2">Sutarties sąlygos ir legendos skaitymas. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="sutartisBox" class="space-y-3 text-sm"></div>
+    <button onclick="sutartisCheck()" class="bg-emerald-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="sutartisOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Kaip atsiminti sutartį:</b> <b>PSAB</b> – Pripažinimas visiems laikams, Sienos (Vilnius Lietuvai), Auksas (3 mln.) + Archyvai, Belaisviai ir optacija.
+      <b>Žemėlapį skaityk per legendą:</b> ištisinės linijos = prasiveržimo ribos, X = mūšiai, brūkšniavimas = okupacija.
     </div>
   </div>
 
@@ -170,7 +182,13 @@ const tfData=[
 {t:"Bolševikai – Lenino vadovaujami Rusijos komunistai.",v:true},
 {t:"Bolševikai siekė prijungti Lietuvą prie Sovietų Rusijos.",v:true},
 {t:"Bermontininkai – Lietuvos savanoriai.",v:false},
-{t:"Bermontininkams vadovavo Bermondtas, juos rėmė Vokietija.",v:true}];
+{t:"Bermontininkams vadovavo Bermondtas, juos rėmė Vokietija.",v:true},
+{t:"Maskvos taika Rusija atsisakė pretenzijų į Lietuvą visiems laikams.",v:true},
+{t:"Pagal Maskvos taiką Rusija mokėjo 3 mln. aukso rublių.",v:true},
+{t:"Pagal Maskvos taiką Rusija grąžino archyvus ir meno vertybes.",v:true},
+{t:"Nota – oficialus vyriausybės raštas kitai valstybei.",v:true},
+{t:"Demarkacijos linija – nuolatinė valstybės siena.",v:false},
+{t:"S. Žukauskas – Lietuvos kariuomenės vadas.",v:true}];
 function renderTF(){
   const b=document.getElementById('tfBox');b.innerHTML='';
   tfData.forEach((q,i)=>{const r=document.createElement('div');r.id='tfRow'+i;r.className='flex items-center gap-2 bg-slate-50 border rounded-xl p-2';r.innerHTML=`<span class="flex-1">${i+1}. ${q.t}</span><button onclick="tfSet(${i},true)" id="tfT${i}" class="px-3 py-1 rounded-full border text-xs font-bold">T</button><button onclick="tfSet(${i},false)" id="tfF${i}" class="px-3 py-1 rounded-full border text-xs font-bold">K</button><span id="tfMark${i}" class="text-xs font-bold w-24 text-right"></span>`;b.appendChild(r);});
@@ -193,7 +211,10 @@ const defData=[
 {c:"Bermondto rėmėjas",a:"Vokietija (ginklai, pinigai, instruktoriai)",opts:["Vokietija (ginklai, pinigai, instruktoriai)","Prancūzija","Tautų Sąjunga"]},
 {c:"Demarkacinė linija",a:"Laikina skiriamoji linija tarp kariuomenių",opts:["Laikina skiriamoji linija tarp kariuomenių","Nuolatinė siena","Geležinkelio linija"]},
 {c:"Maskvos taika",a:"1920-07-12 Rusija pripažino Lietuvą su Vilniumi",opts:["1920-07-12 Rusija pripažino Lietuvą su Vilniumi","1920-10-07 sutartis su Lenkija","1919 Versalis su Vokietija"]},
-{c:"Suvalkų sutartis",a:"1920-10-07 Vilnius paliktas Lietuvai",opts:["1920-10-07 Vilnius paliktas Lietuvai","1920-07-12 taika su Rusija","1919 taika su Vokietija"]}];
+{c:"Suvalkų sutartis",a:"1920-10-07 Vilnius paliktas Lietuvai",opts:["1920-10-07 Vilnius paliktas Lietuvai","1920-07-12 taika su Rusija","1919 taika su Vokietija"]},
+{c:"Nota",a:"Oficialus vyriausybės raštas kitai valstybei",opts:["Oficialus vyriausybės raštas kitai valstybei","Taikos sutartis","Karinis įsakymas"]},
+{c:"Optacija",a:"Teisė pasirinkti pilietybę",opts:["Teisė pasirinkti pilietybę","Karo mokestis","Sienos linija"]},
+{c:"S. Žukauskas",a:"Lietuvos kariuomenės vadas",opts:["Lietuvos kariuomenės vadas","Lenkijos generolas","Bermontininkų vadas"]}];
 function renderDef(){
   const b=document.getElementById('defBox');b.innerHTML='';
   defData.forEach((d,i)=>{const r=document.createElement('div');r.className='flex items-center gap-2';r.innerHTML=`<span class="font-bold w-32">${d.c}</span>`;const s=document.createElement('select');s.id='def'+i;s.className='flex-1 border rounded-lg px-2 py-1';const shuffled=[...d.opts].sort(()=>Math.random()-0.5);s.innerHTML='<option value="">— rinkis —</option>'+shuffled.map(o=>`<option>${o}</option>`).join('');r.appendChild(s);b.appendChild(r);});
@@ -262,6 +283,27 @@ function blokasCheck(){
   document.getElementById('blokasOut').innerHTML=`<b>${s}/${blokasData.length}</b> `+(s===blokasData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki blokus!</span>':'<span class="text-amber-600">Pakartok: Antantė = PR + RU + GB, Trilypė = VOK + AUS-VENG.</span>');
 }
 renderBlokas();
+
+// 8. Maskvos taika ir karo žemėlapis
+const sutartisData=[
+{q:"Ką reiškia, kad Rusija pripažino Lietuvą „visiems laikams“?",opts:["Daugiau niekada nebereikš pretenzijų į Lietuvą","Pripažinimas galioja 10 metų","Lietuva tampa Rusijos dalimi","Pripažįstamas tik Kaunas"],a:0,exp:"„Visiems laikams“ – Rusija visam laikui atsisakė teisių į Lietuvos teritoriją ir žmones."},
+{q:"Kiek aukso rublių Rusija įsipareigojo sumokėti Lietuvai?",opts:["3 milijonus","300 tūkstančių","30 milijonų","Nieko"],a:0,exp:"3 mln. aukso rublių – karo nuostolių atlyginimas."},
+{q:"Ką Rusija grąžino Lietuvai pagal sutartį?",opts:["Archyvus, bibliotekas ir meno vertybes","Tik ginklus","Tik pinigus","Nieko negrąžino"],a:0,exp:"Grąžinamas per karą išvežtas archyvų, bibliotekų ir mokslo įstaigų turtas."},
+{q:"Kas yra optacija Maskvos taikoje?",opts:["Gyventojų teisė pasirinkti Lietuvos pilietybę","Karo mokestis","Sienos nustatymas","Kariuomenės paradai"],a:0,exp:"Optacija – teisė pasirinkti (optuoti) Lietuvos pilietybę."},
+{q:"Žemėlapis: ką rodo bolševikų prasiveržimo riba?",opts:["Liniją, iki kurios šiaurėje buvo įsiveržę bolševikai","Lietuvos ir Latvijos sieną","Suvalkų liniją","Vokietijos zoną"],a:0,exp:"Prasiveržimo riba = giliausia priešo įsiveržimo linija."},
+{q:"Žemėlapis: ką rodo bermontininkų prasiveržimo riba?",opts:["Liniją, iki kurios veržėsi bermontininkai (Šiaulių kryptis)","Lenkijos sieną","Maskvos taikos sieną","Neutralią zoną"],a:0,exp:"Bermontininkai puolė Šiaurės Lietuvą – sustabdyti prie Radviliškio."},
+{q:"Žemėlapis: ką reiškia X ženklai prie Giedraičių?",opts:["Mūšio vietą","Sostinę","Sienos perėją","Stotį"],a:0,exp:"X legendoje žymi mūšius – Giedraičiai 1920-11-17–21."},
+{q:"Žemėlapis: ką rodo brūkšniuota teritorija?",opts:["Vokietijos užimtas teritorijas","Vilniaus kraštą","Neutralią zoną","Lenkijos sostinę"],a:0,exp:"Brūkšniavimas legendoje (Nr. 7) – Vokietijos užimtos teritorijos."}];
+function renderSutartis(){
+  const b=document.getElementById('sutartisBox');if(!b)return;b.innerHTML='';window._sutartisMap=[];window._sutartisOpts=[];
+  sutartisData.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window._sutartisMap[i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window._sutartisOpts[i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="sutartis${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="sutartisExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
+  document.getElementById('sutartisOut').innerHTML='';
+}
+function sutartisCheck(){
+  let s=0;sutartisData.forEach((c,i)=>{const sel=document.querySelector(`input[name="sutartis${i}"]:checked`);const expEl=document.getElementById('sutartisExp'+i);const correctIdx=window._sutartisMap[i];const correctText=window._sutartisOpts[i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ Nepasirinkai.</span> Teisingas: <b>${correctText}</b>. ${c.exp}`;}else{const yourText=window._sutartisOpts[i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ Klaida.</span> Tavo: <b>${yourText}</b> | Teisingas: <b>${correctText}</b>. ${c.exp}`;}});
+  document.getElementById('sutartisOut').innerHTML=`<b>${s}/${sutartisData.length}</b> `+(s===sutartisData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki sutartį ir žemėlapį!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau. Raktas: PSAB.</span>');
+}
+renderSutartis();
 </script>
 </body>
 </html>
