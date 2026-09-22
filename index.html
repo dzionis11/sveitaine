@@ -162,7 +162,10 @@ body{font-family:'Inter',sans-serif}
     </div>
     <div class="mb-4">
       <label class="block text-sm font-semibold mb-2">Prieigos kodas</label>
-      <input type="text" id="accessCode" autocomplete="off" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl text-center text-lg font-mono tracking-widest focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" placeholder="JonasČerniauskasYraManoDievas">
+      <div class="relative">
+        <input type="password" id="accessCode" autocomplete="off" autocapitalize="off" spellcheck="false" class="w-full px-4 py-3 pr-12 border-2 border-slate-200 rounded-xl text-center text-lg font-mono tracking-widest focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" placeholder="Įvesk kodą">
+        <button type="button" onclick="toggleCodeVisibility()" title="Rodyti / slėpti kodą" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xl">👁</button>
+      </div>
     </div>
     <button onclick="verifyCode()" class="w-full bg-blue-700 text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-800 transition">Patvirtinti</button>
     <p id="codeError" class="text-red-600 text-sm mt-3 text-center hidden">Neteisingas kodas. Bandyk dar kartą.</p>
@@ -184,7 +187,20 @@ body{font-family:'Inter',sans-serif}
 
 <script>
 // ===== KODŲ ĮVEDIMO SISTEMA =====
-const REQUIRED_CODE = "JonasČerniauskasYraManoDievas";
+// Pats kodas čia nerodomas – tikrinama tik jo maiša (cyrb53)
+const REQUIRED_CODE_HASH = "19a2b1b7e41424";
+function cyrb53(str, seed) {
+  seed = seed || 0;
+  var h1 = 0xdeadbeef ^ seed, h2 = 0x41c6ce57 ^ seed;
+  for (var i = 0; i < str.length; i++) {
+    var ch = str.charCodeAt(i);
+    h1 = Math.imul(h1 ^ ch, 2654435761);
+    h2 = Math.imul(h2 ^ ch, 1597334677);
+  }
+  h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+  h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+  return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16);
+}
 let timerInterval = null;
 let timerStarted = false;
 
@@ -230,11 +246,16 @@ function hideCodeModal() {
   hideTimer();
 }
 
+function toggleCodeVisibility() {
+  var el = document.getElementById('accessCode');
+  el.type = el.type === 'password' ? 'text' : 'password';
+}
+
 function verifyCode() {
   const input = document.getElementById('accessCode').value.trim();
   const errorEl = document.getElementById('codeError');
   
-  if (input === REQUIRED_CODE) {
+  if (cyrb53(input) === REQUIRED_CODE_HASH) {
     const ip = localStorage.getItem('currentIP');
     localStorage.setItem('accessGranted', 'true');
     localStorage.setItem('accessIP', ip);
@@ -301,6 +322,11 @@ function showNotification(msg, type) {
 
 // Paleidžiame
 document.addEventListener('DOMContentLoaded', initAccess);
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('accessCode').addEventListener('keydown', function(e) {
+    if (e.key === 'Enter') verifyCode();
+  });
+});
 
 // Užblokuojame navigaciją jei nėra prieigos
 const navLinks = document.querySelectorAll('nav a[href$=".html"]');
