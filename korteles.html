@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kortelės — Istorija</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif}.hist-gradient{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#9333ea 100%)}
+.card-3d{perspective:1000px}.card-inner{transition:transform .6s;transform-style:preserve-3d}.card-3d.flipped .card-inner{transform:rotateY(180deg)}.card-face{backface-visibility:hidden}.card-back{transform:rotateY(180deg)}
+</style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800">
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div><div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Istorija</div></div></a>
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+      <a href="index.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">📖 Mokytis</a>
+      <a href="korteles.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">🃏 Kortelės</a>
+      <a href="testas.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">✅ Testas</a>
+      <a href="praktika.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🧮 Praktika</a>
+    </div>
+  </div>
+</nav>
+<main class="max-w-6xl mx-auto px-4 py-6">
+<div class="flex flex-wrap items-center justify-between gap-3 mb-4">
+  <h1 class="font-black text-2xl">🃏 Kortelės — istorija</h1>
+  <div class="flex items-center gap-2"><span class="text-sm">Kortelė <b id="cardNow">1</b> / <span id="cardTotal">24</span></span><button onclick="shuffleCards()" class="text-xs bg-white border px-3 py-1.5 rounded-full font-bold">🔀 Maišyti</button></div>
+</div>
+<div class="max-w-2xl mx-auto">
+  <div id="flashCard" class="card-3d cursor-pointer" onclick="flipCard()">
+    <div class="card-inner relative">
+      <div class="card-face bg-white border-2 border-blue-200 rounded-[20px] p-8 min-h-[280px] flex flex-col items-center justify-center text-center shadow-sm">
+        <div class="text-xs font-bold tracking-widest text-blue-600">KLAUSIMAS</div>
+        <div id="cardQ" class="text-lg font-extrabold mt-3 whitespace-pre-wrap leading-relaxed"></div>
+        <div class="text-xs text-slate-400 mt-4">Paspausk, kad pamatytum atsakymą ↻</div>
+      </div>
+      <div class="card-face card-back absolute inset-0 bg-blue-700 rounded-[20px] p-8 min-h-[280px] flex flex-col items-center justify-center text-center text-white">
+        <div class="text-xs font-bold tracking-widest text-blue-200">ATSAKYMAS</div>
+        <div id="cardA" class="text-base font-bold mt-3 whitespace-pre-wrap leading-relaxed"></div>
+        <div id="cardExtra" class="text-sm text-blue-100 mt-2 whitespace-pre-wrap"></div>
+      </div>
+    </div>
+  </div>
+  <div class="flex gap-3 mt-4">
+    <button onclick="nextCard(false)" class="flex-1 bg-white border-2 border-slate-200 py-3 rounded-full font-bold">❌ Nežinojau</button>
+    <button onclick="nextCard(true)" class="flex-1 bg-emerald-500 text-white py-3 rounded-full font-bold shadow">✓ Žinojau</button>
+  </div>
+  <div class="flex justify-center gap-2 mt-3">
+    <button onclick="prevCard()" class="bg-white border px-4 py-1.5 rounded-full text-sm font-bold">← Atgal</button>
+    <button onclick="flipCard()" class="bg-slate-900 text-white px-4 py-1.5 rounded-full text-sm font-bold">Apversti ↻</button>
+    <button onclick="nextCard()" class="bg-white border px-4 py-1.5 rounded-full text-sm font-bold">Kita →</button>
+  </div>
+  <div class="flex justify-center gap-1 mt-4" id="cardDots"></div>
+  <div class="bg-white border rounded-2xl p-3 mt-4 flex justify-between text-sm">
+    <span>Žinau: <b id="knownCount" class="text-emerald-600">0</b></span>
+    <span>Mokausi: <b id="unknownCount" class="text-amber-600">0</b></span>
+    <span>Liko: <b id="leftCount">24</b></span>
+  </div>
+  <div class="flex justify-center gap-3 mt-6">
+    <a href="index.html" class="bg-white border px-6 py-2 rounded-full font-bold">← Mokytis</a>
+    <a href="testas.html" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Testas →</a>
+  </div>
+</div>
+</main>
+<script>
+const cards=[
+{q:"Kada vyko Pirmasis pasaulinis karas?",a:"1914–1918 m.",e:"Karas tarp dviejų karinių blokų"},
+{q:"Kokie du blokai kariavo I pasauliniame kare?",a:"Antantė vs Trilypės sąjunga (Centrinės valstybės)",e:"Antantė: Prancūzija, Britanija… Centrinės: Vokietija, Austrija…"},
+{q:"Kiek valstybių įtraukė karas ir kiek gyvybių nusinešė?",a:"Daugiau kaip 28 valstybės, ~20 mln gyvybių",e:"Į karą įsitraukė daugelis Europos ir pasaulio valstybių"},
+{q:"Kas buvo Paryžiaus taikos konferencija?",a:"1919 m. laimėtojų suorganizuota konferencija taikos sutartims nustatyti",e:"Joje pasirašyta Versalio sutartis"},
+{q:"Kas yra Versalio taikos sutartis?",a:"Taikos sutartis su Vokietija, pasirašyta Paryžiaus konferencijoje",e:"Nustatė teritorijas, reparacijas, kariuomenę, kaltę"},
+{q:"Kas yra Tautų Sąjunga? Kada veikė?",a:"Tarptautinė organizacija taikai saugoti, 1919–1946 m.",e:"Įkurta Paryžiaus konferencijoje"},
+{q:"Koks buvo Tautų Sąjungos tikslas?",a:"Išlaikyti taiką, kolektyvinis saugumas, ginčus spręsti derybomis",e:"Kolektyvinio saugumo sistema"},
+{q:"Kiek narių turėjo Tautų Sąjunga? Kodėl nestabili?",a:"58 narės. JAV nedalyvavo – Kongresas nepritarė",e:"Be JAV organizacija silpna – „plyšys tilte“"},
+{q:"Kas yra „Plyšys tilte“ / „The Gap in the Bridge“?",a:"1919 m. karikatūra: tilte trūksta lentos USA",e:"Reikšmė: be JAV taikos tiltas nesilaikys"},
+{q:"Kas buvo V. Vilsonas? Kokia jo idėja?",a:"JAV prezidentas Woodrow Wilson, Tautų Sąjungos idėjos autorius",e:"Idealizmas, teisingumas, taika be nugalėtojų"},
+{q:"Ką reiškia karikatūra „Vilsonas su balandžiu“?",a:"Vilsonas kaip taikos nešėjas (balandis + alyvos šakelė)",e:"Idealisto vaizdavimas"},
+{q:"Ką reiškia „Unlimited indemnity“?",a:"Neribotos reparacijos – didžiulė finansinė našta Vokietijai",e:"Viena Versalio sąlygų"},
+{q:"Kas yra demokratija?",a:"Visuotinės teisės, rinkimai, daugiapartiškumas, žodžio laisvė",e:"Pvz. Čekoslovakija 1920"},
+{q:"Kas yra autoritarizmas?",a:"Vieno asmens/grupės neribama valdžia, apribotos teisės, cenzūra",e:"Kontroliuojama tik politika, be masinio teroro"},
+{q:"Kas yra totalitarizmas?",a:"Visiška visos visuomenės kontrolė + masinis teroras",e:"Vado kultas, neapykanta demokratijai"},
+{q:"Kuo skiriasi autoritarizmas ir totalitarizmas?",a:"Autoritarizmas – tik politika be masinio teroro; totalitarizmas – viskas + teroras",e:"Autoritarizmas švelnesnis, totalitarizmas – visiška kontrolė"},
+{q:"Kas yra diktatūra?",a:"Vieno asmens ar grupės valdžia be demokratinių apribojimų",e:"Gali būti autoritarinė arba totalitarinė"},
+{q:"Kas yra Čekoslovakija tarpukariu?",a:"Demokratinė valstybė, konstitucija 1920 m.",e:"Prezidentas Tomašas Garigas Masaryk"},
+{q:"Kas buvo Čekoslovakijos prezidentas?",a:"Tomašas Garigas Masaryk (Tomáš Garrigue Masaryk)",e:"1920 m. konstitucija"},
+{q:"Kas yra pasaulinė ekonomikos krizė? Pasekmė?",a:"Skurdas, nedarbas, nestabilumas → palengvino diktatūrų iškilimą",e:"Schema: krizė → nepasitenkinimas → diktatoriai"},
+{q:"Rusija 1917 – kas atėjo į valdžią?",a:"Leninas (vėliau Stalinas)",e:"Bolševikų revoliucija"},
+{q:"Italija 1922 – kas atėjo į valdžią?",a:"Benitas Musolinis",e:"Fašistai"},
+{q:"Vokietija 1933 – kas atėjo į valdžią?",a:"Adolfas Hitleris",e:"Nacistai"},
+{q:"Kas yra militarizmas?",a:"Ginklavimosi politika, kariuomenės stiprinimas agresijai",e:"Būdingas visiems trims režimams"},
+{q:"Kada vyko Lietuvos Nepriklausomybės kovos?",a:"1918–1920 m.",e:"Po 1918-02-16 Nepriklausomybės paskelbimo Lietuva turėjo apginti valstybę nuo trijų priešų"},
+{q:"Su kuriais trimis priešais kovojo Lietuva 1918–1920 m.?",a:"Bolševikai (Sovietų Rusija), bermontininkai, lenkai",e:"Eiliškumas: pirma bolševikai, po to bermontininkai, galiausiai lenkai"},
+{q:"Kodėl Nepriklausomybės kovos prasidėjo?",a:"Vokietijai pralaimint karą, Sovietų Rusija anuliavo Bresto taiką ir puolė Lietuvą",e:"1918 m. pabaigoje Lietuva dar neturėjo stiprios kariuomenės – tik kuriamą savanorių armiją"},
+{q:"Kas 1918 m. vadovavo pirmajai Vyriausybei ir kariuomenės kūrimui?",a:"Augustinas Voldemaras",e:"1918-11-23 laikoma Lietuvos kariuomenės diena – tada pradėta kurti kariuomenė"},
+{q:"Kas vadovavo Lietuvos kariuomenei Nepriklausomybės kovose?",a:"Generolas Silvestras Žukauskas",e:"Taip pat svarbūs: Kazys Ladiga prie Radviliškio, Povilas Plechavičius – partizanai prieš bolševikus"},
+{q:"Kas yra Litbelas?",a:"1919 m. sukurta Lietuvos–Baltarusijos TSR – bolševikų marionetinė valstybė",e:"Bolševikai, užėmę Vilnių 1919-01-05, bandė per Litbelą pateisinti okupaciją"},
+{q:"Kas įvyko 1919 m. sausio 5 d.?",a:"Bolševikai užėmė Vilnių, Vyriausybė pasitraukė į Kauną",e:"Kaunas tapo laikinąja sostine beveik 20 metų – iki 1939 m."},
+{q:"Kaip baigėsi kovos su bolševikais?",a:"Iki 1919 m. rugpjūčio pabaigos bolševikai išvyti (Zarasų kraštas)",e:"Padėjo savanoriai, partizanai ir Vokietijos likę daliniai (saksų savanoriai)"},
+{q:"Kas buvo bermontininkai?",a:"Pavelo Bermondto-Avalovo vadovaujama Vakarų Rusijos savanorių armija",e:"Formaliai rusai, bet remiami Vokietijos – norėjo atkurti Rusijos imperiją ir kontroliuoti Baltiją"},
+{q:"Koks svarbiausias mūšis su bermontininkais?",a:"Radviliškio mūšis 1919 m. lapkričio 21–22 d.",e:"Lietuviai, vadovaujami Kazio Ladigos, sutriuškino bermontininkus. Iki gruodžio jie išvyti iš Lietuvos"},
+{q:"Kodėl Radviliškio pergalė svarbi?",a:"Apginta Šiaurės Lietuva ir Šiauliai, įrodyta, kad Lietuvos kariuomenė gali nugalėti",e:"Lapkričio 22-oji minima kaip kariuomenės pergalės diena"},
+{q:"Kas yra 1920 m. liepos 12 d. Maskvos taikos sutartis?",a:"Sovietų Rusija pripažino nepriklausomą Lietuvą su Vilniumi, Gardinu, Lyda",e:"Rusija atsisakė pretenzijų visiems laikams ir mokėjo karo nuostolius. Tai teisinis Lietuvos pripažinimas"},
+{q:"Dėl ko Lietuva konfliktavo su Lenkija?",a:"Dėl Vilniaus ir Rytų Lietuvos – abi valstybės laikė Vilnių savo",e:"Lenkijos vadovas Juzefas Pilsudskis norėjo atkurti Abiejų Tautų Respubliką su Vilniumi"},
+{q:"Kas yra Suvalkų sutartis?",a:"1920 m. spalio 7 d. Lietuvos ir Lenkijos sutartis, nustatanti demarkacinę liniją",e:"Vilnius paliktas Lietuvai, bet jau po 2 dienų Lenkija ją sulaužė"},
+{q:"Kas yra Želigovskio maištas?",a:"1920 m. spalio 9 d. Lenkijos generolas Liucjanas Želigovskis užėmė Vilnių",e:"Lenkija teigė, kad tai jo maištas, bet iš tikrųjų – Pilsudskio įsakymas. Sukurta Vidurinė Lietuva"},
+{q:"Koks mūšis sustabdė lenkų veržimąsi 1920 m.?",a:"Giedraičių mūšis 1920 m. lapkričio 17–21 d.",e:"Lietuviai sustabdė lenkus, po to – paliaubos 1920-11-29. Frontas sustojo, Vilnius liko okupuotas"},
+{q:"Kas yra demarkacinė linija ir nota?",a:"Demarkacinė linija – laikina skiriamoji linija tarp kariuomenių. Nota – oficialus diplomatinis raštas",e:"Tautų Sąjunga siuntė notas, bet Vilniaus klausimo neišsprendė – Vilnius Lietuvai grąžintas tik 1939 m."},
+{q:"Kuo baigėsi Nepriklausomybės kovos?",a:"Lietuva apgynė nepriklausomybę, bet neteko Vilniaus iki 1939 m.",e:"Išvada: 1918–1920 m. Lietuva laimėjo valstybę, bet Vilniaus klausimas liko skaudžiausias tarpukario klausimas"},
+{q:"Kokios 3 valstybės sudarė Antantės branduolį?",a:"Prancūzija, Rusija, Didžioji Britanija",e:"Prie jų jungėsi Serbija, Belgija, Japonija, vėliau Italija (1915) ir JAV (1917)"},
+{q:"Kokios 3 valstybės sudarė Trilypę sąjungą 1882 m.?",a:"Vokietija, Austrija-Vengrija, Italija",e:"Kare Italija perėjo pas Antantę, o prie Centrinių jungėsi Turkija ir Bulgarija"},
+{q:"Kurios valstybės priklausė Antantei?",a:"Prancūzija, Rusija, Britanija, Serbija, Belgija (+ JAV, Italija nuo 1915)",e:"Atsimink: PR + RU + GB yra pagrindas"},
+{q:"Kurios valstybės priklausė Trilypei / Centrinėms?",a:"Vokietija, Austrija-Vengrija, Osmanų imperija, Bulgarija",e:"Atsimink: VOK + AUS-VENG yra pagrindas"},
+{q:"Kuriai pusei priklausė Italija?",a:"Pradėjo Trilypėje, 1915 m. perėjo į Antantę",e:"Dažnas kontrolinio klausimas – Italija keitė pusę"},
+{q:"Kas yra bolševikai?",a:"Lenino vadovaujami Rusijos komunistai, 1917 m. užgrobę valdžią",e:"Siekė komunistinės santvarkos ir pasaulinės revoliucijos. Lietuvą puolė 1918–1919 m."},
+{q:"Ko siekė bolševikai Lietuvoje?",a:"Įvesti sovietų valdžią ir prijungti Lietuvą prie Sovietų Rusijos",e:"Užėmė Vilnių 1919-01-05, kūrė Litbelą. Išvyti 1919 m. rugpjūtį"},
+{q:"Kas vadovavo bolševikams?",a:"Vladimiras Leninas",e:"Spalio revoliucijos vadas. Nepainiok su Bermondtu (bermontininkai) ir Pilsudskiu (Lenkija)"},
+{q:"Kas yra bermontininkai?",a:"Bermondto-Avalovo Vakarų Rusijos savanorių armija",e:"Formaliai rusų baltagvardiečiai, bet ginkluoti ir remiami Vokietijos"},
+{q:"Ko siekė bermontininkai ir kuo baigėsi?",a:"Užimti Šiaurės Lietuvą, atkurti Rusijos imperiją. Sutriuškinti Radviliškyje 1919-11-21–22",e:"Vadas Bermondtas-Avalovas, rėmė Vokietija. Iki 1919 gruodžio išvyti"}
+];
+let cIdx=0, known=new Set(), unknown=new Set();
+function renderCard(){
+  document.getElementById('cardQ').textContent=cards[cIdx].q;
+  document.getElementById('cardA').textContent=cards[cIdx].a;
+  document.getElementById('cardExtra').textContent=cards[cIdx].e;
+  document.getElementById('cardNow').textContent=cIdx+1;
+  document.getElementById('cardTotal').textContent=cards.length;
+  document.getElementById('flashCard').classList.remove('flipped');
+  document.getElementById('knownCount').textContent=known.size;
+  document.getElementById('unknownCount').textContent=unknown.size;
+  document.getElementById('leftCount').textContent=cards.length-known.size;
+  const dots=document.getElementById('cardDots'); dots.innerHTML='';
+  cards.forEach((_,i)=>{const d=document.createElement('div');d.className='w-2 h-2 rounded-full '+(i===cIdx?'bg-blue-600 w-6':known.has(i)?'bg-emerald-400':'bg-slate-200');dots.appendChild(d);});
+}
+function flipCard(){document.getElementById('flashCard').classList.toggle('flipped');}
+function nextCard(k){if(k===true){known.add(cIdx);unknown.delete(cIdx);}else if(k===false){unknown.add(cIdx);known.delete(cIdx);}cIdx=(cIdx+1)%cards.length;renderCard();}
+function prevCard(){cIdx=(cIdx-1+cards.length)%cards.length;renderCard();}
+function shuffleCards(){for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}cIdx=0;known.clear();unknown.clear();renderCard();}
+renderCard();
+</script>
+</body>
+</html>

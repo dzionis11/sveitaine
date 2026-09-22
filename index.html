@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mokykis iš Džionio užrašų</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+body{font-family:'Inter',sans-serif}
+.hist-gradient{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#9333ea 100%)}
+.frac{display:inline-flex;flex-direction:column;text-align:center;line-height:1.1;vertical-align:middle;margin:0 2px}
+.frac .num{border-bottom:1px solid currentColor;padding:0 2px}
+.frac .den{padding:0 2px}
+.card-3d{perspective:1000px}.card-inner{transition:transform .6s;transform-style:preserve-3d}.card-3d.flipped .card-inner{transform:rotateY(180deg)}.card-face{backface-visibility:hidden}.card-back{transform:rotateY(180deg)}
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal-content{background:white;border-radius:24px;max-width:480px;width:100%;padding:32px;box-shadow:0 25px 50px -12px rgba(0,0,0,0.25)}
+.locked-body{overflow:hidden}
+.timer-bar{height:4px;background:#3b82f6;transition:width 1s linear}
+.topic-card{transition:transform .2s,box-shadow .2s}
+.topic-card:hover{transform:translateY(-4px);box-shadow:0 20px 25px -5px rgba(0,0,0,0.1),0 10px 10px -5px rgba(0,0,0,0.04)}
+.question-type{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.05em}
+.explanation-box{animation:slideIn .3s ease}
+@keyframes slideIn{from{opacity:0;transform:translateY(-10px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800">
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3">
+      <div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div>
+      <div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">10 kl. istorija • Kontrolinis darbas</div></div>
+    </a>
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+      <a href="index.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">📚 Temų apžvalga</a>
+      <a href="korteles.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🎯 Mokymasis</a>
+      <a href="testas.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">✅ Testas</a>
+      <a href="praktika.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🗺 Žemėlapiai & Chronologija</a>
+    </div>
+  </div>
+</nav>
+<main class="max-w-6xl mx-auto px-4 py-6">
+
+<div class="hist-gradient rounded-[24px] p-6 md:p-8 text-white relative overflow-hidden mb-6">
+  <div class="absolute -right-10 -top-10 w-48 h-48 bg-white/15 rounded-full blur-2xl"></div>
+  <div class="relative">
+    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">✨ Iš tavo užrašų (10 kl.)</div>
+    <h1 class="text-3xl md:text-4xl font-black leading-tight mt-3">Pasiruošk kontroliniam darbui</h1>
+    <p class="text-white/90 mt-2 text-sm">4 temos • 200+ klausimai • 8 tipų užduočių • Paaiškinimai po kiekvieno atsakymo</p>
+    <div class="flex flex-wrap gap-2 mt-4">
+      <a href="korteles.html" class="bg-white text-blue-800 px-5 py-2.5 rounded-full font-extrabold text-sm shadow inline-block">Pradėti mokytis →</a>
+      <a href="testas.html" class="bg-black/20 border border-white/30 text-white px-5 py-2.5 rounded-full font-bold text-sm inline-block">Tiesiog testas</a>
+    </div>
+    <div class="flex gap-4 mt-4 text-xs font-semibold">
+      <span>📚 4 temos</span><span>🎯 Adaptyvus mokymasis</span><span>✅ 200+ klausimai</span><span>🗺 Žemėlapiai</span><span>📊 Progreso sekimas</span>
+    </div>
+  </div>
+</div>
+
+<section class="space-y-6">
+<h2 class="font-black text-xl">Temos kontroliniam darbui</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+  <a href="korteles.html?topic=nepriklausomybe" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center mb-3 group-hover:bg-red-200 transition"><svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+    <h3 class="font-extrabold text-lg">Lietuva tarpukariu</h3>
+    <p class="text-sm text-slate-600 mt-1">Nepriklausomybės kovos 1918–1920: bolševikai, lenkai, bermontininkai, taikos sutartys</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-red-50 text-red-700 px-2 py-1 rounded-full">Lentelės</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Asmenybės</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sąvokos</span>
+    </div>
+  </a>
+  <a href="korteles.html?topic=rezimai" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-3 group-hover:bg-amber-200 transition"><svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+    <h3 class="font-extrabold text-lg">Autoritarizmas ir totalitarizmas</h3>
+    <p class="text-sm text-slate-600 mt-1">Režimų bruožai, krizės priežastys, tautų apsisprendimo teisė Europoje</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-amber-50 text-amber-700 px-2 py-1 rounded-full">Palyginimas</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Priežastys</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sąvokos</span>
+    </div>
+  </a>
+  <a href="korteles.html?topic=demokratija" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-200 transition"><svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+    <h3 class="font-extrabold text-lg">Tarpukario demokratinė Europa</h3>
+    <p class="text-sm text-slate-600 mt-1">Politinis žemėlapis, demokratijos požymiai, Čekoslovakija, režimų sąvokos</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full">Žemėlapis</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Požymiai</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sąvokos</span>
+    </div>
+  </a>
+  <a href="korteles.html?topic=pirmasis_karas" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3 group-hover:bg-blue-200 transition"><svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
+    <h3 class="font-extrabold text-lg">I pasaul. karas – kartojimas</h3>
+    <p class="text-sm text-slate-600 mt-1">Chronologija, blokai, taika, karikatūros, įvairūs klausimų tipai</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full">Chronologija</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Karatatūros</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">8 tipų</span>
+    </div>
+  </a>
+</div>
+</section>
+
+<section class="mt-8">
+<h2 class="font-black text-xl mb-4">Ką rasi kiekvienoje temoje</h2>
+<div class="grid md:grid-cols-2 gap-4 text-sm">
+  <div class="bg-white border rounded-xl p-4">
+    <h3 class="font-bold text-red-700 mb-2">Lietuva tarpukariu (vadovėlis 31–37 psl.)</h3>
+    <ul class="space-y-1 text-slate-700">
+      <li>• Nepriklausomybės kovų lentelė 1918–1920 (data, priešas, įvykis, rezultatas)</li>
+      <li>• 1920 liepos 12 d. Maskvos taikos sutartis su Sovietų Rusija</li>
+      <li>• Asmenybės: Voldemaras, Pilsudskis, Želigovskis, Žukauskas</li>
+      <li>• Sąvokos: litbelas, nota, demarkacinė linija, Suvalkų sutartis</li>
+      <li>• Žemėlapio užduotys: frontai, sutarčių ribos</li>
+    </ul>
+  </div>
+  <div class="bg-white border rounded-xl p-4">
+    <h3 class="font-bold text-amber-700 mb-2">Autoritarizmas ir totalitarizmas Europoje</h3>
+    <ul class="space-y-1 text-slate-700">
+      <li>• Režimų apibūdinimas: demokratija, autoritarizmas, totalitarizmas</li>
+      <li>• Politinės, ekonominės, visuomeninės krizės priežastys</li>
+      <li>• Tautų apsisprendimo teisės idėja (Vilsonas)</li>
+      <li>• Hitleris, Musolinis, Stalinas – palyginimas</li>
+      <li>• Militarizmas, vado kultas, masinis teroras</li>
+    </ul>
+  </div>
+  <div class="bg-white border rounded-xl p-4">
+    <h3 class="font-bold text-emerald-700 mb-2">Tarpukario demokratinė Europa</h3>
+    <ul class="space-y-1 text-slate-700">
+      <li>• Europos politinis žemėlapis po Versalio</li>
+      <li>• Demokratijos požymiai: rinkimai, teisės, atskaitomybė</li>
+      <li>• Čekoslovakija: kodėl išsilaikė demokratija, Masarykas</li>
+      <li>• Sąvokų žodynas: diktatūra, autoritarizmas, totalitarizmas, demokratija</li>
+      <li>• Palyginamosios lentelės</li>
+    </ul>
+  </div>
+  <div class="bg-white border rounded-xl p-4">
+    <h3 class="font-bold text-blue-700 mb-2">I pasaulio karas – visapusinis kartojimas</h3>
+    <ul class="space-y-1 text-slate-700">
+      <li>• 1914–1918: Antantė vs Trilypės sąjunga</li>
+      <li>• Blokai, frontai, nauji ginkluotės tipai</li>
+      <li>• 1919 Paryžiaus konferencija, Versalis (5 sąlygų grupės)</li>
+      <li>• Tautų Sąjunga: 58 narių, be JAV, „Plyšys tilte“</li>
+      <li>• 8 klausimų tipai: pasirinkimas, T/K, sąvokos, asmenybės, datos, priežastis/pasekmė, chronologija, žemėlapis, atviri</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<footer class="text-center text-xs text-slate-400 py-8">Mokykis iš Džionio užrašų • 10 kl. istorija • Veikia offline</footer>
+</main>
+
+<!-- Kodų įvedimo modalas -->
+<div id="codeModal" class="modal-overlay hidden">
+  <div class="modal-content">
+    <div class="text-center mb-6">
+      <div class="w-16 h-16 hist-gradient rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg></div>
+      <h2 class="font-black text-xl">Prisijungimas</h2>
+      <p class="text-slate-600 mt-1">Įvesk prieigos kodą, kad toliau naudotum svetainę</p>
+    </div>
+    <div class="mb-4">
+      <label class="block text-sm font-semibold mb-2">Prieigos kodas</label>
+      <input type="text" id="accessCode" autocomplete="off" class="w-full px-4 py-3 border-2 border-slate-200 rounded-xl text-center text-lg font-mono tracking-widest focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" placeholder="JonasČerniauskasYraManoDievas">
+    </div>
+    <button onclick="verifyCode()" class="w-full bg-blue-700 text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-800 transition">Patvirtinti</button>
+    <p id="codeError" class="text-red-600 text-sm mt-3 text-center hidden">Neteisingas kodas. Bandyk dar kartą.</p>
+    <p class="text-xs text-slate-500 mt-4 text-center">Kodas tikrinamas pagal tavo IP. Po 1 min naudojimo.</p>
+  </div>
+</div>
+
+<!-- Laikmatis -->
+<div id="timerBanner" class="fixed bottom-4 right-4 bg-white border rounded-xl shadow-lg p-4 hidden z-50 max-w-xs">
+  <div class="flex items-center justify-between mb-2">
+    <span class="font-bold text-sm">Laikas iki kodo užklausos</span>
+    <button onclick="hideTimer()" class="text-slate-400 hover:text-slate-600">✕</button>
+  </div>
+  <div class="h-2 bg-slate-200 rounded-full overflow-hidden">
+    <div id="timerProgress" class="timer-bar h-full bg-blue-600" style="width:100%"></div>
+  </div>
+  <p class="text-xs text-slate-500 mt-1 text-center" id="timerText">60 sekundžių</p>
+</div>
+
+<script>
+// ===== KODŲ ĮVEDIMO SISTEMA =====
+const REQUIRED_CODE = "JonasČerniauskasYraManoDievas";
+let timerInterval = null;
+let timerStarted = false;
+
+function getClientIP() {
+  return fetch('https://api.ipify.org?format=json')
+    .then(r => r.json())
+    .then(d => d.ip)
+    .catch(() => 'unknown');
+}
+
+function checkAccess() {
+  const granted = localStorage.getItem('accessGranted');
+  const grantedIP = localStorage.getItem('accessIP');
+  const currentIP = localStorage.getItem('currentIP');
+  
+  if (granted === 'true' && grantedIP === currentIP) {
+    return true;
+  }
+  return false;
+}
+
+async function initAccess() {
+  const ip = await getClientIP();
+  localStorage.setItem('currentIP', ip);
+  
+  if (!checkAccess()) {
+    setTimeout(() => {
+      showCodeModal();
+      startTimer();
+    }, 60000);
+  }
+}
+
+function showCodeModal() {
+  document.getElementById('codeModal').classList.remove('hidden');
+  document.body.classList.add('locked-body');
+}
+
+function hideCodeModal() {
+  document.getElementById('codeModal').classList.add('hidden');
+  document.body.classList.remove('locked-body');
+  stopTimer();
+  hideTimer();
+}
+
+function verifyCode() {
+  const input = document.getElementById('accessCode').value.trim();
+  const errorEl = document.getElementById('codeError');
+  
+  if (input === REQUIRED_CODE) {
+    const ip = localStorage.getItem('currentIP');
+    localStorage.setItem('accessGranted', 'true');
+    localStorage.setItem('accessIP', ip);
+    hideCodeModal();
+    showNotification('Prieiga suteikta! Mokinamasi toliau.', 'success');
+  } else {
+    errorEl.classList.remove('hidden');
+    document.getElementById('accessCode').classList.add('border-red-500');
+    setTimeout(() => {
+      errorEl.classList.add('hidden');
+      document.getElementById('accessCode').classList.remove('border-red-500');
+    }, 3000);
+  }
+}
+
+function startTimer() {
+  if (timerStarted) return;
+  timerStarted = true;
+  let timeLeft = 60;
+  const progress = document.getElementById('timerProgress');
+  const text = document.getElementById('timerText');
+  
+  document.getElementById('timerBanner').classList.remove('hidden');
+  
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    const percent = (timeLeft / 60) * 100;
+    progress.style.width = percent + '%';
+    text.textContent = timeLeft + ' sekundžių';
+    
+    if (timeLeft <= 10) {
+      progress.classList.remove('bg-blue-600');
+      progress.classList.add('bg-red-500');
+    }
+    
+    if (timeLeft <= 0) {
+      stopTimer();
+      if (!checkAccess()) {
+        showCodeModal();
+      }
+    }
+  }, 1000);
+}
+
+function stopTimer() {
+  if (timerInterval) {
+    clearInterval(timerInterval);
+    timerInterval = null;
+    timerStarted = false;
+  }
+}
+
+function hideTimer() {
+  document.getElementById('timerBanner').classList.add('hidden');
+}
+
+function showNotification(msg, type) {
+  const notif = document.createElement('div');
+  notif.className = `fixed top-4 right-4 z-50 px-6 py-3 rounded-xl font-semibold text-white shadow-lg ${type === 'success' ? 'bg-emerald-500' : 'bg-red-500'}`;
+  notif.textContent = msg;
+  document.body.appendChild(notif);
+  setTimeout(() => notif.remove(), 3000);
+}
+
+// Paleidžiame
+document.addEventListener('DOMContentLoaded', initAccess);
+
+// Užblokuojame navigaciją jei nėra prieigos
+const navLinks = document.querySelectorAll('nav a[href$=".html"]');
+navLinks.forEach(link => {
+  link.addEventListener('click', (e) => {
+    if (!checkAccess() && link.href !== window.location.href) {
+      e.preventDefault();
+      showCodeModal();
+    }
+  });
+});
+</script>
+</body>
+</html>

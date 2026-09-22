@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Praktika — Istorija</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}.hist-gradient{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#9333ea 100%)}</style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800">
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div><div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Praktika</div></div></a>
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+      <a href="index.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">📖 Mokytis</a>
+      <a href="korteles.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🃏 Kortelės</a>
+      <a href="testas.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">✅ Testas</a>
+      <a href="praktika.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">🧮 Praktika</a>
+    </div>
+  </div>
+</nav>
+<main class="max-w-6xl mx-auto px-4 py-6">
+<h1 class="font-black text-2xl">🧮 Praktika — istorijos pratybos</h1>
+<p class="text-sm text-slate-500 mb-4">7 interaktyvios užduotys. Tik datos, sąvokos ir loginis mąstymas.</p>
+<div class="grid md:grid-cols-2 gap-4">
+
+  <div class="bg-white border rounded-2xl p-5">
+    <h3 class="font-extrabold">1. Chronologija: sudėliok įvykius</h3>
+    <p class="text-xs text-slate-500 mb-2">Spausk įvykius teisinga tvarka (nuo seniausio).</p>
+    <div id="chronoBox" class="flex flex-wrap gap-2"></div>
+    <div id="chronoPicked" class="mt-2 text-sm min-h-[2rem] bg-slate-50 border rounded-xl p-2"></div>
+    <div class="flex gap-2 mt-2">
+      <button onclick="chronoCheck()" class="flex-1 bg-blue-700 text-white py-2 rounded-xl font-bold">Tikrinti</button>
+      <button onclick="chronoReset()" class="bg-white border px-4 py-2 rounded-xl font-bold">Iš naujo</button>
+    </div>
+    <div id="chronoOut" class="text-sm mt-2"></div>
+  </div>
+
+  <div class="bg-white border rounded-2xl p-5">
+    <h3 class="font-extrabold">2. Datos ↔ įvykiai</h3>
+    <p class="text-xs text-slate-500 mb-2">Parink kiekvienai datai teisingą įvykį.</p>
+    <div id="matchBox" class="space-y-2 text-sm"></div>
+    <button onclick="matchCheck()" class="w-full bg-emerald-600 text-white py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="matchOut" class="text-sm mt-2"></div>
+  </div>
+
+  <div class="bg-white border rounded-2xl p-5">
+    <h3 class="font-extrabold">3. Teisinga / Klaidinga</h3>
+    <p class="text-xs text-slate-500 mb-2">Teiginiai. Spausk T arba K.</p>
+    <div id="tfBox" class="space-y-2 text-sm"></div>
+    <button onclick="tfCheck()" class="w-full bg-violet-600 text-white py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="tfOut" class="text-sm mt-2"></div>
+  </div>
+
+  <div class="bg-white border rounded-2xl p-5">
+    <h3 class="font-extrabold">4. Sąvokos: kas yra kas?</h3>
+    <p class="text-xs text-slate-500 mb-2">Parink sąvokai teisingą apibrėžimą.</p>
+    <div id="defBox" class="space-y-2 text-sm"></div>
+    <button onclick="defCheck()" class="w-full bg-amber-600 text-white py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="defOut" class="text-sm mt-2"></div>
+  </div>
+
+  <div class="bg-white border rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">5. Karikatūrų ir asmenybių analizė</h3>
+    <p class="text-xs text-slate-500 mb-2">Klausimai pagal karikatūras apie Tautų Sąjungą ir taiką.</p>
+    <div id="cartBox" class="space-y-3 text-sm"></div>
+    <button onclick="cartCheck()" class="bg-slate-900 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="cartOut" class="text-sm mt-2"></div>
+  </div>
+
+  <div class="bg-white border-2 border-red-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">6. Lietuva tarpukariu: Nepriklausomybės karas 1918–1920</h3>
+    <p class="text-xs text-slate-500 mb-2">Priskirk kiekvieną įvykį teisingam priešui: bolševikai, bermontininkai ar lenkai. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="neprikBox" class="space-y-3 text-sm"></div>
+    <button onclick="neprikCheck()" class="bg-red-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="neprikOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Kaip atsiminti lengvai:</b> 1918–1919 — <b>bolševikai</b> (Vilnius 1919-01-05, Litbelas, išvyti 1919 rugpjūtį) →
+      1919 ruduo — <b>bermontininkai</b> (Radviliškis 1919-11-21–22, vadai Žukauskas ir Ladiga) →
+      1920 — <b>lenkai</b> (Maskvos taika 07-12 pripažįsta Vilnių, Suvalkai 10-07, Želigovskis 10-09 užima Vilnių, Giedraičiai 11-17–21 sustabdo lenkus).
+      Asmenybės: Voldemaras (pirmoji Vyriausybė), Žukauskas, Plechavičius, Pilsudskis, Želigovskis, Bermondtas-Avalovas.
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-blue-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">7. Antantė vs Trilypė sąjunga: priskirk valstybes</h3>
+    <p class="text-xs text-slate-500 mb-2">Parink kiekvienai valstybei teisingą bloką. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="blokasBox" class="space-y-3 text-sm"></div>
+    <button onclick="blokasCheck()" class="bg-blue-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="blokasOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Kaip atsiminti:</b> <b>Antantė</b> = Prancūzija + Rusija + Britanija (+ Serbija, Belgija, Japonija, vėliau Italija nuo 1915 ir JAV nuo 1917).
+      <b>Trilypė / Centrinės</b> = Vokietija + Austrija-Vengrija (+ Osmanų imperija ir Bulgarija kare). Italija pradėjo Trilypėje, bet perėjo pas Antantę.
+    </div>
+  </div>
+
+</div>
+<div class="flex justify-center gap-3 mt-6"><a href="testas.html" class="bg-white border px-6 py-2 rounded-full font-bold">← Testas</a><a href="index.html" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Į pradžią →</a></div>
+</main>
+<script>
+// 1. Chronologija
+const chronoEvents=[{t:"I pasaulinis karas",y:1914},{t:"Rusijos revoliucija (Leninas)",y:1917},{t:"Lietuvos nepriklausomybė 02-16",y:1918.12},{t:"Bolševikai užima Vilnių 01-05",y:1919.01},{t:"Paryžiaus konferencija + Versalis",y:1919.5},{t:"Bolševikai išvyti (rugpjūtis)",y:1919.65},{t:"Radviliškio pergalė 11-22",y:1919.89},{t:"Maskvos taika 07-12",y:1920.53},{t:"Suvalkų sutartis 10-07",y:1920.76},{t:"Želigovskis užima Vilnių 10-09",y:1920.77},{t:"Giedraičiai 11-17–21",y:1920.88},{t:"Musolinis Italijoje",y:1922}];
+let chronoOrder=[], chronoPick=[];
+function chronoReset(){chronoOrder=[...chronoEvents].sort(()=>Math.random()-0.5);chronoPick=[];renderChrono();}
+function renderChrono(){
+  const b=document.getElementById('chronoBox');b.innerHTML='';
+  chronoOrder.forEach((e,i)=>{if(chronoPick.includes(i))return;const btn=document.createElement('button');btn.className='bg-white border px-3 py-1.5 rounded-full text-xs font-bold hover:bg-blue-50';btn.textContent=e.t;btn.onclick=()=>{chronoPick.push(i);renderChrono();};b.appendChild(btn);});
+  document.getElementById('chronoPicked').innerHTML=chronoPick.length?('<b>Tavo eilė:</b> '+chronoPick.map(i=>chronoOrder[i].t).join(' → ')):'Pasirink pirmą (seniausią) įvykį…';
+  document.getElementById('chronoOut').innerHTML='';
+}
+function chronoCheck(){
+  const seq=chronoPick.map(i=>chronoOrder[i]);
+  if(seq.length!==chronoOrder.length){document.getElementById('chronoOut').innerHTML='<span class="text-amber-600 font-bold">Pasirink visus įvykius.</span>';return;}
+  const correct=[...chronoEvents].sort((a,b)=>a.y-b.y);
+  let ok=true;for(let i=1;i<seq.length;i++){if(seq[i].y<seq[i-1].y)ok=false;}
+  let per='';
+  if(!ok){
+    per='<div class="mt-2 space-y-1 text-xs">'+seq.map((e,i)=>{
+      const good=e.t===correct[i].t;
+      return `<div class="px-2 py-1 rounded-lg ${good?'bg-emerald-50 text-emerald-800':'bg-red-50 text-red-800'}">${good?'✓':'✗'} ${i+1}. ${e.t} ${good?'':`<span class="opacity-70">(vietoj: ${correct[i].t})</span>`}</div>`;
+    }).join('')+'</div>';
+  }
+  document.getElementById('chronoOut').innerHTML=(ok?'<span class="text-emerald-600 font-bold">✓ Teisingai!</span> ':'<span class="text-red-600 font-bold">✗ Neteisinga tvarka – žemiau matai, kur suklydai.</span> ')+'<br><span class="text-xs">Teisingai: '+correct.map(e=>e.t).join(' → ')+'</span>'+per;
+}
+chronoReset();
+
+// 2. Datos
+const matchData=[{d:"1914–1918",e:"I pasaulinis karas",opts:["I pasaulinis karas","Tautų Sąjunga","Čekoslovakijos konstitucija"]},{d:"1919",e:"Paryžiaus konferencija / Versalis",opts:["Musolinis","Paryžiaus konferencija / Versalis","Hitleris"]},{d:"1919–1946",e:"Tautų Sąjunga",opts:["Tautų Sąjunga","SSRS įkūrimas","II pasaulinis karas"]},{d:"1920",e:"Čekoslovakijos konstitucija",opts:["Čekoslovakijos konstitucija","Versalio sutartis","Krizė"]},{d:"1917 / 1922 / 1933",e:"Leninas / Musolinis / Hitleris",opts:["Vilsonas / Masaryk","Leninas / Musolinis / Hitleris","Stalinas / Čerčilis"]},{d:"1919-01-05",e:"Bolševikai užima Vilnių",opts:["Bolševikai užima Vilnių","Radviliškio mūšis","Giedraičių mūšis"]},{d:"1919-11-21–22",e:"Radviliškio mūšis",opts:["Radviliškio mūšis","Želigovskio maištas","Maskvos taika"]},{d:"1920-07-12",e:"Maskvos taikos sutartis",opts:["Maskvos taikos sutartis","Suvalkų sutartis","Versalio sutartis"]},{d:"1920-10-09",e:"Želigovskis užima Vilnių",opts:["Želigovskis užima Vilnių","Bolševikai išvyti","Bermontininkai išvyti"]}];
+function renderMatch(){
+  const b=document.getElementById('matchBox');b.innerHTML='';
+  matchData.forEach((m,i)=>{const row=document.createElement('div');row.className='flex items-center gap-2';row.innerHTML=`<span class="font-bold w-28">${m.d}</span>`;const sel=document.createElement('select');sel.id='match'+i;sel.className='flex-1 border rounded-lg px-2 py-1';const shuffled=[...m.opts].sort(()=>Math.random()-0.5);sel.innerHTML='<option value="">— rinkis —</option>'+shuffled.map(o=>`<option>${o}</option>`).join('');row.appendChild(sel);b.appendChild(row);});
+  document.getElementById('matchOut').innerHTML='';
+}
+function matchCheck(){
+  let s=0;const wrong=[];
+  matchData.forEach((m,i)=>{
+    const el=document.getElementById('match'+i);
+    const v=el.value;
+    const ok=v===m.e;
+    if(ok)s++;
+    el.classList.remove('border-emerald-500','bg-emerald-50','border-red-500','bg-red-50','border-amber-400');
+    if(!v){el.classList.add('border-amber-400');wrong.push(`<div class="px-2 py-1 rounded-lg bg-amber-50 text-amber-800">○ ${m.d}: nepasirinkai. Teisingai: <b>${m.e}</b></div>`);}
+    else if(ok){el.classList.add('border-emerald-500','bg-emerald-50');}
+    else{el.classList.add('border-red-500','bg-red-50');wrong.push(`<div class="px-2 py-1 rounded-lg bg-red-50 text-red-800">✗ ${m.d}: tu – <b>${v}</b> | teisingai – <b>${m.e}</b></div>`);}
+  });
+  document.getElementById('matchOut').innerHTML=`<b>${s}/${matchData.length}</b> `+(s===matchData.length?'<span class="text-emerald-600 font-bold">✓ Puiku!</span>':'<span class="text-amber-600">Klaidos žemiau:</span>')+(wrong.length?'<div class="mt-2 space-y-1 text-xs">'+wrong.join('')+'</div>':'');
+}
+renderMatch();
+
+// 3. T/K
+const tfData=[
+{t:"I pasaulinis karas vyko 1914–1918 m.",v:true},
+{t:"Kare kariavo Antantė prieš Trilypės sąjungą.",v:true},
+{t:"Karas įtraukė mažiau nei 5 valstybes.",v:false},
+{t:"Paryžiaus konferencija vyko 1919 m.",v:true},
+{t:"Versalio sutartis pasirašyta su Rusija.",v:false},
+{t:"Tautų Sąjunga veikė 1919–1946 m.",v:true},
+{t:"Tautų Sąjungoje dalyvavo JAV.",v:false},
+{t:"Autoritarizme taikomas masinis teroras.",v:false},
+{t:"Totalitarizme kontroliuojama visa visuomenė.",v:true},
+{t:"Čekoslovakijos prezidentas buvo Masaryk.",v:true},
+{t:"Lietuvos Nepriklausomybės kovos vyko 1918–1920 m.",v:true},
+{t:"Pirmas Lietuvos priešas buvo bolševikai.",v:true},
+{t:"Litbelas – Lietuvos kariuomenės dalinys.",v:false},
+{t:"Radviliškio mūšis (1919-11-21–22) – pergalė prieš bermontininkus.",v:true},
+{t:"Maskvos taika (1920-07-12) pripažino Vilnių Lietuvai.",v:true},
+{t:"Suvalkų sutartis paliko Vilnių Lenkijai.",v:false},
+{t:"Želigovskis užėmė Vilnių 1920-10-09.",v:true},
+{t:"Giedraičių mūšyje lietuviai sustabdė lenkus.",v:true},
+{t:"Bolševikai – Lenino vadovaujami Rusijos komunistai.",v:true},
+{t:"Bolševikai siekė prijungti Lietuvą prie Sovietų Rusijos.",v:true},
+{t:"Bermontininkai – Lietuvos savanoriai.",v:false},
+{t:"Bermontininkams vadovavo Bermondtas, juos rėmė Vokietija.",v:true}];
+function renderTF(){
+  const b=document.getElementById('tfBox');b.innerHTML='';
+  tfData.forEach((q,i)=>{const r=document.createElement('div');r.id='tfRow'+i;r.className='flex items-center gap-2 bg-slate-50 border rounded-xl p-2';r.innerHTML=`<span class="flex-1">${i+1}. ${q.t}</span><button onclick="tfSet(${i},true)" id="tfT${i}" class="px-3 py-1 rounded-full border text-xs font-bold">T</button><button onclick="tfSet(${i},false)" id="tfF${i}" class="px-3 py-1 rounded-full border text-xs font-bold">K</button><span id="tfMark${i}" class="text-xs font-bold w-24 text-right"></span>`;b.appendChild(r);});
+  window._tf={};document.getElementById('tfOut').innerHTML='';
+}
+function tfSet(i,v){window._tf[i]=v;document.getElementById('tfT'+i).className='px-3 py-1 rounded-full text-xs font-bold '+(v?'bg-emerald-500 text-white':'border');document.getElementById('tfF'+i).className='px-3 py-1 rounded-full text-xs font-bold '+(!v?'bg-red-500 text-white':'border');}
+function tfCheck(){let s=0;const wrong=[];tfData.forEach((q,i)=>{const row=document.getElementById('tfRow'+i);const mark=document.getElementById('tfMark'+i);const ans=window._tf[i];const ok=ans===q.v;if(ok)s++;row.classList.remove('border-emerald-400','bg-emerald-50','border-red-400','bg-red-50');if(ans===undefined){row.classList.add('border-amber-400');mark.innerHTML='<span class="text-amber-600">○ neatsakyta</span>';wrong.push(`<div class="px-2 py-1 rounded-lg bg-amber-50 text-amber-800">○ ${i+1}. ${q.t} Teisingai: <b>${q.v?'T':'K'}</b></div>`);}else if(ok){row.classList.add('border-emerald-400','bg-emerald-50');mark.innerHTML='<span class="text-emerald-600">✓ gerai</span>';}else{row.classList.add('border-red-400','bg-red-50');mark.innerHTML=`<span class="text-red-600">✗ turi būti ${q.v?'T':'K'}</span>`;wrong.push(`<div class="px-2 py-1 rounded-lg bg-red-50 text-red-800">✗ ${i+1}. ${q.t} Tavo: <b>${ans?'T':'K'}</b> | Teisingai: <b>${q.v?'T':'K'}</b></div>`);}});document.getElementById('tfOut').innerHTML=`<b>${s}/${tfData.length}</b> `+(s===tfData.length?'<span class="text-emerald-600 font-bold">✓ Puiku!</span>':'<span class="text-amber-600">Klaidos:</span>')+(wrong.length?'<div class="mt-2 space-y-1 text-xs">'+wrong.join('')+'</div>':'');}
+renderTF();
+
+// 4. Sąvokos
+const defData=[
+{c:"Demokratija",a:"Rinkimai, teisės, daugiapartiškumas",opts:["Rinkimai, teisės, daugiapartiškumas","Vieno valdžia + cenzūra","Visiška kontrolė + teroras"]},
+{c:"Autoritarizmas",a:"Vieno valdžia + cenzūra, be masinio teroro",opts:["Visiška kontrolė + teroras","Vieno valdžia + cenzūra, be masinio teroro","Rinkimai, teisės"]},
+{c:"Totalitarizmas",a:"Visiška kontrolė + masinis teroras",opts:["Visiška kontrolė + masinis teroras","Tik ekonomikos krizė","Neutralitetas"]},
+{c:"Militarizmas",a:"Ginklavimosi politika",opts:["Ginklavimosi politika","Taikos judėjimas","Nusiginklavimas"]},
+{c:"Reparacijos",a:"Karo žalos atlyginimas",opts:["Karo žalos atlyginimas","Kultūros mainai","Prekybos sąjunga"]},
+{c:"Litbelas",a:"Lietuvos–Baltarusijos TSR (bolševikų marionetė)",opts:["Lietuvos–Baltarusijos TSR (bolševikų marionetė)","Lietuvos kariuomenės štabas","Lenkijos provincija"]},
+{c:"Bolševikai",a:"Lenino Rusijos komunistai, siekę sovietų valdžios",opts:["Lenino Rusijos komunistai, siekę sovietų valdžios","Lietuvos savanoriai 1918 m.","Lenkijos legionai"]},
+{c:"Bermontininkai",a:"Bermondto Vakarų Rusijos armija",opts:["Bermondto Vakarų Rusijos armija","Lietuvos savanoriai","Lenkijos legionai"]},
+{c:"Bermondto rėmėjas",a:"Vokietija (ginklai, pinigai, instruktoriai)",opts:["Vokietija (ginklai, pinigai, instruktoriai)","Prancūzija","Tautų Sąjunga"]},
+{c:"Demarkacinė linija",a:"Laikina skiriamoji linija tarp kariuomenių",opts:["Laikina skiriamoji linija tarp kariuomenių","Nuolatinė siena","Geležinkelio linija"]},
+{c:"Maskvos taika",a:"1920-07-12 Rusija pripažino Lietuvą su Vilniumi",opts:["1920-07-12 Rusija pripažino Lietuvą su Vilniumi","1920-10-07 sutartis su Lenkija","1919 Versalis su Vokietija"]},
+{c:"Suvalkų sutartis",a:"1920-10-07 Vilnius paliktas Lietuvai",opts:["1920-10-07 Vilnius paliktas Lietuvai","1920-07-12 taika su Rusija","1919 taika su Vokietija"]}];
+function renderDef(){
+  const b=document.getElementById('defBox');b.innerHTML='';
+  defData.forEach((d,i)=>{const r=document.createElement('div');r.className='flex items-center gap-2';r.innerHTML=`<span class="font-bold w-32">${d.c}</span>`;const s=document.createElement('select');s.id='def'+i;s.className='flex-1 border rounded-lg px-2 py-1';const shuffled=[...d.opts].sort(()=>Math.random()-0.5);s.innerHTML='<option value="">— rinkis —</option>'+shuffled.map(o=>`<option>${o}</option>`).join('');r.appendChild(s);b.appendChild(r);});
+  document.getElementById('defOut').innerHTML='';
+}
+function defCheck(){let s=0;const wrong=[];defData.forEach((d,i)=>{const el=document.getElementById('def'+i);const v=el.value;const ok=v===d.a;if(ok)s++;el.classList.remove('border-emerald-500','bg-emerald-50','border-red-500','bg-red-50','border-amber-400');if(!v){el.classList.add('border-amber-400');wrong.push(`<div class="px-2 py-1 rounded-lg bg-amber-50 text-amber-800">○ ${d.c}: nepasirinkai. Teisingai: <b>${d.a}</b></div>`);}else if(ok){el.classList.add('border-emerald-500','bg-emerald-50');}else{el.classList.add('border-red-500','bg-red-50');wrong.push(`<div class="px-2 py-1 rounded-lg bg-red-50 text-red-800">✗ ${d.c}: tu – <b>${v}</b> | teisingai – <b>${d.a}</b></div>`);}});document.getElementById('defOut').innerHTML=`<b>${s}/${defData.length}</b> `+(s===defData.length?'<span class="text-emerald-600 font-bold">✓ Puiku!</span>':'<span class="text-amber-600">Klaidos:</span>')+(wrong.length?'<div class="mt-2 space-y-1 text-xs">'+wrong.join('')+'</div>':'');}
+renderDef();
+
+// 5. Karikatūros
+const cartData=[
+{q:"Ką simbolizuoja trūkstama „USA“ lenta „Plyšio tilte“?",opts:["JAV nedalyvavimas silpnina Tautų Sąjungą","JAV stato naują tiltą","Tiltas baigtas"],a:0},
+{q:"Ką laiko Vilsonas karikatūroje su balandžiu?",opts:["Alyvos šakelę – taikos simbolį","Kardą","Pinigus"],a:0},
+{q:"Ką reiškia „League of Nations + Idealism“ maišymas?",opts:["Priekaištas, kad Sąjunga – tik idealistinis mišinys be jėgos","Gyrimas už stiprumą","Neutralus aprašymas"],a:0}];
+function renderCart(){
+  const b=document.getElementById('cartBox');b.innerHTML='';window._cartMap=[];window._cartOpts=[];
+  cartData.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window._cartMap[i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window._cartOpts[i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="cart${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="cartExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
+  document.getElementById('cartOut').innerHTML='';
+}
+function cartCheck(){
+  let s=0;cartData.forEach((c,i)=>{const sel=document.querySelector(`input[name="cart${i}"]:checked`);const expEl=document.getElementById('cartExp'+i);const correctIdx=window._cartMap[i];const correctText=window._cartOpts[i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span>';}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ Nepasirinkai.</span> Teisingas: <b>${correctText}</b>`;}else{const yourText=window._cartOpts[i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ Klaida.</span> Tavo: <b>${yourText}</b> | Teisingas: <b>${correctText}</b>`;}});
+  document.getElementById('cartOut').innerHTML=`<b>${s}/${cartData.length}</b> `+(s===cartData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, supranti karikatūras!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau.</span>');
+}
+renderCart();
+
+// 6. Nepriklausomybės karas
+const neprikData=[
+{q:"Vilniaus užėmimas 1919-01-05, Litbelas",a:"Bolševikai",exp:"Sovietų Rusija puolė pirma. Vyriausybė pasitraukė į Kauną."},
+{q:"Zarasų išvadavimas 1919 rugpjūtis – priešas išvytas",a:"Bolševikai",exp:"Kovos su bolševikais baigėsi 1919 m. vasaros pabaigoje."},
+{q:"Radviliškio mūšis 1919-11-21–22",a:"Bermontininkai",exp:"Kazys Ladiga sutriuškino Bermondto armiją. Iki gruodžio bermontininkai išvyti."},
+{q:"Šiaulių gynimas 1919 rudenį",a:"Bermontininkai",exp:"Bermontininkai veržėsi į Šiaurės Lietuvą – sustabdyti prie Radviliškio."},
+{q:"Suvalkų sutartis 1920-10-07 – sulaužyta po 2 dienų",a:"Lenkai",exp:"Lenkija sutartį sulaužė Želigovskio maištu."},
+{q:"Vilniaus užėmimas 1920-10-09, Vidurinė Lietuva",a:"Lenkai",exp:"Generolas Želigovskis veikė Pilsudskio įsakymu."},
+{q:"Giedraičių mūšis 1920-11-17–21 – lenkų sustabdymas",a:"Lenkai",exp:"Lietuviai sustabdė lenkus, po to paliaubos 1920-11-29."},
+{q:"Maskvos taika 1920-07-12 – Vilnius pripažintas Lietuvai",a:"Bolševikai",exp:"Sutartis su Sovietų Rusija – teisinis pripažinimas, bet Vilnių netrukus užėmė lenkai."}];
+function renderNeprik(){
+  const b=document.getElementById('neprikBox');if(!b)return;b.innerHTML='';
+  neprikData.forEach((c,i)=>{const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+["Bolševikai","Bermontininkai","Lenkai"].map(o=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="neprik${i}" value="${o}" class="mr-1">${o}</label>`).join('')+`</div><div id="neprikExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
+  document.getElementById('neprikOut').innerHTML='';
+}
+function neprikCheck(){
+  let s=0;neprikData.forEach((c,i)=>{const sel=document.querySelector(`input[name="neprik${i}"]:checked`);const expEl=document.getElementById('neprikExp'+i);if(sel&&sel.value===c.a){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else{expEl.innerHTML='<span class="text-red-600 font-bold">✗ Teisingas: '+c.a+'.</span> '+c.exp;}});
+  document.getElementById('neprikOut').innerHTML=`<b>${s}/${neprikData.length}</b> `+(s===neprikData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki Nepriklausomybės karą!</span>':'<span class="text-amber-600">Pakartok: bolševikai → bermontininkai → lenkai.</span>');
+}
+renderNeprik();
+
+// 7. Antantė vs Trilypė sąjunga
+const blokasData=[
+{q:"Prancūzija",a:"Antantė",exp:"Antantės branduolys kartu su Rusija ir Britanija."},
+{q:"Rusija",a:"Antantė",exp:"Antantės branduolys. Iš karo pasitraukė po 1917 revoliucijos."},
+{q:"Didžioji Britanija",a:"Antantė",exp:"Antantės branduolys."},
+{q:"Serbija",a:"Antantė",exp:"Antantės pusėje – karas prasidėjo nuo Austrijos ultimatumo Serbijai."},
+{q:"Belgija",a:"Antantė",exp:"Antantės pusėje – Vokietija pažeidė jos neutralumą 1914 m."},
+{q:"Italija (nuo 1915 m.)",a:"Antantė",exp:"Formaliai buvo Trilypėje, bet 1915 m. perėjo į Antantės pusę."},
+{q:"JAV (nuo 1917 m.)",a:"Antantė",exp:"1917 m. prisijungė prie Antantės."},
+{q:"Vokietija",a:"Trilypė / Centrinės",exp:"Trilypės sąjungos ir Centrinių valstybių lyderė."},
+{q:"Austrija-Vengrija",a:"Trilypė / Centrinės",exp:"Trilypės narė, karą pradėjo prieš Serbiją."},
+{q:"Osmanų imperija (Turkija)",a:"Trilypė / Centrinės",exp:"Prie Centrinių prisijungė 1914 m."},
+{q:"Bulgarija",a:"Trilypė / Centrinės",exp:"Prie Centrinių prisijungė 1915 m."}];
+function renderBlokas(){
+  const b=document.getElementById('blokasBox');if(!b)return;b.innerHTML='';
+  blokasData.forEach((c,i)=>{const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+["Antantė","Trilypė / Centrinės"].map(o=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="blokas${i}" value="${o}" class="mr-1">${o}</label>`).join('')+`</div><div id="blokasExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
+  document.getElementById('blokasOut').innerHTML='';
+}
+function blokasCheck(){
+  let s=0;blokasData.forEach((c,i)=>{const sel=document.querySelector(`input[name="blokas${i}"]:checked`);const expEl=document.getElementById('blokasExp'+i);if(sel&&sel.value===c.a){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else{expEl.innerHTML='<span class="text-red-600 font-bold">✗ Teisingas: '+c.a+'.</span> '+c.exp;}});
+  document.getElementById('blokasOut').innerHTML=`<b>${s}/${blokasData.length}</b> `+(s===blokasData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki blokus!</span>':'<span class="text-amber-600">Pakartok: Antantė = PR + RU + GB, Trilypė = VOK + AUS-VENG.</span>');
+}
+renderBlokas();
+</script>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Testas — Istorija</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>body{font-family:'Inter',sans-serif}.hist-gradient{background:linear-gradient(135deg,#1e3a8a 0%,#3b82f6 50%,#9333ea 100%)}</style>
+</head>
+<body class="bg-[#f8fafc] text-slate-800">
+<nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
+  <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div><div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Testas</div></div></a>
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+      <a href="index.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">📖 Mokytis</a>
+      <a href="korteles.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🃏 Kortelės</a>
+      <a href="testas.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">✅ Testas</a>
+      <a href="praktika.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🧮 Praktika</a>
+    </div>
+  </div>
+</nav>
+<main class="max-w-3xl mx-auto px-4 py-6">
+<div class="flex flex-wrap justify-between items-center gap-3 mb-4">
+  <h1 class="font-black text-2xl">✅ Testas — istorija (25 klausimai)</h1>
+  <div class="flex gap-2">
+    <select id="quizMode" onchange="initQuiz()" class="bg-white border rounded-full px-3 py-1.5 text-sm font-bold">
+      <option value="all">Visos temos</option><option value="karas">Karas ir taika</option><option value="sajunga">Tautų Sąjunga</option><option value="rezimai">Režimai</option><option value="tarpukaris">Tarpukaris</option><option value="nepriklausomybe">Nepriklausomybės karas</option>
+    </select>
+    <button onclick="initQuiz()" class="bg-slate-900 text-white px-4 py-1.5 rounded-full text-sm font-bold">Iš naujo</button>
+  </div>
+</div>
+<div id="quizProgress" class="bg-white border rounded-full p-1 flex gap-1 mb-4 overflow-x-auto"></div>
+<div id="quizBox" class="bg-white border rounded-2xl p-6"></div>
+<div id="quizResult" class="hidden bg-white border rounded-2xl p-6 text-center mt-4"></div>
+<div class="flex justify-center gap-3 mt-6"><a href="korteles.html" class="bg-white border px-6 py-2 rounded-full font-bold">← Kortelės</a><a href="praktika.html" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Praktika →</a></div>
+</main>
+<script>
+const quizBank=[
+{topic:'karas',q:"Kada vyko Pirmasis pasaulinis karas?",opts:["1905–1907","1914–1918","1919–1923","1939–1945"],a:1,exp:"Pirmasis pasaulinis karas vyko 1914–1918 m."},
+{topic:'karas',q:"Kurie blokai kariavo I pasauliniame kare?",opts:["Antantė vs Trilypės sąjunga","NATO vs Varšuvos paktas","Ašis vs Sąjungininkai","ES vs SSRS"],a:0,exp:"Antantė prieš Trilypės sąjungą (Centrines valstybes)."},
+{topic:'karas',q:"Kiek maždaug valstybių įtraukė karas?",opts:["5","12","Daugiau kaip 28","100"],a:2,exp:"Daugiau negu 28 valstybės."},
+{topic:'karas',q:"Kiek gyvybių nusinešė karas?",opts:["~1 mln","~5 mln","~20 mln","~60 mln"],a:2,exp:"Karas nusinešė apie 20 milijonų gyvybių."},
+{topic:'karas',q:"Kas buvo Paryžiaus taikos konferencija?",opts:["1919 m. laimėtojų konferencija taikai nustatyti","1922 m. fašistų suvažiavimas","1945 m. Jaltos konferencija","1917 m. revoliucijos štabas"],a:0,exp:"1919 m., organizavo karo laimėtojai."},
+{topic:'karas',q:"Kokia sutartis pasirašyta Paryžiaus konferencijoje su Vokietija?",opts:["Versalio","Rygos","Miuncheno","Jaltos"],a:0,exp:"Versalio taikos sutartis."},
+{topic:'karas',q:"Kuri Versalio sąlyga TEISINGA?",opts:["Vokietija moka reparacijas","Vokietija gauna kolonijų","JAV moka Vokietijai","Kariuomenė neribojama"],a:0,exp:"Reparacijos + teritorijos + kariuomenės apribojimas + kaltė."},
+{topic:'sajunga',q:"Kada veikė Tautų Sąjunga?",opts:["1900–1914","1919–1946","1945–1991","1957–dabar"],a:1,exp:"Tautų Sąjunga veikė 1919–1946 m."},
+{topic:'sajunga',q:"Kur įkurta Tautų Sąjunga?",opts:["Paryžiaus taikos konferencijoje","Berlyno kongrese","Jungtinėse Tautose","Vienos kongrese"],a:0,exp:"Įkurta Paryžiaus konferencijoje."},
+{topic:'sajunga',q:"Koks Tautų Sąjungos tikslas?",opts:["Išlaikyti taiką, kolektyvinis saugumas","Ruoštis karui","Plėsti kolonijas","Kurti bendrą valiutą"],a:0,exp:"Taika + ginčų sprendimas derybomis."},
+{topic:'sajunga',q:"Kiek narių turėjo Tautų Sąjunga?",opts:["15","28","58","193"],a:2,exp:"58 narės."},
+{topic:'sajunga',q:"Kodėl Tautų Sąjunga buvo nestabili?",opts:["Nedalyvavo JAV – Kongresas nepritarė","Nebuvo būstinės","Neturėjo vėliavos","Per daug narių"],a:0,exp:"JAV nedalyvavimas – pagrindinė silpnybė."},
+{topic:'sajunga',q:"Ką reiškia karikatūra „Plyšys tilte“?",opts:["Be JAV lentos taikos tiltas griūva","Tiltas per Reina pastatytas","Anglija stato tiltą viena","Italija išeina iš karo"],a:0,exp:"Tiltas England-Italy-France… trūksta USA lentos."},
+{topic:'sajunga',q:"Kas buvo Tautų Sąjungos idėjos autorius?",opts:["Vudrou Vilsonas","Adolfas Hitleris","Benitas Musolinis","Tomašas Masaryk"],a:0,exp:"JAV prezidentas Woodrow Wilson – idealizmas."},
+{topic:'rezimai',q:"Kas yra demokratija?",opts:["Rinkimai, teisės, daugiapartiškumas","Vieno asmens valdžia","Teroras ir cenzūra","Kariuomenės valdžia"],a:0,exp:"Visuotinės teisės + atskaitomybė."},
+{topic:'rezimai',q:"Kas yra autoritarizmas?",opts:["Neribama vieno/grupės valdžia, cenzūra, bet be masinio teroro","Visiška kontrolė + teroras","Tiesioginė demokratija","Anarchija"],a:0,exp:"Kontroliuojama tik politika, masinis teroras netaikomas."},
+{topic:'rezimai',q:"Kas yra totalitarizmas?",opts:["Visiška visos visuomenės kontrolė + masinis teroras","Tik ekonomikos reguliavimas","Vietos savivalda","Neutralitetas"],a:0,exp:"Vado kultas + teroras + kultūros kontrolė."},
+{topic:'rezimai',q:"Kuo skiriasi autoritarizmas nuo totalitarizmo?",opts:["Autoritarizmas – tik politika be masinio teroro; totalitarizmas – viskas + teroras","Nesiskiria","Autoritarizmas žiauresnis","Totalitarizmas demokratiškesnis"],a:0,exp:"Autoritarizmas riboja tik politiką, totalitarizmas kontroliuoja viską."},
+{topic:'rezimai',q:"Kas yra diktatūra?",opts:["Vieno asmens/grupės valdžia be demokratinių apribojimų","Parlamentinė monarchija","Federacija","Konfederacija"],a:0,exp:"Gali būti autoritarinė arba totalitarinė."},
+{topic:'tarpukaris',q:"Kas vadovavo Čekoslovakijai (demokratinei)?",opts:["Tomašas Garigas Masaryk","Adolfas Hitleris","Josifas Stalinas","Benitas Musolinis"],a:0,exp:"Prezidentas Masaryk, konstitucija 1920 m."},
+{topic:'tarpukaris',q:"Kada priimta Čekoslovakijos konstitucija?",opts:["1914","1920","1933","1946"],a:1,exp:"1920 m."},
+{topic:'tarpukaris',q:"Rusija 1917 – kas atėjo į valdžią?",opts:["Leninas (vėliau Stalinas)","Musolinis","Hitleris","Vilsonas"],a:0,exp:"Bolševikų revoliucija."},
+{topic:'tarpukaris',q:"Italija 1922 – kas atėjo į valdžią?",opts:["Benitas Musolinis","Adolfas Hitleris","Vladimiras Leninas","Neville Chamberlain"],a:0,exp:"Fašistai."},
+{topic:'tarpukaris',q:"Vokietija 1933 – kas atėjo į valdžią?",opts:["Adolfas Hitleris","Otto von Bismarckas","Kaiseris Vilhelmas","Konradas Adenaueris"],a:0,exp:"Nacistai."},
+{topic:'tarpukaris',q:"Kas yra militarizmas?",opts:["Ginklavimosi politika agresijai","Taikos judėjimas","Neutralitetas","Nusiginklavimas"],a:0,exp:"Kariuomenės stiprinimas – būdinga diktatūroms."},
+{topic:'nepriklausomybe',q:"Kada vyko Lietuvos Nepriklausomybės kovos?",opts:["1905–1907","1914–1916","1918–1920","1939–1940"],a:2,exp:"Nuo nepriklausomybės paskelbimo 1918 m. iki kovų pabaigos 1920 m. pabaigoje."},
+{topic:'nepriklausomybe',q:"Su kuo Lietuva kariavo Nepriklausomybės kovose?",opts:["Tik su Vokietija","Su bolševikais, bermontininkais ir lenkais","Su Latvija ir Estija","Su Prancūzija ir Anglija"],a:1,exp:"Trys priešai iš eilės: pirma Sovietų Rusija (bolševikai), po to bermontininkai, galiausiai Lenkija."},
+{topic:'nepriklausomybe',q:"Kas buvo pirmasis Lietuvos priešas 1918–1919 m.?",opts:["Bolševikai (Sovietų Rusija)","Lenkija","Bermontininkai","Vokietija"],a:0,exp:"Sovietų Rusija anuliavo Bresto taiką ir puolė Lietuvą. 1919-01-05 užėmė Vilnių."},
+{topic:'nepriklausomybe',q:"Kas yra Litbelas?",opts:["Lietuvos–Baltarusijos TSR – bolševikų sukurta marionetė","Lietuvos kariuomenės dalinys","Lenkijos partija","Taikos sutartis"],a:0,exp:"Bolševikai per Litbelą bandė pateisinti okupaciją – esą valdžia priklauso vietinei tarybų respublikai."},
+{topic:'nepriklausomybe',q:"Kodėl Kaunas tapo laikinąja sostine?",opts:["Nes Vilnių 1919 m. užėmė bolševikai","Nes Kaunas didesnis","Nes taip nusprendė Tautų Sąjunga","Nes Vilnius sudegė"],a:0,exp:"Vyriausybė pasitraukė į Kauną, kai bolševikai užėmė Vilnių. Kaunas sostine liko iki 1939 m."},
+{topic:'nepriklausomybe',q:"Kas vadovavo Lietuvos kariuomenei Nepriklausomybės kovose?",opts:["Silvestras Žukauskas","Juzefas Pilsudskis","Pavelas Bermondtas","Liucjanas Želigovskis"],a:0,exp:"Generolas S. Žukauskas – vyriausias kariuomenės vadas. Pilsudskis – Lenkijos, Bermondtas – bermontininkų, Želigovskis – lenkų generolas."},
+{topic:'nepriklausomybe',q:"Kada ir kaip baigėsi kovos su bolševikais?",opts:["1919 m. rugpjūtį – bolševikai išvyti","1920 m. – pasirašyta sąjunga su Rusija","1918 m. – bolševikai patys pasitraukė","1939 m."],a:0,exp:"Iki 1919 m. rugpjūčio pabaigos (Zarasų išvadavimas) Lietuva išvijo bolševikus savanorių ir partizanų jėgomis."},
+{topic:'nepriklausomybe',q:"Kas buvo bermontininkai?",opts:["Bermondto-Avalovo Vakarų Rusijos savanorių armija, remiama Vokietijos","Lietuvos savanoriai","Lenkijos kariuomenė","Tautų Sąjungos taikdariai"],a:0,exp:"Formaliai rusų baltagvardiečiai, bet iš tikrųjų siekė kontroliuoti Baltiją Vokietijos naudai."},
+{topic:'nepriklausomybe',q:"Koks svarbiausias mūšis su bermontininkais?",opts:["Radviliškio mūšis 1919-11-21–22","Žalgirio mūšis","Giedraičių mūšis","Berlyno mūšis"],a:0,exp:"Lietuviai, vadovaujami K. Ladigos, sutriuškino bermontininkus prie Radviliškio. Iki gruodžio jie išvyti."},
+{topic:'nepriklausomybe',q:"Kas yra 1920 m. liepos 12 d. Maskvos taika?",opts:["Sovietų Rusija pripažino nepriklausomą Lietuvą su Vilniumi","Lietuva tapo Rusijos dalimi","Lenkija pripažino Vilnių","Vokietija okupavo Lietuvą"],a:0,exp:"Rusija visiems laikams atsisakė pretenzijų į Lietuvą, pripažino Vilnių, Gardiną, Lydą Lietuvai."},
+{topic:'nepriklausomybe',q:"Dėl ko kilo Lietuvos ir Lenkijos konfliktas?",opts:["Dėl Vilniaus ir Rytų Lietuvos","Dėl Klaipėdos","Dėl Kauno","Dėl Rygos"],a:0,exp:"Abi valstybės laikė Vilnių savo. Pilsudskis norėjo atkurti Abiejų Tautų Respubliką."},
+{topic:'nepriklausomybe',q:"Kas yra Suvalkų sutartis (1920-10-07)?",opts:["Lietuvos ir Lenkijos sutartis, palikusi Vilnių Lietuvai","Lietuvos ir Rusijos taika","Lenkijos ir Rusijos taika","Lietuvos ir Vokietijos sutartis"],a:0,exp:"Nustatė demarkacinę liniją, Vilnius – Lietuvai. Po 2 dienų Lenkija ją sulaužė."},
+{topic:'nepriklausomybe',q:"Kas yra Želigovskio maištas?",opts:["1920-10-09 lenkų generolas Želigovskis užėmė Vilnių","Lietuvių sukilimas prieš bolševikus","Bermontininkų puolimas","Vokiečių maištas Klaipėdoje"],a:0,exp:"Formaliai maištas, iš tikrųjų – Pilsudskio įsakymas. Sukurta Vidurinė Lietuva, Vilnius okupuotas."},
+{topic:'nepriklausomybe',q:"Koks mūšis 1920 m. sustabdė lenkų veržimąsi?",opts:["Giedraičių mūšis 1920-11-17–21","Radviliškio mūšis","Berlyno mūšis","Mūšis prie Alytus 1919 m."],a:0,exp:"Lietuviai sustabdė lenkus prie Giedraičių, po to paliaubos 1920-11-29. Vilnius liko okupuotas iki 1939 m."},
+{topic:'nepriklausomybe',q:"Kas yra demarkacinė linija?",opts:["Laikina skiriamoji linija tarp kariuomenių","Nuolatinė valstybės siena","Geležinkelis","Prekybos sutartis"],a:0,exp:"Tautų Sąjungos nustatyta linija turėjo skirti Lietuvą ir Lenkiją, kol bus išspręstas Vilniaus klausimas."},
+{topic:'nepriklausomybe',q:"Kuo baigėsi Nepriklausomybės kovos Lietuvai?",opts:["Nepriklausomybė apginta, bet Vilnius prarastas iki 1939 m.","Lietuva prarado nepriklausomybę","Lietuva prijungta prie Lenkijos","Lietuva prijungta prie Rusijos"],a:0,exp:"Svarbiausia – valstybė išliko. Skaudžiausias praradimas – Vilnius, grąžintas tik 1939 m."},
+{topic:'karas',q:"Kurios 3 valstybės sudarė Antantės branduolį?",opts:["Prancūzija, Rusija, Didžioji Britanija","Vokietija, Austrija-Vengrija, Italija","Vokietija, Turkija, Bulgarija","Lenkija, Lietuva, Latvija"],a:0,exp:"Antantė = Prancūzija + Rusija + Britanija. Tai pagrindinis trejetas, prie kurio vėliau jungėsi kiti."},
+{topic:'karas',q:"Kurios 3 valstybės 1882 m. sudarė Trilypę sąjungą?",opts:["Vokietija, Austrija-Vengrija, Italija","Prancūzija, Rusija, Britanija","JAV, Japonija, Serbija","Turkija, Bulgarija, Rumunija"],a:0,exp:"Trilypė sąjunga: Vokietija + Austrija-Vengrija + Italija. Kare Italija 1915 m. perėjo į Antantės pusę."},
+{topic:'karas',q:"Kurios valstybės priklausė Antantei?",opts:["Prancūzija, Rusija, Britanija, Serbija, Belgija","Vokietija, Austrija-Vengrija, Turkija","Vokietija, Italija, Bulgarija","Austrija-Vengrija, Turkija, Bulgarija"],a:0,exp:"Antantė: Prancūzija, Rusija, Britanija + Serbija, Belgija, Japonija, vėliau Italija (nuo 1915) ir JAV (nuo 1917)."},
+{topic:'karas',q:"Kurios valstybės kariavo Centrinių valstybių (Trilypės pusės) pusėje?",opts:["Vokietija, Austrija-Vengrija, Osmanų imperija, Bulgarija","Prancūzija, Rusija, Britanija","Serbija, Belgija, Rumunija","JAV, Japonija, Italija"],a:0,exp:"Centrinės: Vokietija + Austrija-Vengrija + Osmanų imperija (Turkija) + Bulgarija. Italija iš Trilypės pasitraukė."},
+{topic:'karas',q:"Prancūzija priklausė…",opts:["Antantai","Trilypei sąjungai","Neutralioms","Tautų Sąjungai"],a:0,exp:"Prancūzija – viena iš 3 Antantės kūrėjų."},
+{topic:'karas',q:"Vokietija priklausė…",opts:["Trilypei sąjungai / Centrinėms","Antantai","Neutralioms","Tautų Sąjungai"],a:0,exp:"Vokietija – Trilypės sąjungos ir Centrinių valstybių lyderė."},
+{topic:'karas',q:"Kuriai pusei priklausė Rusija ir Didžioji Britanija?",opts:["Antantai","Trilypei sąjungai","Abi buvo neutralios","Abi – Centrinės"],a:0,exp:"Abi – Antantės branduolys kartu su Prancūzija."},
+{topic:'karas',q:"Kuriai pusei priklausė Austrija-Vengrija ir Osmanų imperija?",opts:["Trilypei sąjungai / Centrinėms","Antantai","Neutralioms","Tautų Sąjungai"],a:0,exp:"Austrija-Vengrija – Trilypės narė, Osmanų imperija prie Centrinių prisijungė 1914 m."},
+{topic:'karas',q:"Kas atsitiko su Italija I pasauliniame kare?",opts:["Iš Trilypės sąjungos 1915 m. perėjo į Antantės pusę","Visą karą liko su Vokietija","Buvo neutrali visą karą","Priklausė Rusijai"],a:0,exp:"Italija formaliai buvo Trilypėje, bet 1915 m. perėjo pas Antantę dėl teritorijų pažadų."},
+{topic:'nepriklausomybe',q:"Kas yra bolševikai?",opts:["Lenino vadovaujami Rusijos komunistai, 1917 m. užgrobę valdžią Rusijoje","Lietuvos savanoriai 1918 m.","Lenkijos kariuomenė","Vokietijos remiami baltagvardiečiai"],a:0,exp:"Bolševikai – kraštutinė Rusijos socialdemokratų frakcija. Vadovas Vladimiras Leninas. Siekė komunistinės santvarkos ir pasaulinės revoliucijos."},
+{topic:'nepriklausomybe',q:"Kas vadovavo bolševikams?",opts:["Vladimiras Leninas","Pavelas Bermondtas","Juzefas Pilsudskis","Adolfas Hitleris"],a:0,exp:"V. Leninas – bolševikų vadas, 1917 m. Spalio revoliucijos organizatorius. Bermondtas vadovavo bermontininkams, Pilsudskis – Lenkijai."},
+{topic:'nepriklausomybe',q:"Ko siekė bolševikai Lietuvoje 1918–1919 m.?",opts:["Įvesti sovietų valdžią ir prijungti Lietuvą prie Sovietų Rusijos","Apginti Lietuvos nepriklausomybę","Grąžinti Vilnių Lietuvai","Įkurti demokratiją"],a:0,exp:"Bolševikai anuliavo Bresto taiką, puolė Lietuvą, užėmė Vilnių (1919-01-05) ir kūrė Litbelą – marionetinę sovietinę respubliką."},
+{topic:'nepriklausomybe',q:"Kas yra bermontininkai?",opts:["Bermondto-Avalovo Vakarų Rusijos savanorių armija, siekusi atkurti Rusijos imperiją","Lietuvos partizanai","Sovietų Rusijos kariuomenė","Lenkijos legionai"],a:0,exp:"Bermontininkai – formaliai rusų baltagvardiečiai, iš tikrųjų Vokietijos remiamas junginys. Puolė Lietuvą ir Latviją 1919 m. rudenį."},
+{topic:'nepriklausomybe',q:"Kas vadovavo bermontininkams ir kas juos rėmė?",opts:["Pavelas Bermondtas-Avalovas, rėmė Vokietija","Leninas, rėmė Sovietų Rusija","Pilsudskis, rėmė Prancūzija","Žukauskas, rėmė Lietuva"],a:0,exp:"Vadas – P. Bermondtas-Avalovas. Ginklais, pinigais ir instruktoriais rėmė Vokietija, norėjusi išlaikyti įtaką Baltijoje."},
+{topic:'nepriklausomybe',q:"Ko siekė bermontininkai Lietuvoje?",opts:["Užimti Šiaurės Lietuvą ir neleisti įsitvirtinti nepriklausomai Lietuvai","Apginti Vilnių nuo lenkų","Padėti Lietuvai prieš bolševikus","Įvesti demokratiją"],a:0,exp:"Jie veržėsi į Šiaulius, Radviliškį, siekė kontroliuoti Baltiją ir atkurti Rusijos imperiją. Sustabdyti Radviliškio mūšyje."}
+];
+let quizQs=[],qIdx=0,score=0,answers=[];
+function shuffleOpts(q){const order=q.opts.map((_,i)=>i);for(let i=order.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[order[i],order[j]]=[order[j],order[i]];}return {...q,opts:order.map(i=>q.opts[i]),a:order.indexOf(q.a)};}
+function initQuiz(){const mode=document.getElementById('quizMode').value;let pool=quizBank.filter(q=>mode==='all'||q.topic===mode).map(shuffleOpts);pool=[...pool].sort(()=>Math.random()-0.5);quizQs=pool.slice(0,Math.min(25,pool.length));if(quizQs.length<5)quizQs=[...quizBank].map(shuffleOpts).sort(()=>Math.random()-0.5).slice(0,10);qIdx=0;score=0;answers=[];renderQuiz();}
+function renderQuiz(){const prog=document.getElementById('quizProgress');prog.innerHTML='';quizQs.forEach((_,i)=>{const d=document.createElement('div');d.className='flex-1 h-2 rounded-full '+(i<qIdx?'bg-emerald-500':i===qIdx?'bg-blue-600':'bg-slate-200');prog.appendChild(d);});if(qIdx>=quizQs.length){showResult();return;}const q=quizQs[qIdx];const box=document.getElementById('quizBox');box.innerHTML=`<div class="flex justify-between text-xs"><span class="bg-slate-100 px-2 py-1 rounded-full font-bold">${q.topic.toUpperCase()}</span><span>${qIdx+1}/${quizQs.length}</span></div><h3 class="font-extrabold text-lg mt-3">${q.q}</h3><div class="grid gap-2 mt-4">${q.opts.map((o,i)=>`<button onclick="answer(${i})" class="text-left border-2 border-slate-200 rounded-xl px-4 py-3 hover:border-blue-300 hover:bg-blue-50 font-semibold">${String.fromCharCode(65+i)}. ${o}</button>`).join('')}</div><div class="text-xs text-slate-400 mt-3">Pasirink vieną atsakymą</div>`;document.getElementById('quizResult').classList.add('hidden');}
+function answer(i){const q=quizQs[qIdx];const correct=i===q.a;answers.push(correct);if(correct)score++;const box=document.getElementById('quizBox');box.innerHTML=`<div class="text-xs bg-slate-100 px-2 py-1 rounded-full inline-block font-bold">${q.topic.toUpperCase()}</div><h3 class="font-extrabold text-lg mt-3">${q.q}</h3><div class="mt-3 p-3 rounded-xl ${correct?'bg-emerald-50 border border-emerald-200 text-emerald-800':'bg-red-50 border border-red-200 text-red-800'}"><b>${correct?'✓ Teisingai!':'✗ Neteisingai.'}</b> ${q.exp||''}</div><button onclick="nextQ()" class="w-full mt-4 bg-slate-900 text-white py-3 rounded-xl font-bold">Kitas →</button>`;}
+function nextQ(){qIdx++;renderQuiz();}
+function showResult(){const pct=Math.round(score/quizQs.length*100);let msg=pct>=80?"Puiku! 🌟":pct>=60?"Gerai! 👍":pct>=40?"Neplogai, pakartok korteles":"Reikia pasimokyti 📖";document.getElementById('quizBox').innerHTML=`<div class="text-center py-4"><div class="text-5xl">${pct>=80?'🏆':pct>=60?'🎉':'💪'}</div><h3 class="font-black text-2xl mt-2">${score}/${quizQs.length} (${pct}%)</h3><p class="font-bold text-slate-600">${msg}</p></div>`;document.getElementById('quizResult').classList.remove('hidden');document.getElementById('quizResult').innerHTML=`<h4 class="font-extrabold">Apžvalga</h4><div class="grid gap-1 mt-2 text-left text-sm">${quizQs.map((q,i)=>`<div class="flex gap-2 items-center"><span class="${answers[i]?'bg-emerald-100 text-emerald-700':'bg-red-100 text-red-700'} w-6 h-6 rounded-full flex items-center justify-center text-xs">${answers[i]?'✓':'✗'}</span><span class="flex-1">${i+1}. ${q.q}</span><span class="text-xs">${q.opts[q.a]}</span></div>`).join('')}</div><button onclick="initQuiz()" class="w-full mt-4 bg-blue-700 text-white py-3 rounded-xl font-bold">Kartoti testą</button>`;}
+initQuiz();
+</script>
+</body>
+</html>
