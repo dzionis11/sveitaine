@@ -29,7 +29,7 @@ body{font-family:'Inter',sans-serif}
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-3">
       <div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div>
-      <div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">10 kl. istorija • Kontrolinis darbas</div></div>
+      <div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Istorija • Pilietiškumas</div></div>
     </a>
     <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
       <a href="index.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">📚 Temų apžvalga</a>
@@ -46,7 +46,11 @@ body{font-family:'Inter',sans-serif}
   <div class="relative">
     <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">✨ Iš tavo užrašų (10 kl.)</div>
     <h1 class="text-3xl md:text-4xl font-black leading-tight mt-3">Pasiruošk kontroliniam darbui</h1>
-    <p class="text-white/90 mt-2 text-sm">4 temos • 200+ klausimai • 8 tipų užduočių • Paaiškinimai po kiekvieno atsakymo</p>
+    <p class="text-white/90 mt-2 text-sm">Pasirink dalyką, ko nori mokytis:</p>
+    <div class="flex flex-wrap gap-2 mt-3" id="dalykasPicker">
+      <button onclick="setDalykas('istorija')" id="btnIstorija" class="px-5 py-2.5 rounded-full font-extrabold text-sm shadow">📜 Istorija</button>
+      <button onclick="setDalykas('pilietiskumas')" id="btnPilietiskumas" class="px-5 py-2.5 rounded-full font-bold text-sm">⚖️ Pilietiškumas</button>
+    </div>
     <div class="flex flex-wrap gap-2 mt-4">
       <a href="korteles.html" class="bg-white text-blue-800 px-5 py-2.5 rounded-full font-extrabold text-sm shadow inline-block">Pradėti mokytis →</a>
       <a href="testas.html" class="bg-black/20 border border-white/30 text-white px-5 py-2.5 rounded-full font-bold text-sm inline-block">Tiesiog testas</a>
@@ -58,8 +62,8 @@ body{font-family:'Inter',sans-serif}
 </div>
 
 <section class="space-y-6">
-<h2 class="font-black text-xl">Temos kontroliniam darbui</h2>
-<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+<h2 class="font-black text-xl" id="temuAntraste">Temos kontroliniam darbui</h2>
+<div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4" id="istorijaTemos">
   <a href="korteles.html?topic=nepriklausomybe" class="topic-card bg-white rounded-2xl border p-5 group">
     <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center mb-3 group-hover:bg-red-200 transition"><svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
     <h3 class="font-extrabold text-lg">Lietuva tarpukariu</h3>
@@ -101,11 +105,32 @@ body{font-family:'Inter',sans-serif}
     </div>
   </a>
 </div>
+<div class="grid md:grid-cols-2 gap-4" id="pilietiskumasTemos" style="display:none">
+  <a href="korteles.html?dalykas=pilietiskumas" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center mb-3 group-hover:bg-violet-200 transition text-2xl">⚖️</div>
+    <h3 class="font-extrabold text-lg">LR Konstitucija</h3>
+    <p class="text-sm text-slate-600 mt-1">Konstitucijos apibrėžimas, referendumas, pirmosios pasaulio konstitucijos, Lietuvos konstitucijos 1922–1992</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-violet-50 text-violet-700 px-2 py-1 rounded-full">Sąvokos</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Datos</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Laiko juosta</span>
+    </div>
+  </a>
+  <div class="bg-white rounded-2xl border p-5">
+    <h3 class="font-extrabold text-lg">Mokykis pilietiškumą</h3>
+    <p class="text-sm text-slate-600 mt-1">Kortelės, testas ir praktika – viskas apie LR Konstituciją.</p>
+    <div class="flex flex-wrap gap-2 mt-3 text-sm font-bold">
+      <a href="korteles.html?dalykas=pilietiskumas" class="bg-violet-600 text-white px-4 py-2 rounded-full">🃏 Kortelės</a>
+      <a href="testas.html?topic=pilietiskumas" class="bg-white border px-4 py-2 rounded-full">✅ Testas</a>
+      <a href="praktika.html?dalykas=pilietiskumas" class="bg-white border px-4 py-2 rounded-full">🧮 Praktika</a>
+    </div>
+  </div>
+</div>
 </section>
 
 <section class="mt-8">
 <h2 class="font-black text-xl mb-4">Ką rasi kiekvienoje temoje</h2>
-<div class="grid md:grid-cols-2 gap-4 text-sm">
+<div class="grid md:grid-cols-2 gap-4 text-sm" id="kaRasiGrid">
   <div class="bg-white border rounded-xl p-4">
     <h3 class="font-bold text-red-700 mb-2">Lietuva tarpukariu (vadovėlis 31–37 psl.)</h3>
     <ul class="space-y-1 text-slate-700">
@@ -144,6 +169,16 @@ body{font-family:'Inter',sans-serif}
       <li>• 1919 Paryžiaus konferencija, Versalis (5 sąlygų grupės)</li>
       <li>• Tautų Sąjunga: 58 narių, be JAV, „Plyšys tilte“</li>
       <li>• 8 klausimų tipai: pasirinkimas, T/K, sąvokos, asmenybės, datos, priežastis/pasekmė, chronologija, žemėlapis, atviri</li>
+    </ul>
+  </div>
+  <div class="bg-white border rounded-xl p-4" id="kaRasiPilietiskumas" style="display:none">
+    <h3 class="font-bold text-violet-700 mb-2">Pilietiškumas: LR Konstitucija</h3>
+    <ul class="space-y-1 text-slate-700">
+      <li>• Konstitucija: apibrėžimas, požymiai, aukščiausia teisinė galia</li>
+      <li>• Referendumas: apibrėžimas, LR Konstitucija priimta 1992-10-25</li>
+      <li>• Pirmosios konstitucijos: JAV 1787 (Vašingtonas, Medisonas), ATR 1791-05-03 (Poniatovskis), Prancūzija 1791-09-03 (Liudvikas XVI)</li>
+      <li>• Lietuvos konstitucijos: 1922 demokratinė, 1928 ir 1938 autoritarinės, 1992 dabartinė</li>
+      <li>• Kortelės, testas ir praktika su paaiškinimais</li>
     </ul>
   </div>
 </div>
@@ -319,6 +354,34 @@ function showNotification(msg, type) {
   document.body.appendChild(notif);
   setTimeout(() => notif.remove(), 3000);
 }
+
+// ===== DALYKO PASIRINKIMAS (Istorija / Pilietiškumas) =====
+function getDalykas() {
+  const p = new URLSearchParams(window.location.search).get('dalykas');
+  if (p === 'pilietiskumas' || p === 'istorija') return p;
+  return localStorage.getItem('dalykas') === 'pilietiskumas' ? 'pilietiskumas' : 'istorija';
+}
+function setDalykas(d) {
+  localStorage.setItem('dalykas', d);
+  applyDalykas();
+}
+function applyDalykas() {
+  const d = getDalykas();
+  const isPil = d === 'pilietiskumas';
+  document.getElementById('istorijaTemos').style.display = isPil ? 'none' : '';
+  document.getElementById('pilietiskumasTemos').style.display = isPil ? '' : 'none';
+  document.getElementById('temuAntraste').textContent = isPil ? 'Pilietiškumo tema' : 'Temos kontroliniam darbui';
+  const grid = document.getElementById('kaRasiGrid');
+  Array.from(grid.children).forEach(function(box) {
+    if (box.id === 'kaRasiPilietiskumas') box.style.display = isPil ? '' : 'none';
+    else box.style.display = isPil ? 'none' : '';
+  });
+  const bI = document.getElementById('btnIstorija');
+  const bP = document.getElementById('btnPilietiskumas');
+  bI.className = 'px-5 py-2.5 rounded-full text-sm shadow ' + (!isPil ? 'bg-white text-blue-800 font-extrabold' : 'bg-black/20 border border-white/30 text-white font-bold');
+  bP.className = 'px-5 py-2.5 rounded-full text-sm shadow ' + (isPil ? 'bg-white text-violet-800 font-extrabold' : 'bg-black/20 border border-white/30 text-white font-bold');
+}
+document.addEventListener('DOMContentLoaded', applyDalykas);
 
 // Paleidžiame
 document.addEventListener('DOMContentLoaded', initAccess);

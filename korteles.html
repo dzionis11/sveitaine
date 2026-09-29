@@ -24,8 +24,8 @@ body{font-family:'Inter',sans-serif}.hist-gradient{background:linear-gradient(13
 </nav>
 <main class="max-w-6xl mx-auto px-4 py-6">
 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-  <h1 class="font-black text-2xl">🃏 Kortelės — istorija</h1>
-  <div class="flex items-center gap-2"><span class="text-sm">Kortelė <b id="cardNow">1</b> / <span id="cardTotal">24</span></span><button onclick="shuffleCards()" class="text-xs bg-white border px-3 py-1.5 rounded-full font-bold">🔀 Maišyti</button></div>
+  <h1 class="font-black text-2xl">🃏 Kortelės <span id="dalykasName" class="text-base font-bold text-slate-500">— istorija</span></h1>
+  <div class="flex items-center gap-2"><div class="flex gap-1 bg-slate-100 p-1 rounded-full text-sm font-bold" id="dalykasTabs"><button onclick="setDalykas('istorija')" id="tabIstorija" class="px-3 py-1.5 rounded-full">📜 Istorija</button><button onclick="setDalykas('pilietiskumas')" id="tabPilietiskumas" class="px-3 py-1.5 rounded-full">⚖️ Pilietiškumas</button></div><span class="text-sm">Kortelė <b id="cardNow">1</b> / <span id="cardTotal">24</span></span><button onclick="shuffleCards()" class="text-xs bg-white border px-3 py-1.5 rounded-full font-bold">🔀 Maišyti</button></div>
 </div>
 <div class="max-w-2xl mx-auto">
   <div id="flashCard" class="card-3d cursor-pointer" onclick="flipCard()">
@@ -124,26 +124,51 @@ const cards=[
 {q:"Kas yra demarkacijos linija?",a:"Laikina linija, skirianti kariuomenes, kol siena nustatoma sutartimi",e:"Laikina – ne siena! Pvz. Suvalkų sutarties linija"},
 {q:"Kas yra nota?",a:"Oficialus valstybės vyriausybės raštas kitai valstybei",e:"Ja reiškiamas protestas ar reikalavimas"},
 {q:"Kas buvo S. Žukauskas?",a:"Lietuvos kariuomenės vadas Nepriklausomybės kovose",e:"Generolas – vadovavo kovoms su visais trimis priešais"},
-{q:"Kaip skaityti karo žemėlapį?",a:"Ribos = iki kur įsiveržė priešas, X = mūšiai, brūkšniavimas = okupacija",e:"Bolševikų riba, bermontininkų riba, Giedraičiai (X), Vokietijos zona"}
+{q:"Kaip skaityti karo žemėlapį?",a:"Ribos = iki kur įsiveržė priešas, X = mūšiai, brūkšniavimas = okupacija",e:"Bolševikų riba, bermontininkų riba, Giedraičiai (X), Vokietijos zona"},
+{q:"Kas yra konstitucija?",a:"Pagrindinis valstybės įstatymas",e:"Įtvirtina piliečių laisves ir teises, nustato valdžios sąrangą",d:"p"},
+{q:"Ką nustato konstitucija? (2 dalykai)",a:"Piliečių laisves/teises ir valdžios sąrangą",e:"Abu punktai – dažnas atviras klausimas",d:"p"},
+{q:"Kokia konstitucijos galia?",a:"Aukščiausia – keičiama sunkiau nei paprasti įstatymai",e:"Referendumu arba kvalifikuota Seimo dauguma",d:"p"},
+{q:"Kada priimta LR Konstitucija?",a:"1992 m. spalio 25 d. referendume",e:"Data + būdas – mokėk abu",d:"p"},
+{q:"Kas yra referendumas?",a:"Visuotinė piliečių apklausa balsuojant dėl svarbiausių klausimų",e:"Tiesioginė demokratija veikloje",d:"p"},
+{q:"Pirmoji pasaulio konstitucija?",a:"JAV – 1787 m.",e:"Pirmoji rašytinė pasaulyje",d:"p"},
+{q:"Pirmoji Europos konstitucija?",a:"ATR Gegužės 3-iosios – 1791-05-03",e:"Antroji pasaulyje po JAV",d:"p"},
+{q:"Prancūzijos konstitucija – kada?",a:"1791 m. rugsėjo 3 d.",e:"Tais pačiais metais kaip ATR, tik 4 mėn. vėliau",d:"p"},
+{q:"Lietuvos konstitucijų seka?",a:"1922 demokratinė → 1928 autoritarinė → 1938 autoritarinė → 1992 demokratinė",e:"Raktas: D – A – A – D",d:"p"},
+{q:"1922 vs 1928/1938 konstitucijos?",a:"1922 demokratinė, 1928 ir 1938 autoritarinės (diktatūrinės)",e:"1928/1938 įtvirtino Smetonos režimą",d:"p"},
+{q:"Kas pirmas pasirašė JAV konstituciją?",a:"Džordžas Vašingtonas – Konvento pirmininkas",e:"Iš 39 signatarų jo parašas pirmas",d:"p"},
+{q:"Kas yra JAV Konstitucijos tėvas?",a:"Džeimsas Medisonas – pagrindinis projekto autorius",e:"Ne Vašingtonas (jis pirmininkavo), o Medisonas rašė",d:"p"},
+{q:"Kiek signatarų pasirašė JAV konstituciją?",a:"39 (iš 55 konvento delegatų)",e:"Nepainiok su 13 – tiek buvo pirmųjų valstijų",d:"p"},
+{q:"Kas rėmė ATR Gegužės 3-iosios konstituciją?",a:"Karalius Stanislovas Augustas Poniatovskis",e:"Kartu su Kolontajumi ir Potockiu",d:"p"},
+{q:"ATR konstitucijos autoriai?",a:"Hugas Kolontajus ir Ignotas Potockis",e:"Parengė projektą kartu su karaliumi",d:"p"},
+{q:"Kas patvirtino Prancūzijos 1791 konstituciją?",a:"Karalius Liudvikas XVI",e:"Pritarė ir prisiekė 1791-09-14",d:"p"},
+{q:"Kas priėmė 1922 m. LT konstituciją?",a:"Steigiamasis Seimas (pirmininkas A. Stulginskis)",e:"Demokratinė – priėmė Seimas, ne vienas žmogus",d:"p"},
+{q:"Kas paskelbė 1928 ir 1938 konstitucijas?",a:"Prezidentas Antanas Smetona",e:"Abi autoritarinės, po 1926 m. perversmo",d:"p"},
+{q:"Kas pasirašė 1992 m. Konstituciją?",a:"Niekas asmeniškai – priėmė tauta referendume",e:"Vienintelis atvejis be vieno signataro",d:"p"}
 ];
-let cIdx=0, known=new Set(), unknown=new Set();
+let cIdx=0, known=new Set(), unknown=new Set(), dalykas='istorija', view=[];
+function currentView(){return dalykas==='pilietiskumas'?cards.filter(c=>c.d==='p'):cards.filter(c=>!c.d);}
+function paintDalykasTabs(){document.getElementById('tabIstorija').className='px-3 py-1.5 rounded-full '+(dalykas==='istorija'?'bg-white shadow':'text-slate-500');document.getElementById('tabPilietiskumas').className='px-3 py-1.5 rounded-full '+(dalykas==='pilietiskumas'?'bg-white shadow':'text-slate-500');document.getElementById('dalykasName').textContent=dalykas==='pilietiskumas'?'— pilietiškumas':'— istorija';}
+function setDalykas(d){dalykas=d;localStorage.setItem('dalykas',d);view=currentView();cIdx=0;known.clear();unknown.clear();paintDalykasTabs();renderCard();}
+function initDalykas(){const p=new URLSearchParams(window.location.search);const d=p.get('dalykas');const t=p.get('topic');if(d==='pilietiskumas'){dalykas='pilietiskumas';localStorage.setItem('dalykas','pilietiskumas');}else if(d==='istorija'||t){dalykas='istorija';localStorage.setItem('dalykas','istorija');}else if(localStorage.getItem('dalykas')==='pilietiskumas'){dalykas='pilietiskumas';}view=currentView();paintDalykasTabs();}
 function renderCard(){
-  document.getElementById('cardQ').textContent=cards[cIdx].q;
-  document.getElementById('cardA').textContent=cards[cIdx].a;
-  document.getElementById('cardExtra').textContent=cards[cIdx].e;
+  if(!view.length)view=currentView();
+  document.getElementById('cardQ').textContent=view[cIdx].q;
+  document.getElementById('cardA').textContent=view[cIdx].a;
+  document.getElementById('cardExtra').textContent=view[cIdx].e;
   document.getElementById('cardNow').textContent=cIdx+1;
-  document.getElementById('cardTotal').textContent=cards.length;
+  document.getElementById('cardTotal').textContent=view.length;
   document.getElementById('flashCard').classList.remove('flipped');
   document.getElementById('knownCount').textContent=known.size;
   document.getElementById('unknownCount').textContent=unknown.size;
-  document.getElementById('leftCount').textContent=cards.length-known.size;
+  document.getElementById('leftCount').textContent=view.length-known.size;
   const dots=document.getElementById('cardDots'); dots.innerHTML='';
-  cards.forEach((_,i)=>{const d=document.createElement('div');d.className='w-2 h-2 rounded-full '+(i===cIdx?'bg-blue-600 w-6':known.has(i)?'bg-emerald-400':'bg-slate-200');dots.appendChild(d);});
+  view.forEach((_,i)=>{const d=document.createElement('div');d.className='w-2 h-2 rounded-full '+(i===cIdx?'bg-blue-600 w-6':known.has(i)?'bg-emerald-400':'bg-slate-200');dots.appendChild(d);});
 }
 function flipCard(){document.getElementById('flashCard').classList.toggle('flipped');}
-function nextCard(k){if(k===true){known.add(cIdx);unknown.delete(cIdx);}else if(k===false){unknown.add(cIdx);known.delete(cIdx);}cIdx=(cIdx+1)%cards.length;renderCard();}
-function prevCard(){cIdx=(cIdx-1+cards.length)%cards.length;renderCard();}
-function shuffleCards(){for(let i=cards.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[cards[i],cards[j]]=[cards[j],cards[i]]}cIdx=0;known.clear();unknown.clear();renderCard();}
+function nextCard(k){if(k===true){known.add(cIdx);unknown.delete(cIdx);}else if(k===false){unknown.add(cIdx);known.delete(cIdx);}cIdx=(cIdx+1)%view.length;renderCard();}
+function prevCard(){cIdx=(cIdx-1+view.length)%view.length;renderCard();}
+function shuffleCards(){for(let i=view.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[view[i],view[j]]=[view[j],view[i]]}cIdx=0;known.clear();unknown.clear();renderCard();}
+initDalykas();
 renderCard();
 </script>
 </body>

@@ -20,9 +20,12 @@
   </div>
 </nav>
 <main class="max-w-6xl mx-auto px-4 py-6">
-<h1 class="font-black text-2xl">🧮 Praktika — istorijos pratybos</h1>
-<p class="text-sm text-slate-500 mb-4">8 interaktyvios užduotys. Tik datos, sąvokos ir loginis mąstymas.</p>
-<div class="grid md:grid-cols-2 gap-4">
+<h1 class="font-black text-2xl">🧮 Praktika <span id="dalykasName" class="text-base font-bold text-slate-500">— istorija</span></h1>
+<div class="flex flex-wrap items-center gap-2 mt-2 mb-4">
+  <div class="flex gap-1 bg-slate-100 p-1 rounded-full text-sm font-bold" id="dalykasTabs"><button onclick="setDalykas('istorija')" id="tabIstorija" class="px-3 py-1.5 rounded-full">📜 Istorija</button><button onclick="setDalykas('pilietiskumas')" id="tabPilietiskumas" class="px-3 py-1.5 rounded-full">⚖️ Pilietiškumas</button></div>
+  <p class="text-sm text-slate-500" id="praktikaCount">8 interaktyvios užduotys.</p>
+</div>
+<div class="grid md:grid-cols-2 gap-4" id="praktikaGrid">
 
   <div class="bg-white border rounded-2xl p-5">
     <h3 class="font-extrabold">1. Chronologija: sudėliok įvykius</h3>
@@ -103,6 +106,19 @@
     <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-xs leading-relaxed">
       <b>Kaip atsiminti sutartį:</b> <b>PSAB</b> – Pripažinimas visiems laikams, Sienos (Vilnius Lietuvai), Auksas (3 mln.) + Archyvai, Belaisviai ir optacija.
       <b>Žemėlapį skaityk per legendą:</b> ištisinės linijos = prasiveržimo ribos, X = mūšiai, brūkšniavimas = okupacija.
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-violet-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">9. Pilietiškumas: LR Konstitucija</h3>
+    <p class="text-xs text-slate-500 mb-2">Apibrėžimai, datos ir laiko juosta. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="pilietBox" class="space-y-3 text-sm"></div>
+    <button onclick="pilietCheck()" class="bg-violet-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="pilietOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-violet-50 border border-violet-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Raktai:</b> Konstitucija = pagrindinis įstatymas (teisės + valdžios sąranga), LR – 1992-10-25 referendumas.
+      Pirmosios: JAV 1787, ATR 1791-05-03, Prancūzija 1791-09-03.
+      Lietuva: <b>D – A – A – D</b> (1922 demokratinė → 1928 autoritarinė → 1938 autoritarinė → 1992 demokratinė).
     </div>
   </div>
 
@@ -304,6 +320,53 @@ function sutartisCheck(){
   document.getElementById('sutartisOut').innerHTML=`<b>${s}/${sutartisData.length}</b> `+(s===sutartisData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki sutartį ir žemėlapį!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau. Raktas: PSAB.</span>');
 }
 renderSutartis();
+
+// 9. Pilietiškumas: LR Konstitucija
+const pilietData=[
+{q:"Kas yra konstitucija?",opts:["Pagrindinis valstybės įstatymas","Paprastas nutarimas","Teismo sprendimas"],a:0,exp:"Įtvirtina piliečių teises ir valdžios sąrangą."},
+{q:"Ką nustato konstitucija?",opts:["Teises ir valdžios sąrangą","Tik mokesčius","Tik kariuomenę"],a:0,exp:"Du ramsčiai: žmogaus teisės + valdžios organizavimas."},
+{q:"Kokia konstitucijos galia?",opts:["Aukščiausia","Kaip paprastų įstatymų","Žemiausia"],a:0,exp:"Viršesnė už visus kitus teisės aktus."},
+{q:"Kada priimta LR Konstitucija?",opts:["1992-10-25 referendume","1918-02-16","1990-03-11"],a:0,exp:"Piliečiai priėmė referendume 1992 m. spalio 25 d."},
+{q:"Kas yra referendumas?",opts:["Visuotinė apklausa balsuojant","Seimo posėdis","Teismo procesas"],a:0,exp:"Tiesioginė demokratija: piliečiai balsuoja patys."},
+{q:"Pirmoji pasaulio konstitucija?",opts:["JAV 1787","ATR 1791","Prancūzija 1791"],a:0,exp:"JAV – pirmoji rašytinė pasaulyje."},
+{q:"Pirmoji Europos konstitucija?",opts:["ATR 1791-05-03","Prancūzija 1791-09-03","LT 1922"],a:0,exp:"ATR Gegužės 3-iosios – pirmoji Europoje."},
+{q:"1922 m. LT konstitucija?",opts:["Demokratinė","Autoritarinė","Monarchinė"],a:0,exp:"Pirmoji nuolatinė demokratinė."},
+{q:"1928 ir 1938 m. LT konstitucijos?",opts:["Autoritarinės","Demokratinės","Laikinosios"],a:0,exp:"Įtvirtino Smetonos autoritarinį režimą."},
+{q:"1992 m. LT konstitucija?",opts:["Demokratinė","Autoritarinė","Totalitarinė"],a:0,exp:"Dabartinė demokratinė teisinė valstybė. Raktas D–A–A–D."},
+{q:"JAV konstituciją pirmas pasirašė…",opts:["Vašingtonas (Konvento pirmininkas)","Medisonas","Franklinas"],a:0,exp:"Iš 39 signatarų pirmas – Vašingtonas."},
+{q:"JAV Konstitucijos tėvas…",opts:["Medisonas (projekto autorius)","Vašingtonas","Džefersonas"],a:0,exp:"Medisonas parašė pagrindinį projektą."},
+{q:"ATR karalius 1791 m.…",opts:["S. A. Poniatovskis","Žygimantas Augustas","Vytautas"],a:0,exp:"Paskutinis ATR valdovas, konstitucijos rėmėjas."},
+{q:"ATR konstitucijos autoriai…",opts:["Kolontajus ir Potockis","Kosciuška ir Poniatovskis","Mickevičius ir Valančius"],a:0,exp:"Parengė projektą kartu su karaliumi."},
+{q:"Prancūzijos 1791 konstituciją patvirtino…",opts:["Liudvikas XVI","Napoleonas","Liudvikas XIV"],a:0,exp:"Karalius pritarė ir prisiekė 1791-09-14."},
+{q:"1922 m. konstituciją priėmė…",opts:["Steigiamasis Seimas","Smetona","Tauta referendume"],a:0,exp:"Priėmė Seimas, ne vienas žmogus."},
+{q:"1928/1938 konstitucijas paskelbė…",opts:["Smetona","Stulginskis","Grinius"],a:0,exp:"Abi autoritarinės – Smetonos režimo."},
+{q:"1992 m. konstituciją pasirašė…",opts:["Tauta referendume (niekas asmeniškai)","Prezidentas","Seimo pirmininkas"],a:0,exp:"Vienintelis atvejis be vieno signataro."}];
+function renderPiliet(){
+  const b=document.getElementById('pilietBox');if(!b)return;b.innerHTML='';window._pilietMap=[];window._pilietOpts=[];
+  pilietData.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window._pilietMap[i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window._pilietOpts[i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="piliet${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="pilietExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
+  document.getElementById('pilietOut').innerHTML='';
+}
+function pilietCheck(){
+  let s=0;pilietData.forEach((c,i)=>{const sel=document.querySelector(`input[name="piliet${i}"]:checked`);const expEl=document.getElementById('pilietExp'+i);const correctIdx=window._pilietMap[i];const correctText=window._pilietOpts[i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ Nepasirinkai.</span> Teisingas: <b>${correctText}</b>. ${c.exp}`;}else{const yourText=window._pilietOpts[i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ Klaida.</span> Tavo: <b>${yourText}</b> | Teisingas: <b>${correctText}</b>. ${c.exp}`;}});
+  document.getElementById('pilietOut').innerHTML=`<b>${s}/${pilietData.length}</b> `+(s===pilietData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki Konstituciją!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau. Raktas: D–A–A–D.</span>');
+}
+renderPiliet();
+
+// Dalyko perjungimas: istorijos blokai 1–8, pilietiškumo – 9
+function paintDalykasTabs(d){document.getElementById('tabIstorija').className='px-3 py-1.5 rounded-full '+(d==='istorija'?'bg-white shadow':'text-slate-500');document.getElementById('tabPilietiskumas').className='px-3 py-1.5 rounded-full '+(d==='pilietiskumas'?'bg-white shadow':'text-slate-500');document.getElementById('dalykasName').textContent=d==='pilietiskumas'?'— pilietiškumas':'— istorija';}
+function applyDalykas(){
+  const p=new URLSearchParams(window.location.search);
+  let d=p.get('dalykas');
+  if(d==='pilietiskumas'){localStorage.setItem('dalykas','pilietiskumas');}
+  else if(d==='istorija'){localStorage.setItem('dalykas','istorija');}
+  else{d=localStorage.getItem('dalykas')==='pilietiskumas'?'pilietiskumas':'istorija';}
+  const kids=document.getElementById('praktikaGrid').children;
+  for(let i=0;i<kids.length;i++){kids[i].style.display=(d==='pilietiskumas')===(i>=kids.length-1)?'':'none';}
+  document.getElementById('praktikaCount').textContent=d==='pilietiskumas'?'1 pilietiškumo užduotis (10 klausimų).':'8 istorijos užduotys.';
+  paintDalykasTabs(d);
+}
+function setDalykas(d){localStorage.setItem('dalykas',d);applyDalykas();}
+document.addEventListener('DOMContentLoaded',applyDalykas);
 </script>
 </body>
 </html>
