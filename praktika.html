@@ -11,7 +11,7 @@
 <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div><div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Praktika</div></div></a>
-    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full" id="navMenu">
       <a href="index.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">📖 Mokytis</a>
       <a href="korteles.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🃏 Kortelės</a>
       <a href="testas.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">✅ Testas</a>
@@ -20,9 +20,9 @@
   </div>
 </nav>
 <main class="max-w-6xl mx-auto px-4 py-6">
-<h1 class="font-black text-2xl">🧮 Praktika <span id="dalykasName" class="text-base font-bold text-slate-500">— istorija</span></h1>
+<h1 class="font-black text-2xl">🧮 <span id="pageName">Praktika</span> <span id="dalykasName" class="text-base font-bold text-slate-500">— istorija</span></h1>
 <div class="flex flex-wrap items-center gap-2 mt-2 mb-4">
-  <div class="flex gap-1 bg-slate-100 p-1 rounded-full text-sm font-bold" id="dalykasTabs"><button onclick="setDalykas('istorija')" id="tabIstorija" class="px-3 py-1.5 rounded-full">📜 Istorija</button><button onclick="setDalykas('pilietiskumas')" id="tabPilietiskumas" class="px-3 py-1.5 rounded-full">⚖️ Pilietiškumas</button></div>
+  <div class="flex gap-1 bg-slate-100 p-1 rounded-full text-sm font-bold" id="dalykasTabs"><button onclick="setDalykas('istorija')" id="tabIstorija" class="px-3 py-1.5 rounded-full">📜 Istorija</button><button onclick="setDalykas('anglu')" id="tabAnglu" class="px-3 py-1.5 rounded-full">🇬🇧 Anglų</button><button onclick="setDalykas('ekonomika')" id="tabEkonomika" class="px-3 py-1.5 rounded-full">💰 Ekonomika</button><button onclick="setDalykas('biologija')" id="tabBiologija" class="px-3 py-1.5 rounded-full">🧬 Biologija</button></div>
   <p class="text-sm text-slate-500" id="praktikaCount">8 interaktyvios užduotys.</p>
 </div>
 <div class="grid md:grid-cols-2 gap-4" id="praktikaGrid">
@@ -64,70 +64,103 @@
   </div>
 
   <div class="bg-white border rounded-2xl p-5 md:col-span-2">
-    <h3 class="font-extrabold">5. Karikatūrų ir asmenybių analizė</h3>
-    <p class="text-xs text-slate-500 mb-2">Klausimai pagal karikatūras apie Tautų Sąjungą ir taiką.</p>
+    <h3 class="font-extrabold">5. Asmenybės ir partijos</h3>
+    <p class="text-xs text-slate-500 mb-2">Kas yra kas: Seimo veikėjai ir partijų lyderiai.</p>
     <div id="cartBox" class="space-y-3 text-sm"></div>
     <button onclick="cartCheck()" class="bg-slate-900 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
     <div id="cartOut" class="text-sm mt-2"></div>
   </div>
 
-  <div class="bg-white border-2 border-red-200 rounded-2xl p-5 md:col-span-2">
-    <h3 class="font-extrabold">6. Lietuva tarpukariu: Nepriklausomybės karas 1918–1920</h3>
-    <p class="text-xs text-slate-500 mb-2">Priskirk kiekvieną įvykį teisingam priešui: bolševikai, bermontininkai ar lenkai. Paaiškinimai pasirodys po tikrinimo.</p>
-    <div id="neprikBox" class="space-y-3 text-sm"></div>
-    <button onclick="neprikCheck()" class="bg-red-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
-    <div id="neprikOut" class="text-sm mt-2"></div>
-    <div class="mt-4 bg-red-50 border border-red-100 rounded-xl p-3 text-xs leading-relaxed">
-      <b>Kaip atsiminti lengvai:</b> 1918–1919 — <b>bolševikai</b> (Vilnius 1919-01-05, Litbelas, išvyti 1919 rugpjūtį) →
-      1919 ruduo — <b>bermontininkai</b> (Radviliškis 1919-11-21–22, vadai Žukauskas ir Ladiga) →
-      1920 — <b>lenkai</b> (Maskvos taika 07-12 pripažįsta Vilnių, Suvalkai 10-07, Želigovskis 10-09 užima Vilnių, Giedraičiai 11-17–21 sustabdo lenkus).
-      Asmenybės: Voldemaras (pirmoji Vyriausybė), Žukauskas, Plechavičius, Pilsudskis, Želigovskis, Bermondtas-Avalovas.
+  <div class="bg-white border-2 border-sky-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">6. Deduction – must / can't / may</h3>
+    <p class="text-xs text-slate-500 mb-2">Rephrase the sentences (textbook exercises 4–6).</p>
+    <div id="deductBox" class="space-y-3 text-sm"></div>
+    <button onclick="deductCheck()" class="bg-sky-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Check</button>
+    <div id="deductOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-sky-50 border border-sky-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Pattern:</b> I'm sure… is → <b>must be</b> • I'm sure… is not → <b>can't be</b> • It's possible… → <b>may</b> •
+      The past: was/were sure → <b>must have been</b> • impossible → <b>can't have</b> • possible → <b>may have</b>.
     </div>
   </div>
 
-  <div class="bg-white border-2 border-blue-200 rounded-2xl p-5 md:col-span-2">
-    <h3 class="font-extrabold">7. Antantė vs Trilypė sąjunga: priskirk valstybes</h3>
-    <p class="text-xs text-slate-500 mb-2">Parink kiekvienai valstybei teisingą bloką. Paaiškinimai pasirodys po tikrinimo.</p>
-    <div id="blokasBox" class="space-y-3 text-sm"></div>
-    <button onclick="blokasCheck()" class="bg-blue-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
-    <div id="blokasOut" class="text-sm mt-2"></div>
-    <div class="mt-4 bg-blue-50 border border-blue-100 rounded-xl p-3 text-xs leading-relaxed">
-      <b>Kaip atsiminti:</b> <b>Antantė</b> = Prancūzija + Rusija + Britanija (+ Serbija, Belgija, Japonija, vėliau Italija nuo 1915 ir JAV nuo 1917).
-      <b>Trilypė / Centrinės</b> = Vokietija + Austrija-Vengrija (+ Osmanų imperija ir Bulgarija kare). Italija pradėjo Trilypėje, bet perėjo pas Antantę.
+  <div class="bg-white border-2 border-sky-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">7. Choose the modal verb</h3>
+    <p class="text-xs text-slate-500 mb-2">Complete each sentence with the correct modal verb (textbook exercises 2, 3, 5, 6).</p>
+    <div id="gapBox" class="space-y-3 text-sm"></div>
+    <button onclick="gapCheck()" class="bg-sky-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Check</button>
+    <div id="gapOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-sky-50 border border-sky-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Think first:</b> sure? → <b>must</b> • sure NOT / impossible? → <b>can't</b> • perhaps? → <b>may/might</b> •
+      forbidden? → <b>mustn't</b> • one success in the past? → <b>was/were able to</b> • useless action? → <b>needn't have</b>.
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-sky-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">8. Modal functions – which modal?</h3>
+    <p class="text-xs text-slate-500 mb-2">Permission, requests, advice, ability, offers, criticism – pick by function.</p>
+    <div id="funcBox" class="space-y-3 text-sm"></div>
+    <button onclick="funcCheck()" class="bg-sky-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Check</button>
+    <div id="funcOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-sky-50 border border-sky-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Functions:</b> permission Can (informal) → May (formal) • requests Can → Could → May/Might •
+      advice should, STRONG advice must • ability can/could/was able to • offers Shall • criticism should have.
     </div>
   </div>
 
   <div class="bg-white border-2 border-emerald-200 rounded-2xl p-5 md:col-span-2">
-    <h3 class="font-extrabold">8. Maskvos taika ir karo žemėlapis</h3>
-    <p class="text-xs text-slate-500 mb-2">Sutarties sąlygos ir legendos skaitymas. Paaiškinimai pasirodys po tikrinimo.</p>
-    <div id="sutartisBox" class="space-y-3 text-sm"></div>
-    <button onclick="sutartisCheck()" class="bg-emerald-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
-    <div id="sutartisOut" class="text-sm mt-2"></div>
+    <h3 class="font-extrabold">9. Ekonomika: pasirinkimai, stygius, kaštai</h3>
+    <p class="text-xs text-slate-500 mb-2">Alternatyvieji kaštai, ištekliai, turtas. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="ekoBox" class="space-y-3 text-sm"></div>
+    <button onclick="ekoCheck()" class="bg-emerald-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="ekoOut" class="text-sm mt-2"></div>
     <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-xs leading-relaxed">
-      <b>Kaip atsiminti sutartį:</b> <b>PSAB</b> – Pripažinimas visiems laikams, Sienos (Vilnius Lietuvai), Auksas (3 mln.) + Archyvai, Belaisviai ir optacija.
-      <b>Žemėlapį skaityk per legendą:</b> ištisinės linijos = prasiveržimo ribos, X = mūšiai, brūkšniavimas = okupacija.
+      <b>Raktai:</b> kaštai = geriausia prarasta alternatyva • stygius: norai ∞, ištekliai riboti •
+      ištekliai ŽGKV (žmonės, gamta, kapitalas, verslumas) • pinigai – NE kapitalas.
     </div>
   </div>
 
-  <div class="bg-white border-2 border-violet-200 rounded-2xl p-5 md:col-span-2">
-    <h3 class="font-extrabold">9. Pilietiškumas: LR Konstitucija</h3>
-    <p class="text-xs text-slate-500 mb-2">Apibrėžimai, datos ir laiko juosta. Paaiškinimai pasirodys po tikrinimo.</p>
-    <div id="pilietBox" class="space-y-3 text-sm"></div>
-    <button onclick="pilietCheck()" class="bg-violet-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
-    <div id="pilietOut" class="text-sm mt-2"></div>
-    <div class="mt-4 bg-violet-50 border border-violet-100 rounded-xl p-3 text-xs leading-relaxed">
-      <b>Raktai:</b> Konstitucija = pagrindinis įstatymas (teisės + valdžios sąranga), LR – 1992-10-25 referendumas.
-      Pirmosios: JAV 1787, ATR 1791-05-03, Prancūzija 1791-09-03.
-      Lietuva: <b>D – A – A – D</b> (1922 demokratinė → 1928 autoritarinė → 1938 autoritarinė → 1992 demokratinė).
+  <div class="bg-white border-2 border-emerald-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">10. Ekonomika: sistemos, GGK, mikro/makro</h3>
+    <p class="text-xs text-slate-500 mb-2">Tradicinė / rinkos / komandinė, GGK taškai, situacijos. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="sisBox" class="space-y-3 text-sm"></div>
+    <button onclick="sisCheck()" class="bg-emerald-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="sisOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-emerald-50 border border-emerald-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Raktai:</b> tradicinė – tradicijos, rinkos – pelnas, komandinė – planas •
+      GGK: ant – efektyvi, po – neefektyvi, virš – neįmanoma • asmuo – mikro, šalis – makro.
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-lime-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">11. Biologija: DNR ir chromosomos</h3>
+    <p class="text-xs text-slate-500 mb-2">Sandara, poros, replikacija, kariotipas. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="dnrBox" class="space-y-3 text-sm"></div>
+    <button onclick="dnrCheck()" class="bg-lime-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="dnrOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-lime-50 border border-lime-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Raktai:</b> nukleotidas = bazė + cukrus + fosfatas • poros A–T, C–G •
+      helikazė atidaro, polimerazė stato • 46 = 44 + XX/XY • 2n somatinės, n lytinės (23).
+    </div>
+  </div>
+
+  <div class="bg-white border-2 border-lime-200 rounded-2xl p-5 md:col-span-2">
+    <h3 class="font-extrabold">12. Biologija: mutacijos</h3>
+    <p class="text-xs text-slate-500 mb-2">Apibrėžimas, mutagenai, skaičiaus ir genų mutacijos. Paaiškinimai pasirodys po tikrinimo.</p>
+    <div id="mutBox" class="space-y-3 text-sm"></div>
+    <button onclick="mutCheck()" class="bg-lime-700 text-white px-6 py-2 rounded-xl font-bold mt-3">Tikrinti</button>
+    <div id="mutOut" class="text-sm mt-2"></div>
+    <div class="mt-4 bg-lime-50 border border-lime-100 rounded-xl p-3 text-xs leading-relaxed">
+      <b>Raktai:</b> mutacija = negrįžtamas pokytis • mutagenai: fiziniai (UV), cheminiai (kancerogenai), biologiniai (virusai) •
+      Dauno – 47, poliploidija – rinkinys, albinizmas – genas.
     </div>
   </div>
 
 </div>
-<div class="flex justify-center gap-3 mt-6"><a href="testas.html" class="bg-white border px-6 py-2 rounded-full font-bold">← Testas</a><a href="index.html" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Į pradžią →</a></div>
+<div class="flex justify-center gap-3 mt-6"><a href="testas.html" id="footTest" class="bg-white border px-6 py-2 rounded-full font-bold">← Testas</a><a href="index.html" id="footHome" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Į pradžią →</a></div>
 </main>
 <script>
 // 1. Chronologija
-const chronoEvents=[{t:"I pasaulinis karas",y:1914},{t:"Rusijos revoliucija (Leninas)",y:1917},{t:"Lietuvos nepriklausomybė 02-16",y:1918.12},{t:"Bolševikai užima Vilnių 01-05",y:1919.01},{t:"Paryžiaus konferencija + Versalis",y:1919.5},{t:"Bolševikai išvyti (rugpjūtis)",y:1919.65},{t:"Radviliškio pergalė 11-22",y:1919.89},{t:"Maskvos taika 07-12",y:1920.53},{t:"Suvalkų sutartis 10-07",y:1920.76},{t:"Želigovskis užima Vilnių 10-09",y:1920.77},{t:"Giedraičiai 11-17–21",y:1920.88},{t:"Musolinis Italijoje",y:1922}];
+const chronoEvents=[{t:"Rinkimai į Steigiamąjį Seimą",y:1920.29},{t:"Pirmasis posėdis 05-15 + proklamavimas",y:1920.37},{t:"Lietuva Tautų Sąjungoje",y:1921.72},{t:"Žemės reforma",y:1922.12},{t:"1922 Konstitucija 08-01",y:1922.58},{t:"Litas",y:1922.75},{t:"I Seimas",y:1922.85},{t:"Klaipėdos sukilimas 01 mėn.",y:1923.03},{t:"II Seimas (1923–1926)",y:1923.5},{t:"III Seimas + perversmas",y:1926.9},{t:"IV Seimas (1936)",y:1936.5}];
 let chronoOrder=[], chronoPick=[];
 function chronoReset(){chronoOrder=[...chronoEvents].sort(()=>Math.random()-0.5);chronoPick=[];renderChrono();}
 function renderChrono(){
@@ -153,7 +186,7 @@ function chronoCheck(){
 chronoReset();
 
 // 2. Datos
-const matchData=[{d:"1914–1918",e:"I pasaulinis karas",opts:["I pasaulinis karas","Tautų Sąjunga","Čekoslovakijos konstitucija"]},{d:"1919",e:"Paryžiaus konferencija / Versalis",opts:["Musolinis","Paryžiaus konferencija / Versalis","Hitleris"]},{d:"1919–1946",e:"Tautų Sąjunga",opts:["Tautų Sąjunga","SSRS įkūrimas","II pasaulinis karas"]},{d:"1920",e:"Čekoslovakijos konstitucija",opts:["Čekoslovakijos konstitucija","Versalio sutartis","Krizė"]},{d:"1917 / 1922 / 1933",e:"Leninas / Musolinis / Hitleris",opts:["Vilsonas / Masaryk","Leninas / Musolinis / Hitleris","Stalinas / Čerčilis"]},{d:"1919-01-05",e:"Bolševikai užima Vilnių",opts:["Bolševikai užima Vilnių","Radviliškio mūšis","Giedraičių mūšis"]},{d:"1919-11-21–22",e:"Radviliškio mūšis",opts:["Radviliškio mūšis","Želigovskio maištas","Maskvos taika"]},{d:"1920-07-12",e:"Maskvos taikos sutartis",opts:["Maskvos taikos sutartis","Suvalkų sutartis","Versalio sutartis"]},{d:"1920-10-09",e:"Želigovskis užima Vilnių",opts:["Želigovskis užima Vilnių","Bolševikai išvyti","Bermontininkai išvyti"]}];
+const matchData=[{d:"1920-04",e:"Rinkimai į Steigiamąjį Seimą",opts:["Rinkimai į Steigiamąjį Seimą","Litas","Klaipėdos sukilimas"]},{d:"1920-05-15",e:"Pirmasis posėdis + proklamavimas",opts:["Pirmasis posėdis + proklamavimas","Konstitucija","Perversmas"]},{d:"1921-09-22",e:"Lietuva įstoja į Tautų Sąjungą",opts:["Lietuva įstoja į Tautų Sąjungą","Litas","IV Seimas"]},{d:"1922-08-01",e:"1922 m. Konstitucija",opts:["1922 m. Konstitucija","Žemės reforma","Klaipėdos sukilimas"]},{d:"1922-10",e:"Litas",opts:["Litas","Proklamavimas","Perversmas"]},{d:"1923-01",e:"Klaipėdos sukilimas",opts:["Klaipėdos sukilimas","Rinkimai","Konstitucija"]},{d:"1923–1926",e:"II Seimas",opts:["II Seimas","I Seimas","IV Seimas"]},{d:"1926–1927",e:"III Seimas",opts:["III Seimas","II Seimas","I Seimas"]},{d:"1936",e:"IV Seimas",opts:["IV Seimas","III Seimas","II Seimas"]}];
 function renderMatch(){
   const b=document.getElementById('matchBox');b.innerHTML='';
   matchData.forEach((m,i)=>{const row=document.createElement('div');row.className='flex items-center gap-2';row.innerHTML=`<span class="font-bold w-28">${m.d}</span>`;const sel=document.createElement('select');sel.id='match'+i;sel.className='flex-1 border rounded-lg px-2 py-1';const shuffled=[...m.opts].sort(()=>Math.random()-0.5);sel.innerHTML='<option value="">— rinkis —</option>'+shuffled.map(o=>`<option>${o}</option>`).join('');row.appendChild(sel);b.appendChild(row);});
@@ -177,34 +210,24 @@ renderMatch();
 
 // 3. T/K
 const tfData=[
-{t:"I pasaulinis karas vyko 1914–1918 m.",v:true},
-{t:"Kare kariavo Antantė prieš Trilypės sąjungą.",v:true},
-{t:"Karas įtraukė mažiau nei 5 valstybes.",v:false},
-{t:"Paryžiaus konferencija vyko 1919 m.",v:true},
-{t:"Versalio sutartis pasirašyta su Rusija.",v:false},
-{t:"Tautų Sąjunga veikė 1919–1946 m.",v:true},
-{t:"Tautų Sąjungoje dalyvavo JAV.",v:false},
-{t:"Autoritarizme taikomas masinis teroras.",v:false},
-{t:"Totalitarizme kontroliuojama visa visuomenė.",v:true},
-{t:"Čekoslovakijos prezidentas buvo Masaryk.",v:true},
-{t:"Lietuvos Nepriklausomybės kovos vyko 1918–1920 m.",v:true},
-{t:"Pirmas Lietuvos priešas buvo bolševikai.",v:true},
-{t:"Litbelas – Lietuvos kariuomenės dalinys.",v:false},
-{t:"Radviliškio mūšis (1919-11-21–22) – pergalė prieš bermontininkus.",v:true},
-{t:"Maskvos taika (1920-07-12) pripažino Vilnių Lietuvai.",v:true},
-{t:"Suvalkų sutartis paliko Vilnių Lenkijai.",v:false},
-{t:"Želigovskis užėmė Vilnių 1920-10-09.",v:true},
-{t:"Giedraičių mūšyje lietuviai sustabdė lenkus.",v:true},
-{t:"Bolševikai – Lenino vadovaujami Rusijos komunistai.",v:true},
-{t:"Bolševikai siekė prijungti Lietuvą prie Sovietų Rusijos.",v:true},
-{t:"Bermontininkai – Lietuvos savanoriai.",v:false},
-{t:"Bermontininkams vadovavo Bermondtas, juos rėmė Vokietija.",v:true},
-{t:"Maskvos taika Rusija atsisakė pretenzijų į Lietuvą visiems laikams.",v:true},
-{t:"Pagal Maskvos taiką Rusija mokėjo 3 mln. aukso rublių.",v:true},
-{t:"Pagal Maskvos taiką Rusija grąžino archyvus ir meno vertybes.",v:true},
-{t:"Nota – oficialus vyriausybės raštas kitai valstybei.",v:true},
-{t:"Demarkacijos linija – nuolatinė valstybės siena.",v:false},
-{t:"S. Žukauskas – Lietuvos kariuomenės vadas.",v:true}];
+{t:"Steigiamasis Seimas dirbo 1920–1922 m. Kaune.",v:true},
+{t:"Tai buvo pirmasis nepriklausomos Lietuvos parlamentas.",v:true},
+{t:"Seimo pirmininkas buvo A. Smetona.",v:false},
+{t:"Prezidentas Steigiamojo Seimo laikais buvo A. Smetona.",v:true},
+{t:"1920 m. rinkimuose dalyvavo apie 90% rinkėjų.",v:true},
+{t:"Dabar Lietuvoje rinkimai vyksta tik pagal partijų sąrašus.",v:false},
+{t:"Steigiamasis Seimas priėmė apie 300 teisės aktų.",v:true},
+{t:"Litas įvestas Steigiamojo Seimo sprendimu.",v:true},
+{t:"De jure – tai laikinas valstybės pripažinimas.",v:false},
+{t:"Žemės reformos tikslas – stambūs dvarai.",v:false},
+{t:"Parlamentiniame valdyme centras – prezidentas.",v:false},
+{t:"I Seimo rinkimus laimėjo krikščionių demokratų blokas.",v:true},
+{t:"II Seimas dirbo visą Konstitucijos nustatytą laiką.",v:true},
+{t:"III Seimas panaikino karo padėtį, mirties bausmę ir cenzūrą.",v:true},
+{t:"IV Seimas (1936) išrinktas demokratiškai.",v:false},
+{t:"Klaipėdos kraštas prijungtas 1923 m. sausio sukilimu.",v:true},
+{t:"G. Petkevičaitė-Bitė buvo vyriausia parlamentarė.",v:true},
+{t:"Tautininkų sąjunga turėjo didelį visuomenės palaikymą.",v:false}];
 function renderTF(){
   const b=document.getElementById('tfBox');b.innerHTML='';
   tfData.forEach((q,i)=>{const r=document.createElement('div');r.id='tfRow'+i;r.className='flex items-center gap-2 bg-slate-50 border rounded-xl p-2';r.innerHTML=`<span class="flex-1">${i+1}. ${q.t}</span><button onclick="tfSet(${i},true)" id="tfT${i}" class="px-3 py-1 rounded-full border text-xs font-bold">T</button><button onclick="tfSet(${i},false)" id="tfF${i}" class="px-3 py-1 rounded-full border text-xs font-bold">K</button><span id="tfMark${i}" class="text-xs font-bold w-24 text-right"></span>`;b.appendChild(r);});
@@ -216,21 +239,17 @@ renderTF();
 
 // 4. Sąvokos
 const defData=[
-{c:"Demokratija",a:"Rinkimai, teisės, daugiapartiškumas",opts:["Rinkimai, teisės, daugiapartiškumas","Vieno valdžia + cenzūra","Visiška kontrolė + teroras"]},
-{c:"Autoritarizmas",a:"Vieno valdžia + cenzūra, be masinio teroro",opts:["Visiška kontrolė + teroras","Vieno valdžia + cenzūra, be masinio teroro","Rinkimai, teisės"]},
-{c:"Totalitarizmas",a:"Visiška kontrolė + masinis teroras",opts:["Visiška kontrolė + masinis teroras","Tik ekonomikos krizė","Neutralitetas"]},
-{c:"Militarizmas",a:"Ginklavimosi politika",opts:["Ginklavimosi politika","Taikos judėjimas","Nusiginklavimas"]},
-{c:"Reparacijos",a:"Karo žalos atlyginimas",opts:["Karo žalos atlyginimas","Kultūros mainai","Prekybos sąjunga"]},
-{c:"Litbelas",a:"Lietuvos–Baltarusijos TSR (bolševikų marionetė)",opts:["Lietuvos–Baltarusijos TSR (bolševikų marionetė)","Lietuvos kariuomenės štabas","Lenkijos provincija"]},
-{c:"Bolševikai",a:"Lenino Rusijos komunistai, siekę sovietų valdžios",opts:["Lenino Rusijos komunistai, siekę sovietų valdžios","Lietuvos savanoriai 1918 m.","Lenkijos legionai"]},
-{c:"Bermontininkai",a:"Bermondto Vakarų Rusijos armija",opts:["Bermondto Vakarų Rusijos armija","Lietuvos savanoriai","Lenkijos legionai"]},
-{c:"Bermondto rėmėjas",a:"Vokietija (ginklai, pinigai, instruktoriai)",opts:["Vokietija (ginklai, pinigai, instruktoriai)","Prancūzija","Tautų Sąjunga"]},
-{c:"Demarkacinė linija",a:"Laikina skiriamoji linija tarp kariuomenių",opts:["Laikina skiriamoji linija tarp kariuomenių","Nuolatinė siena","Geležinkelio linija"]},
-{c:"Maskvos taika",a:"1920-07-12 Rusija pripažino Lietuvą su Vilniumi",opts:["1920-07-12 Rusija pripažino Lietuvą su Vilniumi","1920-10-07 sutartis su Lenkija","1919 Versalis su Vokietija"]},
-{c:"Suvalkų sutartis",a:"1920-10-07 Vilnius paliktas Lietuvai",opts:["1920-10-07 Vilnius paliktas Lietuvai","1920-07-12 taika su Rusija","1919 taika su Vokietija"]},
-{c:"Nota",a:"Oficialus vyriausybės raštas kitai valstybei",opts:["Oficialus vyriausybės raštas kitai valstybei","Taikos sutartis","Karinis įsakymas"]},
-{c:"Optacija",a:"Teisė pasirinkti pilietybę",opts:["Teisė pasirinkti pilietybę","Karo mokestis","Sienos linija"]},
-{c:"S. Žukauskas",a:"Lietuvos kariuomenės vadas",opts:["Lietuvos kariuomenės vadas","Lenkijos generolas","Bermontininkų vadas"]}];
+{c:"Steigiamasis Seimas",a:"1920–1922 m. pirmasis Lietuvos parlamentas",opts:["1920–1922 m. pirmasis Lietuvos parlamentas","1926 m. perversmo vyriausybė","Tautų Sąjungos taryba"]},
+{c:"Koalicija",a:"Partijų sąjunga bendram tikslui",opts:["Partijų sąjunga bendram tikslui","Viena partija","Seimo rūmai"]},
+{c:"De jure",a:"Teisiškas oficialus valstybės pripažinimas",opts:["Teisiškas oficialus valstybės pripažinimas","Laikinas pripažinimas","Karinė pagalba"]},
+{c:"Parlamentinis valdymas",a:"Parlamentas – centras, renka prezidentą",opts:["Parlamentas – centras, renka prezidentą","Prezidento diktatūra","Karaliaus valdžia"]},
+{c:"Žemės reforma",a:"Tvirtas ūkis iš smulkių ir vidutinių ūkių",opts:["Tvirtas ūkis iš smulkių ir vidutinių ūkių","Žemė tik dvarininkams","Ūkių panaikinimas"]},
+{c:"Proklamavimas",a:"Nepriklausomybės paskelbimas 1920-05-15",opts:["Nepriklausomybės paskelbimas 1920-05-15","Karo paskelbimas","Seimo paleidimas"]},
+{c:"Cenzūra",a:"Spaudos kontrolė (panaikinta III Seimo)",opts:["Spaudos kontrolė (panaikinta III Seimo)","Rinkimų sistema","Pinigų reforma"]},
+{c:"Karo padėtis",a:"Ypatingas valstybės režimas (atšauktas III Seimo)",opts:["Ypatingas valstybės režimas (atšauktas III Seimo)","Taikos sutartis","Rinkimų kampanija"]},
+{c:"Direktorija",a:"Vietos administracija Klaipėdos krašte",opts:["Vietos administracija Klaipėdos krašte","Lietuvos partija","Karinis dalinys"]},
+{c:"Ambasadorių konferencija",a:"Santarvės organas, sprendęs krašto likimą",opts:["Santarvės organas, sprendęs krašto likimą","Prekybos sąjunga","Karinis štabas"]},
+{c:"Agitacija",a:"Rinkimų propaganda: plakatai, spauda, kunigai",opts:["Rinkimų propaganda: plakatai, spauda, kunigai","Balsų skaičiavimas","Seimo posėdžiai"]}];
 function renderDef(){
   const b=document.getElementById('defBox');b.innerHTML='';
   defData.forEach((d,i)=>{const r=document.createElement('div');r.className='flex items-center gap-2';r.innerHTML=`<span class="font-bold w-32">${d.c}</span>`;const s=document.createElement('select');s.id='def'+i;s.className='flex-1 border rounded-lg px-2 py-1';const shuffled=[...d.opts].sort(()=>Math.random()-0.5);s.innerHTML='<option value="">— rinkis —</option>'+shuffled.map(o=>`<option>${o}</option>`).join('');r.appendChild(s);b.appendChild(r);});
@@ -239,11 +258,16 @@ function renderDef(){
 function defCheck(){let s=0;const wrong=[];defData.forEach((d,i)=>{const el=document.getElementById('def'+i);const v=el.value;const ok=v===d.a;if(ok)s++;el.classList.remove('border-emerald-500','bg-emerald-50','border-red-500','bg-red-50','border-amber-400');if(!v){el.classList.add('border-amber-400');wrong.push(`<div class="px-2 py-1 rounded-lg bg-amber-50 text-amber-800">○ ${d.c}: nepasirinkai. Teisingai: <b>${d.a}</b></div>`);}else if(ok){el.classList.add('border-emerald-500','bg-emerald-50');}else{el.classList.add('border-red-500','bg-red-50');wrong.push(`<div class="px-2 py-1 rounded-lg bg-red-50 text-red-800">✗ ${d.c}: tu – <b>${v}</b> | teisingai – <b>${d.a}</b></div>`);}});document.getElementById('defOut').innerHTML=`<b>${s}/${defData.length}</b> `+(s===defData.length?'<span class="text-emerald-600 font-bold">✓ Puiku!</span>':'<span class="text-amber-600">Klaidos:</span>')+(wrong.length?'<div class="mt-2 space-y-1 text-xs">'+wrong.join('')+'</div>':'');}
 renderDef();
 
-// 5. Karikatūros
+// 5. Asmenybės ir partijos
 const cartData=[
-{q:"Ką simbolizuoja trūkstama „USA“ lenta „Plyšio tilte“?",opts:["JAV nedalyvavimas silpnina Tautų Sąjungą","JAV stato naują tiltą","Tiltas baigtas"],a:0},
-{q:"Ką laiko Vilsonas karikatūroje su balandžiu?",opts:["Alyvos šakelę – taikos simbolį","Kardą","Pinigus"],a:0},
-{q:"Ką reiškia „League of Nations + Idealism“ maišymas?",opts:["Priekaištas, kad Sąjunga – tik idealistinis mišinys be jėgos","Gyrimas už stiprumą","Neutralus aprašymas"],a:0}];
+{q:"Kas buvo Aleksandras Stulginskis?",opts:["Seimo pirmininkas, skelbė proklamavimą","Tautininkų lyderis","Ministras pirmininkas"],a:0},
+{q:"Kas buvo Antanas Smetona?",opts:["Prezidentas, tautininkų lyderis","Seimo pirmininkas","Ministras pirmininkas"],a:0},
+{q:"Kas buvo Gabrielė Petkevičaitė-Bitė?",opts:["Vyriausia parlamentarė, pirmasis posėdis","Premjerė","Ministrė"],a:0},
+{q:"Kas buvo Ernestas Galvanauskas?",opts:["Ministras pirmininkas (I ir II Seimo)","Prezidentas","Seimo pirmininkas"],a:0},
+{q:"Kas buvo Mykolas Krupavičius?",opts:["Krikščionių demokratų lyderis","Tautininkas","Socialdemokratas"],a:0},
+{q:"Kas buvo Augustinas Voldemaras?",opts:["Tautininkų lyderis","Krikdemas","Liaudininkas"],a:0},
+{q:"Kas buvo Mykolas Sleževičius?",opts:["Valstiečių liaudininkų lyderis","Krikdemas","Tautininkas"],a:0},
+{q:"Kas buvo Kazys Grinius?",opts:["Prezidentas III Seimo laikais","Premjeras I Seimo","Seimo pirmininkas"],a:0}];
 function renderCart(){
   const b=document.getElementById('cartBox');b.innerHTML='';window._cartMap=[];window._cartOpts=[];
   cartData.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window._cartMap[i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window._cartOpts[i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="cart${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="cartExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
@@ -251,118 +275,155 @@ function renderCart(){
 }
 function cartCheck(){
   let s=0;cartData.forEach((c,i)=>{const sel=document.querySelector(`input[name="cart${i}"]:checked`);const expEl=document.getElementById('cartExp'+i);const correctIdx=window._cartMap[i];const correctText=window._cartOpts[i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span>';}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ Nepasirinkai.</span> Teisingas: <b>${correctText}</b>`;}else{const yourText=window._cartOpts[i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ Klaida.</span> Tavo: <b>${yourText}</b> | Teisingas: <b>${correctText}</b>`;}});
-  document.getElementById('cartOut').innerHTML=`<b>${s}/${cartData.length}</b> `+(s===cartData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, supranti karikatūras!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau.</span>');
+  document.getElementById('cartOut').innerHTML=`<b>${s}/${cartData.length}</b> `+(s===cartData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki asmenybes!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau.</span>');
 }
 renderCart();
 
-// 6. Nepriklausomybės karas
-const neprikData=[
-{q:"Vilniaus užėmimas 1919-01-05, Litbelas",a:"Bolševikai",exp:"Sovietų Rusija puolė pirma. Vyriausybė pasitraukė į Kauną."},
-{q:"Zarasų išvadavimas 1919 rugpjūtis – priešas išvytas",a:"Bolševikai",exp:"Kovos su bolševikais baigėsi 1919 m. vasaros pabaigoje."},
-{q:"Radviliškio mūšis 1919-11-21–22",a:"Bermontininkai",exp:"Kazys Ladiga sutriuškino Bermondto armiją. Iki gruodžio bermontininkai išvyti."},
-{q:"Šiaulių gynimas 1919 rudenį",a:"Bermontininkai",exp:"Bermontininkai veržėsi į Šiaurės Lietuvą – sustabdyti prie Radviliškio."},
-{q:"Suvalkų sutartis 1920-10-07 – sulaužyta po 2 dienų",a:"Lenkai",exp:"Lenkija sutartį sulaužė Želigovskio maištu."},
-{q:"Vilniaus užėmimas 1920-10-09, Vidurinė Lietuva",a:"Lenkai",exp:"Generolas Želigovskis veikė Pilsudskio įsakymu."},
-{q:"Giedraičių mūšis 1920-11-17–21 – lenkų sustabdymas",a:"Lenkai",exp:"Lietuviai sustabdė lenkus, po to paliaubos 1920-11-29."},
-{q:"Maskvos taika 1920-07-12 – Vilnius pripažintas Lietuvai",a:"Bolševikai",exp:"Sutartis su Sovietų Rusija – teisinis pripažinimas, bet Vilnių netrukus užėmė lenkai."}];
-function renderNeprik(){
-  const b=document.getElementById('neprikBox');if(!b)return;b.innerHTML='';
-  neprikData.forEach((c,i)=>{const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+["Bolševikai","Bermontininkai","Lenkai"].map(o=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="neprik${i}" value="${o}" class="mr-1">${o}</label>`).join('')+`</div><div id="neprikExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
-  document.getElementById('neprikOut').innerHTML='';
-}
-function neprikCheck(){
-  let s=0;neprikData.forEach((c,i)=>{const sel=document.querySelector(`input[name="neprik${i}"]:checked`);const expEl=document.getElementById('neprikExp'+i);if(sel&&sel.value===c.a){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else{expEl.innerHTML='<span class="text-red-600 font-bold">✗ Teisingas: '+c.a+'.</span> '+c.exp;}});
-  document.getElementById('neprikOut').innerHTML=`<b>${s}/${neprikData.length}</b> `+(s===neprikData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki Nepriklausomybės karą!</span>':'<span class="text-amber-600">Pakartok: bolševikai → bermontininkai → lenkai.</span>');
-}
-renderNeprik();
 
-// 7. Antantė vs Trilypė sąjunga
-const blokasData=[
-{q:"Prancūzija",a:"Antantė",exp:"Antantės branduolys kartu su Rusija ir Britanija."},
-{q:"Rusija",a:"Antantė",exp:"Antantės branduolys. Iš karo pasitraukė po 1917 revoliucijos."},
-{q:"Didžioji Britanija",a:"Antantė",exp:"Antantės branduolys."},
-{q:"Serbija",a:"Antantė",exp:"Antantės pusėje – karas prasidėjo nuo Austrijos ultimatumo Serbijai."},
-{q:"Belgija",a:"Antantė",exp:"Antantės pusėje – Vokietija pažeidė jos neutralumą 1914 m."},
-{q:"Italija (nuo 1915 m.)",a:"Antantė",exp:"Formaliai buvo Trilypėje, bet 1915 m. perėjo į Antantės pusę."},
-{q:"JAV (nuo 1917 m.)",a:"Antantė",exp:"1917 m. prisijungė prie Antantės."},
-{q:"Vokietija",a:"Trilypė / Centrinės",exp:"Trilypės sąjungos ir Centrinių valstybių lyderė."},
-{q:"Austrija-Vengrija",a:"Trilypė / Centrinės",exp:"Trilypės narė, karą pradėjo prieš Serbiją."},
-{q:"Osmanų imperija (Turkija)",a:"Trilypė / Centrinės",exp:"Prie Centrinių prisijungė 1914 m."},
-{q:"Bulgarija",a:"Trilypė / Centrinės",exp:"Prie Centrinių prisijungė 1915 m."}];
-function renderBlokas(){
-  const b=document.getElementById('blokasBox');if(!b)return;b.innerHTML='';
-  blokasData.forEach((c,i)=>{const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+["Antantė","Trilypė / Centrinės"].map(o=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="blokas${i}" value="${o}" class="mr-1">${o}</label>`).join('')+`</div><div id="blokasExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
-  document.getElementById('blokasOut').innerHTML='';
-}
-function blokasCheck(){
-  let s=0;blokasData.forEach((c,i)=>{const sel=document.querySelector(`input[name="blokas${i}"]:checked`);const expEl=document.getElementById('blokasExp'+i);if(sel&&sel.value===c.a){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else{expEl.innerHTML='<span class="text-red-600 font-bold">✗ Teisingas: '+c.a+'.</span> '+c.exp;}});
-  document.getElementById('blokasOut').innerHTML=`<b>${s}/${blokasData.length}</b> `+(s===blokasData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki blokus!</span>':'<span class="text-amber-600">Pakartok: Antantė = PR + RU + GB, Trilypė = VOK + AUS-VENG.</span>');
-}
-renderBlokas();
 
-// 8. Maskvos taika ir karo žemėlapis
-const sutartisData=[
-{q:"Ką reiškia, kad Rusija pripažino Lietuvą „visiems laikams“?",opts:["Daugiau niekada nebereikš pretenzijų į Lietuvą","Pripažinimas galioja 10 metų","Lietuva tampa Rusijos dalimi","Pripažįstamas tik Kaunas"],a:0,exp:"„Visiems laikams“ – Rusija visam laikui atsisakė teisių į Lietuvos teritoriją ir žmones."},
-{q:"Kiek aukso rublių Rusija įsipareigojo sumokėti Lietuvai?",opts:["3 milijonus","300 tūkstančių","30 milijonų","Nieko"],a:0,exp:"3 mln. aukso rublių – karo nuostolių atlyginimas."},
-{q:"Ką Rusija grąžino Lietuvai pagal sutartį?",opts:["Archyvus, bibliotekas ir meno vertybes","Tik ginklus","Tik pinigus","Nieko negrąžino"],a:0,exp:"Grąžinamas per karą išvežtas archyvų, bibliotekų ir mokslo įstaigų turtas."},
-{q:"Kas yra optacija Maskvos taikoje?",opts:["Gyventojų teisė pasirinkti Lietuvos pilietybę","Karo mokestis","Sienos nustatymas","Kariuomenės paradai"],a:0,exp:"Optacija – teisė pasirinkti (optuoti) Lietuvos pilietybę."},
-{q:"Žemėlapis: ką rodo bolševikų prasiveržimo riba?",opts:["Liniją, iki kurios šiaurėje buvo įsiveržę bolševikai","Lietuvos ir Latvijos sieną","Suvalkų liniją","Vokietijos zoną"],a:0,exp:"Prasiveržimo riba = giliausia priešo įsiveržimo linija."},
-{q:"Žemėlapis: ką rodo bermontininkų prasiveržimo riba?",opts:["Liniją, iki kurios veržėsi bermontininkai (Šiaulių kryptis)","Lenkijos sieną","Maskvos taikos sieną","Neutralią zoną"],a:0,exp:"Bermontininkai puolė Šiaurės Lietuvą – sustabdyti prie Radviliškio."},
-{q:"Žemėlapis: ką reiškia X ženklai prie Giedraičių?",opts:["Mūšio vietą","Sostinę","Sienos perėją","Stotį"],a:0,exp:"X legendoje žymi mūšius – Giedraičiai 1920-11-17–21."},
-{q:"Žemėlapis: ką rodo brūkšniuota teritorija?",opts:["Vokietijos užimtas teritorijas","Vilniaus kraštą","Neutralią zoną","Lenkijos sostinę"],a:0,exp:"Brūkšniavimas legendoje (Nr. 7) – Vokietijos užimtos teritorijos."}];
-function renderSutartis(){
-  const b=document.getElementById('sutartisBox');if(!b)return;b.innerHTML='';window._sutartisMap=[];window._sutartisOpts=[];
-  sutartisData.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window._sutartisMap[i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window._sutartisOpts[i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="sutartis${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="sutartisExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
-  document.getElementById('sutartisOut').innerHTML='';
-}
-function sutartisCheck(){
-  let s=0;sutartisData.forEach((c,i)=>{const sel=document.querySelector(`input[name="sutartis${i}"]:checked`);const expEl=document.getElementById('sutartisExp'+i);const correctIdx=window._sutartisMap[i];const correctText=window._sutartisOpts[i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ Nepasirinkai.</span> Teisingas: <b>${correctText}</b>. ${c.exp}`;}else{const yourText=window._sutartisOpts[i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ Klaida.</span> Tavo: <b>${yourText}</b> | Teisingas: <b>${correctText}</b>. ${c.exp}`;}});
-  document.getElementById('sutartisOut').innerHTML=`<b>${s}/${sutartisData.length}</b> `+(s===sutartisData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki sutartį ir žemėlapį!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau. Raktas: PSAB.</span>');
-}
-renderSutartis();
 
-// 9. Pilietiškumas: LR Konstitucija
-const pilietData=[
-{q:"Kas yra konstitucija?",opts:["Pagrindinis valstybės įstatymas","Paprastas nutarimas","Teismo sprendimas"],a:0,exp:"Įtvirtina piliečių teises ir valdžios sąrangą."},
-{q:"Ką nustato konstitucija?",opts:["Teises ir valdžios sąrangą","Tik mokesčius","Tik kariuomenę"],a:0,exp:"Du ramsčiai: žmogaus teisės + valdžios organizavimas."},
-{q:"Kokia konstitucijos galia?",opts:["Aukščiausia","Kaip paprastų įstatymų","Žemiausia"],a:0,exp:"Viršesnė už visus kitus teisės aktus."},
-{q:"Kada priimta LR Konstitucija?",opts:["1992-10-25 referendume","1918-02-16","1990-03-11"],a:0,exp:"Piliečiai priėmė referendume 1992 m. spalio 25 d."},
-{q:"Kas yra referendumas?",opts:["Visuotinė apklausa balsuojant","Seimo posėdis","Teismo procesas"],a:0,exp:"Tiesioginė demokratija: piliečiai balsuoja patys."},
-{q:"Pirmoji pasaulio konstitucija?",opts:["JAV 1787","ATR 1791","Prancūzija 1791"],a:0,exp:"JAV – pirmoji rašytinė pasaulyje."},
-{q:"Pirmoji Europos konstitucija?",opts:["ATR 1791-05-03","Prancūzija 1791-09-03","LT 1922"],a:0,exp:"ATR Gegužės 3-iosios – pirmoji Europoje."},
-{q:"1922 m. LT konstitucija?",opts:["Demokratinė","Autoritarinė","Monarchinė"],a:0,exp:"Pirmoji nuolatinė demokratinė."},
-{q:"1928 ir 1938 m. LT konstitucijos?",opts:["Autoritarinės","Demokratinės","Laikinosios"],a:0,exp:"Įtvirtino Smetonos autoritarinį režimą."},
-{q:"1992 m. LT konstitucija?",opts:["Demokratinė","Autoritarinė","Totalitarinė"],a:0,exp:"Dabartinė demokratinė teisinė valstybė. Raktas D–A–A–D."},
-{q:"JAV konstituciją pirmas pasirašė…",opts:["Vašingtonas (Konvento pirmininkas)","Medisonas","Franklinas"],a:0,exp:"Iš 39 signatarų pirmas – Vašingtonas."},
-{q:"JAV Konstitucijos tėvas…",opts:["Medisonas (projekto autorius)","Vašingtonas","Džefersonas"],a:0,exp:"Medisonas parašė pagrindinį projektą."},
-{q:"ATR karalius 1791 m.…",opts:["S. A. Poniatovskis","Žygimantas Augustas","Vytautas"],a:0,exp:"Paskutinis ATR valdovas, konstitucijos rėmėjas."},
-{q:"ATR konstitucijos autoriai…",opts:["Kolontajus ir Potockis","Kosciuška ir Poniatovskis","Mickevičius ir Valančius"],a:0,exp:"Parengė projektą kartu su karaliumi."},
-{q:"Prancūzijos 1791 konstituciją patvirtino…",opts:["Liudvikas XVI","Napoleonas","Liudvikas XIV"],a:0,exp:"Karalius pritarė ir prisiekė 1791-09-14."},
-{q:"1922 m. konstituciją priėmė…",opts:["Steigiamasis Seimas","Smetona","Tauta referendume"],a:0,exp:"Priėmė Seimas, ne vienas žmogus."},
-{q:"1928/1938 konstitucijas paskelbė…",opts:["Smetona","Stulginskis","Grinius"],a:0,exp:"Abi autoritarinės – Smetonos režimo."},
-{q:"1992 m. konstituciją pasirašė…",opts:["Tauta referendume (niekas asmeniškai)","Prezidentas","Seimo pirmininkas"],a:0,exp:"Vienintelis atvejis be vieno signataro."}];
-function renderPiliet(){
-  const b=document.getElementById('pilietBox');if(!b)return;b.innerHTML='';window._pilietMap=[];window._pilietOpts=[];
-  pilietData.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window._pilietMap[i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window._pilietOpts[i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="piliet${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="pilietExp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
-  document.getElementById('pilietOut').innerHTML='';
-}
-function pilietCheck(){
-  let s=0;pilietData.forEach((c,i)=>{const sel=document.querySelector(`input[name="piliet${i}"]:checked`);const expEl=document.getElementById('pilietExp'+i);const correctIdx=window._pilietMap[i];const correctText=window._pilietOpts[i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ Teisingai.</span> '+c.exp;}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ Nepasirinkai.</span> Teisingas: <b>${correctText}</b>. ${c.exp}`;}else{const yourText=window._pilietOpts[i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ Klaida.</span> Tavo: <b>${yourText}</b> | Teisingas: <b>${correctText}</b>. ${c.exp}`;}});
-  document.getElementById('pilietOut').innerHTML=`<b>${s}/${pilietData.length}</b> `+(s===pilietData.length?'<span class="text-emerald-600 font-bold">✓ Puiku, moki Konstituciją!</span>':'<span class="text-amber-600">Peržiūrėk klaidas aukščiau. Raktas: D–A–A–D.</span>');
-}
-renderPiliet();
 
-// Dalyko perjungimas: istorijos blokai 1–8, pilietiškumo – 9
-function paintDalykasTabs(d){document.getElementById('tabIstorija').className='px-3 py-1.5 rounded-full '+(d==='istorija'?'bg-white shadow':'text-slate-500');document.getElementById('tabPilietiskumas').className='px-3 py-1.5 rounded-full '+(d==='pilietiskumas'?'bg-white shadow':'text-slate-500');document.getElementById('dalykasName').textContent=d==='pilietiskumas'?'— pilietiškumas':'— istorija';}
+// 10–11. Anglų: bendros radio-užduočių funkcijos
+function renderChoiceSet(boxId, outId, data, name){
+  const b=document.getElementById(boxId);if(!b)return;b.innerHTML='';window['_map_'+name]=[];window['_opt_'+name]=[];
+  data.forEach((c,i)=>{const order=c.opts.map((_,j)=>j).sort(()=>Math.random()-0.5);window['_map_'+name][i]=order.indexOf(c.a);const shuffled=order.map(j=>c.opts[j]);window['_opt_'+name][i]=shuffled;const d=document.createElement('div');d.className='bg-slate-50 border rounded-xl p-3';d.innerHTML=`<b>${i+1}. ${c.q}</b><div class="flex flex-wrap gap-2 mt-2">`+shuffled.map((o,j)=>`<label class="bg-white border px-3 py-1 rounded-full text-xs cursor-pointer"><input type="radio" name="${name}${i}" value="${j}" class="mr-1">${o}</label>`).join('')+`</div><div id="${name}Exp${i}" class="text-xs mt-1"></div>`;b.appendChild(d);});
+  document.getElementById(outId).innerHTML='';
+}
+function checkChoiceSet(data, name, outId, goodMsg, LT){
+  let s=0;data.forEach((c,i)=>{const sel=document.querySelector(`input[name="${name}${i}"]:checked`);const expEl=document.getElementById(name+'Exp'+i);const correctIdx=window['_map_'+name][i];const correctText=window['_opt_'+name][i][correctIdx];if(sel&&parseInt(sel.value)===correctIdx){s++;expEl.innerHTML='<span class="text-emerald-600 font-bold">✓ '+(LT?'Teisingai.':'Correct.')+'</span> '+c.exp;}else if(!sel){expEl.innerHTML=`<span class="text-amber-600 font-bold">○ `+(LT?'Nepasirinkai.':'No answer.')+`</span> `+(LT?'Teisingas:':'Correct:')+` <b>${correctText}</b>. ${c.exp}`;}else{const yourText=window['_opt_'+name][i][parseInt(sel.value)];expEl.innerHTML=`<span class="text-red-600 font-bold">✗ `+(LT?'Klaida.':'Wrong.')+`</span> `+(LT?'Tavo:':'Yours:')+` <b>${yourText}</b> | `+(LT?'Teisingas:':'Correct:')+` <b>${correctText}</b>. ${c.exp}`;}});
+  document.getElementById(outId).innerHTML=`<b>${s}/${data.length}</b> `+(s===data.length?'<span class="text-emerald-600 font-bold">✓ '+goodMsg+'</span>':'<span class="text-amber-600">'+(LT?'Peržiūrėk klaidas aukščiau.':'Check your mistakes above.')+'</span>');
+}
+
+// 6. Deduction – must / can't / may
+const deductData=[
+{q:"I'm sure that is not the suspect's car. → ?",opts:["It can't be the suspect's car.","It must be the suspect's car.","It may be the suspect's car."],a:0,exp:"Sure NOT → can't be."},
+{q:"It's possible the detective knows. → ?",opts:["The detective may know.","The detective must know.","The detective can't know."],a:0,exp:"Possible → may."},
+{q:"I think someone changed my password. → ?",opts:["Someone must have changed my password.","Someone can't have changed my password.","Someone mayn't have changed my password."],a:0,exp:"I think so → must have changed."},
+{q:"I'm certain the smuggler has been arrested. → ?",opts:["The smuggler must have been arrested.","The smuggler can't have been arrested.","The smuggler may have been arrested."],a:0,exp:"Certain YES (passive) → must have been arrested."},
+{q:"There's no way she is lying. → ?",opts:["She can't be lying.","She must be lying.","She may be lying."],a:0,exp:"No way = impossible → can't be."},
+{q:"It's possible no crime was committed. → ?",opts:["No crime may have been committed.","No crime must have been committed.","No crime can't have been committed."],a:0,exp:"Possible (passive) → may have been committed."},
+{q:"There ___ an accident. (I can see damaged cars)",opts:["must have been","can't have been","may have driven"],a:0,exp:"I see the result → it certainly happened."},
+{q:"The accident ___ very long ago. (the police are still here)",opts:["can't have happened","must have happened","may have driven"],a:0,exp:"Impossible → can't have happened."}];
+function renderDeduct(){renderChoiceSet('deductBox','deductOut',deductData,'deduct');}
+function deductCheck(){checkChoiceSet(deductData,'deduct','deductOut','Great – you know deduction!');}
+renderDeduct();
+
+// 7. Choose the modal verb
+const gapData=[
+{q:"Someone ___ taken my phone because it's gone.",opts:["must have","can't have","may have"],a:0,exp:"You're sure → must have taken."},
+{q:"The police ___ catch the burglar last night.",opts:["were able to","could","must"],a:0,exp:"One success in the past → were able to."},
+{q:"Who ___ I call to report a fire?",opts:["should","must","may"],a:0,exp:"Asking for advice → should."},
+{q:"I found your phone, so you ___ got a new one.",opts:["can't have","must have","may have"],a:0,exp:"Impossible → can't have got."},
+{q:"You ___ drive a car without a licence.",opts:["mustn't","don't have to","needn't"],a:0,exp:"Forbidden → mustn't."},
+{q:"It ___ been a burglar that smashed the window.",opts:["might have","mustn't have","can't have"],a:0,exp:"Perhaps → might have been."},
+{q:"___ I watch your bag for you?",opts:["Shall","Would","May"],a:0,exp:"An offer → Shall I…?"},
+{q:"The detectives ___ question a few more people.",opts:["need to","must","can"],a:0,exp:"Necessity → need to."},
+{q:"Drivers ___ stop when traffic lights are red.",opts:["must","could","should"],a:0,exp:"The law obliges → must."},
+{q:"Andrea ___ driven that day, but she did.",opts:["needn't have","mustn't have","can't have"],a:0,exp:"Unnecessary but done → needn't have driven."},
+{q:"Jeff ___ seen the crime – he was at home.",opts:["can't have seen","must have seen","may have seen"],a:0,exp:"Impossible → can't have seen."},
+{q:"The owner ___ clean the graffiti off the wall.",opts:["was able to","could always","must"],a:0,exp:"He managed → was able to clean."}];
+function renderGap(){renderChoiceSet('gapBox','gapOut',gapData,'gap');}
+function gapCheck(){checkChoiceSet(gapData,'gap','gapOut','Great - you choose modals like a pro!');}
+renderGap();
+
+// 8. Modal functions – which modal?
+const funcData=[
+{q:"___ I leave my luggage here? (informal permission)",opts:["Can","May","Should"],a:0,exp:"Can = informal permission."},
+{q:"You ___ leave your luggage here. (formal, written)",opts:["may","can","must"],a:0,exp:"May = formal, usually written."},
+{q:"You ___ park here. (a spoken warning)",opts:["can't","may not","shouldn't"],a:0,exp:"Can't/mustn't = spoken. May not = a notice."},
+{q:"___ you help me with this exercise? (informal)",opts:["Can","Might","Must"],a:0,exp:"Can/Will = informal requests."},
+{q:"___ I have one of those leaflets? (very formal)",opts:["Might","Can","Should"],a:0,exp:"Might = a very formal request."},
+{q:"I ___ sign the contract. (my boss decided)",opts:["have to","must","should"],a:0,exp:"Have to = someone else decided."},
+{q:"You ___ revise for your test! (strong advice)",opts:["must","should","could"],a:0,exp:"Must = strong advice."},
+{q:"___ we go out for a meal later? (a suggestion)",opts:["Shall","Will","Must"],a:0,exp:"Shall we…? = a suggestion."},
+{q:"When she was three, she ___ count to ten.",opts:["could","was able to","must"],a:0,exp:"Could = past repeated ability."},
+{q:"___ I help you cross the road? (an offer)",opts:["Shall","Must","Should"],a:0,exp:"Shall I…? = an offer."},
+{q:"He ___ have told her the truth. (criticism)",opts:["should","must","may"],a:0,exp:"Should have = criticism of the past."},
+{q:"She ___ have been late, but she wasn't.",opts:["might","must","can't"],a:0,exp:"Could/might have been = past possibility that didn't happen."}];
+function renderFunc(){renderChoiceSet('funcBox','funcOut',funcData,'func');}
+function funcCheck(){checkChoiceSet(funcData,'func','funcOut','Great – you know the functions!');}
+renderFunc();
+
+// 9. Ekonomika: pasirinkimai, stygius, kaštai
+const ekoData=[
+{q:"Kas yra alternatyvieji kaštai?",opts:["Geriausia alternatyva, kurios atsisakome","Visi mūsų pinigai","Pigiausia prekė"],a:0,exp:"Kaštai = geriausia prarasta alternatyva."},
+{q:"Jonas renkas ekonomiką (norai: ekonomistų, krepšinio…). Kaštai?",opts:["Krepšinio būrelis","Aktorių būrelis","Informatikos būrelis"],a:0,exp:"Antra pagal svarbumą alternatyva."},
+{q:"Pica 4 eur vietoj mėsainio. Picos kaštai?",opts:["Mėsainis","Bandelė su dešra","4 eurai"],a:0,exp:"Skaičiuojama tik geriausia prarasta alternatyva."},
+{q:"Kodėl stygius egzistuoja visur?",opts:["Norai neriboti, ištekliai riboti","Gyventojų per mažai","Sunku vežti prekes"],a:0,exp:"Begaliniai norai prieš ribotus išteklius."},
+{q:"Ką reiškia terminas „stygius“?",opts:["Niekas negali pagaminti tiek, kad patenkintų visus norus","Norai riboti","Jaučia tik neturtingi"],a:0,exp:"Stygių patiria visi."},
+{q:"Kokie 4 gamybos ištekliai?",opts:["Žmogiškieji, gamtos, kapitalo, verslumas","Žemė, pinigai, saulė, bankai","Darbas, vanduo, oras, ugnis"],a:0,exp:"Raktas ŽGKV."},
+{q:"Kas NEPRISKIRTINA kapitalui?",opts:["Pinigai","Fabrikai","Mašinos"],a:0,exp:"Pinigai – ne fizinis kapitalas."},
+{q:"Kas NEPRISKIRTINA gamtos ištekliams?",opts:["Baldai","Miškai","Nafta"],a:0,exp:"Baldai jau pagaminti žmogaus."},
+{q:"Kas yra turtas?",opts:["Tai, kas patenkina poreikį","Tai, kas brangu","Tai, ko turi mažai žmonių"],a:0,exp:"Turtas = naudingumas, ne kaina."},
+{q:"Kas NĖRA investicija į žmogiškąjį kapitalą?",opts:["Kompiuterio pirkimas","Mokymasis","Studijos universitete"],a:0,exp:"Kompiuteris – fizinis kapitalas."}];
+function renderEko(){renderChoiceSet('ekoBox','ekoOut',ekoData,'eko');}
+function ekoCheck(){checkChoiceSet(ekoData,'eko','ekoOut','Puiku, moki kaštus ir išteklius!',true);}
+renderEko();
+
+// 10. Ekonomika: sistemos, GGK, mikro/makro
+const sisData=[
+{q:"Rinkos sistemoje nuosavybė yra:",opts:["Privati","Visuomeninė","Bendroji"],a:0,exp:"Privati nuosavybė – rinkos pagrindas."},
+{q:"Kas skatina veikti rinkoje?",opts:["Pelnas ir savanaudiški interesai","Tradicijos","Planas"],a:0,exp:"Pelnas – rinkos variklis."},
+{q:"Komandinėje sistemoje sprendžia:",opts:["Vyriausybė","Žmonės individualiai","Tradicijos"],a:0,exp:"Komanda iš viršaus – valstybė planuoja."},
+{q:"Potvarkis įšaldo maisto kainas 5 metams. Sistema?",opts:["Komandinė","Mišrioji","Rinkos"],a:0,exp:"Valstybė reguliuoja kainas – komandinė."},
+{q:"Vasarą kalėdiniai papuošimai pigūs, nes nėra paklausos.",opts:["Rinkos","Komandinė","Mišrioji"],a:0,exp:"Kainą lemia paklausa – rinka."},
+{q:"Restorano savininkas nepriima mažų vaikų. Sistema?",opts:["Rinkos","Komandinė","Mišrioji"],a:0,exp:"Privataus verslo sprendimas – rinka."},
+{q:"GGK taškas ANT kreivės rodo:",opts:["Galimą ir efektyvią gamybą","Galimą, bet neefektyvią","Neįmanomą"],a:0,exp:"Ant kreivės = viskas panaudota efektyviai."},
+{q:"Pamoka 45 min: mokytoja 20 min + mokiniai 20 min.",opts:["Galima, bet neefektyvi","Galima ir efektyvi","Neįmanoma"],a:0,exp:"40 iš 45 – lieka 5 min švaistomos (taškas A)."},
+{q:"Pamoka 45 min: mokytoja 25 min + mokiniai 25 min.",opts:["Neįmanoma","Galima ir efektyvi","Galima, bet neefektyvi"],a:0,exp:"50 > 45 – virš kreivės (taškas B)."},
+{q:"Kas efektyviausia: Rokas+fizika, Simas+matematika?",opts:["Ne – atvirkščiai: Rokas matematika, Simas fizika (19)","Taip, šis variantas","Abu vienodai geri"],a:0,exp:"Rokas stipresnis matematikoje, Simas – fizikoje. Iš viso 19 – daugiausia."},
+{q:"„Auga nedarbo lygis šalyje“ – kas tai?",opts:["Makro","Mikro"],a:0,exp:"Visa šalis = makroekonomika."},
+{q:"„Tado tėtis bankrutavo“ – kas tai?",opts:["Mikro","Makro"],a:0,exp:"Vienas asmuo = mikroekonomika."}];
+function renderSis(){renderChoiceSet('sisBox','sisOut',sisData,'sis');}
+function sisCheck(){checkChoiceSet(sisData,'sis','sisOut','Puiku, moki sistemas ir GGK!',true);}
+renderSis();
+
+// 11. Biologija: DNR ir chromosomos
+const dnrData=[
+{q:"Kas yra DNR?",opts:["Paveldima genetinė informacija","Baltymas raumenims","Ląstelės sienelė"],a:0,exp:"DNR neša paveldimą informaciją."},
+{q:"Iš ko sudarytas nukleotidas?",opts:["Bazės, deoksiribozės ir fosfato","Tik iš bazės ir vandens","Iš dviejų baltymų"],a:0,exp:"Bazė + cukrus + fosfatas (P)."},
+{q:"Kokios 4 azotinės bazės?",opts:["Adeninas, timinas, citozinas, guaninas","Adeninas, uracilas, lizinas, valinas","Guaninas, insulinas, timinas, alaninas"],a:0,exp:"A, T, C, G."},
+{q:"Kokios komplementarios poros?",opts:["A–T ir C–G","A–C ir T–G","A–G ir T–C"],a:0,exp:"A su T, C su G – visada."},
+{q:"Purinai ir pirimidinai?",opts:["A,G ilgos / C,T trumpos","C,T ilgos / A,G trumpos","Visos vienodos"],a:0,exp:"Purinai ilgi, pirimidinai trumpi."},
+{q:"Kokia DNR forma?",opts:["Susisukusi dviguba spiralė","Tiesi grandinė","Žiedas"],a:0,exp:"Dvi grandinės susisukusios."},
+{q:"Helikazė ir polimerazė?",opts:["Helikazė išvynioja, polimerazė sujungia","Helikazė sujungia, polimerazė išvynioja","Abu tik sujungia"],a:0,exp:"H atidaro, P stato naujas."},
+{q:"Kiek DNR susidaro po replikacijos?",opts:["2 identiškos","1 kitokia","4 skirtingos"],a:0,exp:"Tiksli kopija – dvi vienodos."},
+{q:"Iš ko sudaryta chromosoma?",opts:["DNR ir baltymų","Tik DNR","Tik baltymų"],a:0,exp:"DNR + baltymai, centromera, chromatidės."},
+{q:"Kas yra kariotipas? Kiek?",opts:["Visuma; 46 (44 + XX/XY)","Piešinys; 23","Liga; 48"],a:0,exp:"44 vienodos + 2 lytinės."},
+{q:"Moteris ir vyras?",opts:["XX ir XY","Abu XX","Atvirkščiai"],a:0,exp:"XX – moteris, XY – vyras."},
+{q:"2n ir n?",opts:["2n somatinės (46) / n lytinės (23)","Abu somatinės","Abu lytinės"],a:0,exp:"Dvigubas ir viengubas rinkiniai."}];
+function renderDnr(){renderChoiceSet('dnrBox','dnrOut',dnrData,'dnr');}
+function dnrCheck(){checkChoiceSet(dnrData,'dnr','dnrOut','Puiku, moki DNR!',true);}
+renderDnr();
+
+// 12. Biologija: mutacijos
+const mutData=[
+{q:"Kas yra mutacija?",opts:["Negrįžtamas genetinių struktūrų pokytis","Laikinas nuovargis","Vitamino trūkumas"],a:0,exp:"Genų ar chromosomų pokyčiai – negrįžtami."},
+{q:"Kas yra mutagenai?",opts:["Fiziniai, cheminiai, biologiniai veiksniai","Tik virusai","Tik vaistai"],a:0,exp:"Sukelia mutacijas."},
+{q:"Kuris mutagenas fizinis?",opts:["Ultravioletiniai spinduliai","Konservantai","Virusai"],a:0,exp:"UV + jonizuojančioji spinduliuotė."},
+{q:"Kuris mutagenas cheminis?",opts:["Kancerogenai","Virusai","Bakterijos"],a:0,exp:"Kancerogenai, konservantai, chemija."},
+{q:"Kuris mutagenas biologinis?",opts:["Virusai ir bakterijos","Spinduliuotė","Konservantai"],a:0,exp:"Virusai, bakterijos."},
+{q:"Kas yra Dauno sindromas?",opts:["47 chromosomos","45 chromosomos","Virusinė liga"],a:0,exp:"Viena papildoma chromosoma."},
+{q:"Kas yra poliploidija?",opts:["Rinkinio kartotinis padaugėjimas","Vienos chromosomos netekimas","Genų liga"],a:0,exp:"Padaugėja visas rinkinys."},
+{q:"Genų mutacijos pavyzdys?",opts:["Albinizmas","Dauno sindromas","Grupė kraujo"],a:0,exp:"Albinizmas – vieno geno mutacija."},
+{q:"Ką tėvai perduoda vaikams?",opts:["Tik lytinių ląstelių DNR","Visą savo DNR","Tik baltymus"],a:0,exp:"Po 23 chromosomas iš kiekvieno."},
+{q:"Ar mutacijos grįžtamos?",opts:["Ne, negrįžtamos","Taip, visada","Kartais pačios išnyksta"],a:0,exp:"Negrįžtami pokyčiai – apibrėžimas."}];
+function renderMut(){renderChoiceSet('mutBox','mutOut',mutData,'mut');}
+function mutCheck(){checkChoiceSet(mutData,'mut','mutOut','Puiku, moki mutacijas!',true);}
+renderMut();
+
+// Dalyko perjungimas: 1–5 istorija, 6–8 anglų, 9–10 ekonomika, 11–12 biologija
+function paintDalykasTabs(d){const EN=d==='anglu';const tabs={istorija:'tabIstorija',anglu:'tabAnglu',ekonomika:'tabEkonomika',biologija:'tabBiologija'};const tabNames=EN?{istorija:'📜 History',anglu:'🇬🇧 English',ekonomika:'💰 Economics',biologija:'🧬 Biology'}:{istorija:'📜 Istorija',anglu:'🇬🇧 Anglų',ekonomika:'💰 Ekonomika',biologija:'🧬 Biologija'};const names={istorija:'— istorija',anglu:'— English',ekonomika:'— ekonomika',biologija:'— biologija'};Object.keys(tabs).forEach(function(k){const b=document.getElementById(tabs[k]);b.textContent=tabNames[k];b.className='px-3 py-1.5 rounded-full '+(d===k?'bg-white shadow':'text-slate-500');});document.getElementById('dalykasName').textContent=names[d]||names.istorija;document.getElementById('pageName').textContent=EN?'Practice':'Praktika';document.getElementById('footTest').textContent=EN?'← Test':'← Testas';document.getElementById('footHome').textContent=EN?'To start →':'Į pradžią →';const nav=EN?{'index.html':'📖 Learn','korteles.html':'🃏 Flashcards','testas.html':'✅ Test','praktika.html':'🧮 Practice'}:{'index.html':'📖 Mokytis','korteles.html':'🃏 Kortelės','testas.html':'✅ Testas','praktika.html':'🧮 Praktika'};document.querySelectorAll('#navMenu a').forEach(function(a){const f=a.getAttribute('href');if(nav[f])a.textContent=nav[f];});}
 function applyDalykas(){
   const p=new URLSearchParams(window.location.search);
   let d=p.get('dalykas');
-  if(d==='pilietiskumas'){localStorage.setItem('dalykas','pilietiskumas');}
+  if(d==='anglu'||d==='ekonomika'||d==='biologija'){localStorage.setItem('dalykas',d);}
   else if(d==='istorija'){localStorage.setItem('dalykas','istorija');}
-  else{d=localStorage.getItem('dalykas')==='pilietiskumas'?'pilietiskumas':'istorija';}
+  else{const ls=localStorage.getItem('dalykas');d=(ls==='anglu'||ls==='ekonomika'||ls==='biologija')?ls:'istorija';}
+  const HIST_N=5, ANG_N=3, EKO_N=2; // pirmi 5 – istorija, 6–8 – anglų, 9–10 – ekonomika, likę – biologija
   const kids=document.getElementById('praktikaGrid').children;
-  for(let i=0;i<kids.length;i++){kids[i].style.display=(d==='pilietiskumas')===(i>=kids.length-1)?'':'none';}
-  document.getElementById('praktikaCount').textContent=d==='pilietiskumas'?'1 pilietiškumo užduotis (10 klausimų).':'8 istorijos užduotys.';
+  for(let i=0;i<kids.length;i++){const dd=i<HIST_N?'istorija':(i<HIST_N+ANG_N?'anglu':(i<HIST_N+ANG_N+EKO_N?'ekonomika':'biologija'));kids[i].style.display=dd===d?'':'none';}
+  document.getElementById('praktikaCount').textContent=(d==='anglu'?'3 English tasks (32 questions).':(d==='ekonomika'?'2 ekonomikos užduotys (22 klausimai).':(d==='biologija'?'2 biologijos užduotys (22 klausimai).':'5 istorijos užduotys.')));
   paintDalykasTabs(d);
 }
 function setDalykas(d){localStorage.setItem('dalykas',d);applyDalykas();}

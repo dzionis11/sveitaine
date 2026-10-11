@@ -29,9 +29,9 @@ body{font-family:'Inter',sans-serif}
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-3">
       <div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div>
-      <div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Istorija • Pilietiškumas</div></div>
+      <div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Istorija • Anglų • Ekonomika</div></div>
     </a>
-    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full" id="navMenu">
       <a href="index.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">📚 Temų apžvalga</a>
       <a href="korteles.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">🎯 Mokymasis</a>
       <a href="testas.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">✅ Testas</a>
@@ -44,18 +44,20 @@ body{font-family:'Inter',sans-serif}
 <div class="hist-gradient rounded-[24px] p-6 md:p-8 text-white relative overflow-hidden mb-6">
   <div class="absolute -right-10 -top-10 w-48 h-48 bg-white/15 rounded-full blur-2xl"></div>
   <div class="relative">
-    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold">✨ Iš tavo užrašų (10 kl.)</div>
-    <h1 class="text-3xl md:text-4xl font-black leading-tight mt-3">Pasiruošk kontroliniam darbui</h1>
-    <p class="text-white/90 mt-2 text-sm">Pasirink dalyką, ko nori mokytis:</p>
+    <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur px-3 py-1 rounded-full text-xs font-bold" id="heroBadge">✨ Iš tavo užrašų (10 kl.)</div>
+    <h1 class="text-3xl md:text-4xl font-black leading-tight mt-3" id="heroTitle">Pasiruošk kontroliniam darbui</h1>
+    <p class="text-white/90 mt-2 text-sm" id="heroSub">Pasirink dalyką, ko nori mokytis:</p>
     <div class="flex flex-wrap gap-2 mt-3" id="dalykasPicker">
       <button onclick="setDalykas('istorija')" id="btnIstorija" class="px-5 py-2.5 rounded-full font-extrabold text-sm shadow">📜 Istorija</button>
-      <button onclick="setDalykas('pilietiskumas')" id="btnPilietiskumas" class="px-5 py-2.5 rounded-full font-bold text-sm">⚖️ Pilietiškumas</button>
+      <button onclick="setDalykas('anglu')" id="btnAnglu" class="px-5 py-2.5 rounded-full font-bold text-sm">🇬🇧 Anglų</button>
+      <button onclick="setDalykas('ekonomika')" id="btnEkonomika" class="px-5 py-2.5 rounded-full font-bold text-sm">💰 Ekonomika</button>
+      <button onclick="setDalykas('biologija')" id="btnBiologija" class="px-5 py-2.5 rounded-full font-bold text-sm">🧬 Biologija</button>
     </div>
     <div class="flex flex-wrap gap-2 mt-4">
-      <a href="korteles.html" class="bg-white text-blue-800 px-5 py-2.5 rounded-full font-extrabold text-sm shadow inline-block">Pradėti mokytis →</a>
-      <a href="testas.html" class="bg-black/20 border border-white/30 text-white px-5 py-2.5 rounded-full font-bold text-sm inline-block">Tiesiog testas</a>
+      <a href="korteles.html" id="heroBtnLearn" class="bg-white text-blue-800 px-5 py-2.5 rounded-full font-extrabold text-sm shadow inline-block">Pradėti mokytis →</a>
+      <a href="testas.html" id="heroBtnTest" class="bg-black/20 border border-white/30 text-white px-5 py-2.5 rounded-full font-bold text-sm inline-block">Tiesiog testas</a>
     </div>
-    <div class="flex gap-4 mt-4 text-xs font-semibold">
+    <div class="flex gap-4 mt-4 text-xs font-semibold" id="heroStats">
       <span>📚 4 temos</span><span>🎯 Adaptyvus mokymasis</span><span>✅ 200+ klausimai</span><span>🗺 Žemėlapiai</span><span>📊 Progreso sekimas</span>
     </div>
   </div>
@@ -64,127 +66,137 @@ body{font-family:'Inter',sans-serif}
 <section class="space-y-6">
 <h2 class="font-black text-xl" id="temuAntraste">Temos kontroliniam darbui</h2>
 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4" id="istorijaTemos">
-  <a href="korteles.html?topic=nepriklausomybe" class="topic-card bg-white rounded-2xl border p-5 group">
+  <a href="korteles.html?topic=seimas" class="topic-card bg-white rounded-2xl border p-5 group">
     <div class="w-12 h-12 rounded-xl bg-red-100 flex items-center justify-center mb-3 group-hover:bg-red-200 transition"><svg class="w-6 h-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
-    <h3 class="font-extrabold text-lg">Lietuva tarpukariu</h3>
-    <p class="text-sm text-slate-600 mt-1">Nepriklausomybės kovos 1918–1920: bolševikai, lenkai, bermontininkai, taikos sutartys</p>
+    <h3 class="font-extrabold text-lg">Steigiamasis Seimas</h3>
+    <p class="text-sm text-slate-600 mt-1">1920–1922 Kaune: pirmasis parlamentas, ~300 aktų, proklamavimas, litas, žemės reforma</p>
     <div class="flex gap-2 mt-3 text-xs">
-      <span class="bg-red-50 text-red-700 px-2 py-1 rounded-full">Lentelės</span>
+      <span class="bg-red-50 text-red-700 px-2 py-1 rounded-full">Darbai</span>
       <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Asmenybės</span>
       <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sąvokos</span>
     </div>
   </a>
-  <a href="korteles.html?topic=rezimai" class="topic-card bg-white rounded-2xl border p-5 group">
+  <a href="korteles.html?topic=seimai" class="topic-card bg-white rounded-2xl border p-5 group">
     <div class="w-12 h-12 rounded-xl bg-amber-100 flex items-center justify-center mb-3 group-hover:bg-amber-200 transition"><svg class="w-6 h-6 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-    <h3 class="font-extrabold text-lg">Autoritarizmas ir totalitarizmas</h3>
-    <p class="text-sm text-slate-600 mt-1">Režimų bruožai, krizės priežastys, tautų apsisprendimo teisė Europoje</p>
+    <h3 class="font-extrabold text-lg">Seimai, partijos ir Klaipėda</h3>
+    <p class="text-sm text-slate-600 mt-1">I–IV Seimų kadencijos, 4 partijos, rinkimų agitacija, Klaipėdos prijungimas 1923</p>
     <div class="flex gap-2 mt-3 text-xs">
-      <span class="bg-amber-50 text-amber-700 px-2 py-1 rounded-full">Palyginimas</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Priežastys</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sąvokos</span>
-    </div>
-  </a>
-  <a href="korteles.html?topic=demokratija" class="topic-card bg-white rounded-2xl border p-5 group">
-    <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-200 transition"><svg class="w-6 h-6 text-emerald-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-    <h3 class="font-extrabold text-lg">Tarpukario demokratinė Europa</h3>
-    <p class="text-sm text-slate-600 mt-1">Politinis žemėlapis, demokratijos požymiai, Čekoslovakija, režimų sąvokos</p>
-    <div class="flex gap-2 mt-3 text-xs">
-      <span class="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full">Žemėlapis</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Požymiai</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sąvokos</span>
-    </div>
-  </a>
-  <a href="korteles.html?topic=pirmasis_karas" class="topic-card bg-white rounded-2xl border p-5 group">
-    <div class="w-12 h-12 rounded-xl bg-blue-100 flex items-center justify-center mb-3 group-hover:bg-blue-200 transition"><svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
-    <h3 class="font-extrabold text-lg">I pasaul. karas – kartojimas</h3>
-    <p class="text-sm text-slate-600 mt-1">Chronologija, blokai, taika, karikatūros, įvairūs klausimų tipai</p>
-    <div class="flex gap-2 mt-3 text-xs">
-      <span class="bg-blue-50 text-blue-700 px-2 py-1 rounded-full">Chronologija</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Karatatūros</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">8 tipų</span>
+      <span class="bg-amber-50 text-amber-700 px-2 py-1 rounded-full">Partijos</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Kadencijos</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Klaipėda</span>
     </div>
   </a>
 </div>
-<div class="grid md:grid-cols-2 gap-4" id="pilietiskumasTemos" style="display:none">
-  <a href="korteles.html?dalykas=pilietiskumas" class="topic-card bg-white rounded-2xl border p-5 group">
-    <div class="w-12 h-12 rounded-xl bg-violet-100 flex items-center justify-center mb-3 group-hover:bg-violet-200 transition text-2xl">⚖️</div>
-    <h3 class="font-extrabold text-lg">LR Konstitucija</h3>
-    <p class="text-sm text-slate-600 mt-1">Konstitucijos apibrėžimas, referendumas, pirmosios pasaulio konstitucijos, Lietuvos konstitucijos 1922–1992</p>
+<div class="grid md:grid-cols-2 gap-4" id="angluTemos" style="display:none">
+  <a href="korteles.html?dalykas=anglu" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-sky-100 flex items-center justify-center mb-3 group-hover:bg-sky-200 transition text-2xl">🇬🇧</div>
+    <h3 class="font-extrabold text-lg">Modal Verbs</h3>
+    <p class="text-sm text-slate-600 mt-1">Must / can't / may in use, deduction, and functions: permission, requests, advice, ability, offers</p>
     <div class="flex gap-2 mt-3 text-xs">
-      <span class="bg-violet-50 text-violet-700 px-2 py-1 rounded-full">Sąvokos</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Datos</span>
-      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Laiko juosta</span>
+      <span class="bg-sky-50 text-sky-700 px-2 py-1 rounded-full">Usage</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Deduction</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Functions</span>
     </div>
   </a>
   <div class="bg-white rounded-2xl border p-5">
-    <h3 class="font-extrabold text-lg">Mokykis pilietiškumą</h3>
-    <p class="text-sm text-slate-600 mt-1">Kortelės, testas ir praktika – viskas apie LR Konstituciją.</p>
+    <h3 class="font-extrabold text-lg">Learn English</h3>
+    <p class="text-sm text-slate-600 mt-1">Flashcards, test and practice – everything about modal verbs.</p>
     <div class="flex flex-wrap gap-2 mt-3 text-sm font-bold">
-      <a href="korteles.html?dalykas=pilietiskumas" class="bg-violet-600 text-white px-4 py-2 rounded-full">🃏 Kortelės</a>
-      <a href="testas.html?topic=pilietiskumas" class="bg-white border px-4 py-2 rounded-full">✅ Testas</a>
-      <a href="praktika.html?dalykas=pilietiskumas" class="bg-white border px-4 py-2 rounded-full">🧮 Praktika</a>
+      <a href="korteles.html?dalykas=anglu" class="bg-sky-600 text-white px-4 py-2 rounded-full">🃏 Flashcards</a>
+      <a href="testas.html?topic=anglu" class="bg-white border px-4 py-2 rounded-full">✅ Test</a>
+      <a href="praktika.html?dalykas=anglu" class="bg-white border px-4 py-2 rounded-full">🧮 Practice</a>
+    </div>
+  </div>
+</div>
+<div class="grid md:grid-cols-2 gap-4" id="ekonomikaTemos" style="display:none">
+  <a href="korteles.html?dalykas=ekonomika" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-emerald-100 flex items-center justify-center mb-3 group-hover:bg-emerald-200 transition text-2xl">💰</div>
+    <h3 class="font-extrabold text-lg">Ekonomikos pagrindai</h3>
+    <p class="text-sm text-slate-600 mt-1">Pasirinkimai ir alternatyvieji kaštai, ištekliai, sistemos, GGK, mikro ir makro</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-emerald-50 text-emerald-700 px-2 py-1 rounded-full">Kaštai</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Sistemos</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">GGK</span>
+    </div>
+  </a>
+  <div class="bg-white rounded-2xl border p-5">
+    <h3 class="font-extrabold text-lg">Mokykis ekonomiką</h3>
+    <p class="text-sm text-slate-600 mt-1">Kortelės, testas ir praktika – viskas apie ekonomikos pagrindus.</p>
+    <div class="flex flex-wrap gap-2 mt-3 text-sm font-bold">
+      <a href="korteles.html?dalykas=ekonomika" class="bg-emerald-600 text-white px-4 py-2 rounded-full">🃏 Kortelės</a>
+      <a href="testas.html?topic=ekonomika" class="bg-white border px-4 py-2 rounded-full">✅ Testas</a>
+      <a href="praktika.html?dalykas=ekonomika" class="bg-white border px-4 py-2 rounded-full">🧮 Praktika</a>
+    </div>
+  </div>
+</div>
+<div class="grid md:grid-cols-2 gap-4" id="biologijaTemos" style="display:none">
+  <a href="korteles.html?dalykas=biologija" class="topic-card bg-white rounded-2xl border p-5 group">
+    <div class="w-12 h-12 rounded-xl bg-lime-100 flex items-center justify-center mb-3 group-hover:bg-lime-200 transition text-2xl">🧬</div>
+    <h3 class="font-extrabold text-lg">DNR ir genetika</h3>
+    <p class="text-sm text-slate-600 mt-1">DNR sandara, replikacija, chromosomos, kariotipas, mutacijos ir mutagenai</p>
+    <div class="flex gap-2 mt-3 text-xs">
+      <span class="bg-lime-50 text-lime-700 px-2 py-1 rounded-full">DNR</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Chromosomos</span>
+      <span class="bg-slate-100 text-slate-700 px-2 py-1 rounded-full">Mutacijos</span>
+    </div>
+  </a>
+  <div class="bg-white rounded-2xl border p-5">
+    <h3 class="font-extrabold text-lg">Mokykis biologiją</h3>
+    <p class="text-sm text-slate-600 mt-1">Kortelės, testas ir praktika – viskas apie DNR ir genetiką.</p>
+    <div class="flex flex-wrap gap-2 mt-3 text-sm font-bold">
+      <a href="korteles.html?dalykas=biologija" class="bg-lime-600 text-white px-4 py-2 rounded-full">🃏 Kortelės</a>
+      <a href="testas.html?topic=biologija" class="bg-white border px-4 py-2 rounded-full">✅ Testas</a>
+      <a href="praktika.html?dalykas=biologija" class="bg-white border px-4 py-2 rounded-full">🧮 Praktika</a>
     </div>
   </div>
 </div>
 </section>
 
 <section class="mt-8">
-<h2 class="font-black text-xl mb-4">Ką rasi kiekvienoje temoje</h2>
+<h2 class="font-black text-xl mb-4" id="kaRasiAntraste">Ką rasi kiekvienoje temoje</h2>
 <div class="grid md:grid-cols-2 gap-4 text-sm" id="kaRasiGrid">
   <div class="bg-white border rounded-xl p-4">
-    <h3 class="font-bold text-red-700 mb-2">Lietuva tarpukariu (vadovėlis 31–37 psl.)</h3>
+    <h3 class="font-bold text-red-700 mb-2">Istorija: Steigiamasis Seimas ir Seimai</h3>
     <ul class="space-y-1 text-slate-700">
-      <li>• Nepriklausomybės kovų lentelė 1918–1920 (data, priešas, įvykis, rezultatas)</li>
-      <li>• 1920 liepos 12 d. Maskvos taika: sąlygos (PSAB), 3 mln. aukso rublių</li>
-      <li>• Asmenybės: Voldemaras, Pilsudskis, Želigovskis, Žukauskas</li>
-      <li>• Sąvokos: litbelas, nota, demarkacinė linija, optacija, Suvalkų sutartis</li>
-      <li>• Žemėlapio legendos skaitymas: prasiveržimo ribos, mūšiai, okupacija</li>
+      <li>• Steigiamasis Seimas 1920–1922: rinkimai, ~300 aktų, litas, de jure</li>
+      <li>• Asmenybės: Stulginskis, Smetona, Petkevičaitė-Bitė, Galvanauskas</li>
+      <li>• Partijos: krikdemai, tautininkai, liaudininkai, socdemai</li>
+      <li>• I–IV Seimų kadencijos, agitacija, Klaipėdos prijungimas 1923</li>
+      <li>• Sąvokos: koalicija, parlamentinis valdymas, žemės reforma, de jure</li>
     </ul>
   </div>
-  <div class="bg-white border rounded-xl p-4">
-    <h3 class="font-bold text-amber-700 mb-2">Autoritarizmas ir totalitarizmas Europoje</h3>
+  <div class="bg-white border rounded-xl p-4" id="kaRasiAnglu" style="display:none">
+    <h3 class="font-bold text-sky-700 mb-2">English: Modal Verbs</h3>
     <ul class="space-y-1 text-slate-700">
-      <li>• Režimų apibūdinimas: demokratija, autoritarizmas, totalitarizmas</li>
-      <li>• Politinės, ekonominės, visuomeninės krizės priežastys</li>
-      <li>• Tautų apsisprendimo teisės idėja (Vilsonas)</li>
-      <li>• Hitleris, Musolinis, Stalinas – palyginimas</li>
-      <li>• Militarizmas, vado kultas, masinis teroras</li>
+      <li>• Use: must, can't, may/might, mustn't, don't have to, ought to, May I…?</li>
+      <li>• Deduction: must / can't / may + have done in the past</li>
+      <li>• Functions: permission, requests, advice, ability, offers, criticism</li>
+      <li>• Flashcards, test and practice – all in English</li>
     </ul>
   </div>
-  <div class="bg-white border rounded-xl p-4">
-    <h3 class="font-bold text-emerald-700 mb-2">Tarpukario demokratinė Europa</h3>
+  <div class="bg-white border rounded-xl p-4" id="kaRasiEkonomika" style="display:none">
+    <h3 class="font-bold text-emerald-700 mb-2">Ekonomika: pagrindai</h3>
     <ul class="space-y-1 text-slate-700">
-      <li>• Europos politinis žemėlapis po Versalio</li>
-      <li>• Demokratijos požymiai: rinkimai, teisės, atskaitomybė</li>
-      <li>• Čekoslovakija: kodėl išsilaikė demokratija, Masarykas</li>
-      <li>• Sąvokų žodynas: diktatūra, autoritarizmas, totalitarizmas, demokratija</li>
-      <li>• Palyginamosios lentelės</li>
+      <li>• Pasirinkimai, stygius, alternatyvieji kaštai (pica, būreliai, Rimas)</li>
+      <li>• Ištekliai: žmogiškieji, gamtos, kapitalo, verslumas; turtas</li>
+      <li>• Sistemos: tradicinė, rinkos, komandinė, mišrioji + situacijos</li>
+      <li>• GGK: taškai ant / po / virš kreivės, pamoka, Rokas ir Simas</li>
+      <li>• Mikro ir makroekonomika: kas yra kas</li>
     </ul>
   </div>
-  <div class="bg-white border rounded-xl p-4">
-    <h3 class="font-bold text-blue-700 mb-2">I pasaulio karas – visapusinis kartojimas</h3>
+  <div class="bg-white border rounded-xl p-4" id="kaRasiBiologija" style="display:none">
+    <h3 class="font-bold text-lime-700 mb-2">Biologija: DNR ir genetika</h3>
     <ul class="space-y-1 text-slate-700">
-      <li>• 1914–1918: Antantė vs Trilypės sąjunga</li>
-      <li>• Blokai, frontai, nauji ginkluotės tipai</li>
-      <li>• 1919 Paryžiaus konferencija, Versalis (5 sąlygų grupės)</li>
-      <li>• Tautų Sąjunga: 58 narių, be JAV, „Plyšys tilte“</li>
-      <li>• 8 klausimų tipai: pasirinkimas, T/K, sąvokos, asmenybės, datos, priežastis/pasekmė, chronologija, žemėlapis, atviri</li>
-    </ul>
-  </div>
-  <div class="bg-white border rounded-xl p-4" id="kaRasiPilietiskumas" style="display:none">
-    <h3 class="font-bold text-violet-700 mb-2">Pilietiškumas: LR Konstitucija</h3>
-    <ul class="space-y-1 text-slate-700">
-      <li>• Konstitucija: apibrėžimas, požymiai, aukščiausia teisinė galia</li>
-      <li>• Referendumas: apibrėžimas, LR Konstitucija priimta 1992-10-25</li>
-      <li>• Pirmosios konstitucijos: JAV 1787 (Vašingtonas, Medisonas), ATR 1791-05-03 (Poniatovskis), Prancūzija 1791-09-03 (Liudvikas XVI)</li>
-      <li>• Lietuvos konstitucijos: 1922 demokratinė, 1928 ir 1938 autoritarinės, 1992 dabartinė</li>
-      <li>• Kortelės, testas ir praktika su paaiškinimais</li>
+      <li>• DNR sandara: nukleotidas, bazės ATCG, poros A-T / C-G, spiralė</li>
+      <li>• Replikacija: helikazė, polimerazė, 2 identiškos DNR</li>
+      <li>• Chromosoma, kariotipas: 46 (44 + XX/XY), 2n ir n</li>
+      <li>• Mutacijos: apibrėžimas, mutagenai, Dauno sindromas, albinizmas</li>
     </ul>
   </div>
 </div>
 </section>
 
-<footer class="text-center text-xs text-slate-400 py-8">Mokykis iš Džionio užrašų • 10 kl. istorija • Veikia offline</footer>
+<footer class="text-center text-xs text-slate-400 py-8" id="footText">Mokykis iš Džionio užrašų • Istorija • Anglų • Ekonomika • Biologija • Veikia offline</footer>
 </main>
 
 <!-- Kodų įvedimo modalas -->
@@ -192,19 +204,19 @@ body{font-family:'Inter',sans-serif}
   <div class="modal-content">
     <div class="text-center mb-6">
       <div class="w-16 h-16 hist-gradient rounded-2xl flex items-center justify-center mx-auto mb-4"><svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg></div>
-      <h2 class="font-black text-xl">Prisijungimas</h2>
-      <p class="text-slate-600 mt-1">Įvesk prieigos kodą, kad toliau naudotum svetainę</p>
+      <h2 class="font-black text-xl" id="modalTitle">Prisijungimas</h2>
+      <p class="text-slate-600 mt-1" id="modalText">Įvesk prieigos kodą, kad toliau naudotum svetainę</p>
     </div>
     <div class="mb-4">
-      <label class="block text-sm font-semibold mb-2">Prieigos kodas</label>
+      <label class="block text-sm font-semibold mb-2" id="modalLabel">Prieigos kodas</label>
       <div class="relative">
         <input type="password" id="accessCode" autocomplete="off" autocapitalize="off" spellcheck="false" class="w-full px-4 py-3 pr-12 border-2 border-slate-200 rounded-xl text-center text-lg font-mono tracking-widest focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-200" placeholder="Įvesk kodą">
         <button type="button" onclick="toggleCodeVisibility()" title="Rodyti / slėpti kodą" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 text-xl">👁</button>
       </div>
     </div>
-    <button onclick="verifyCode()" class="w-full bg-blue-700 text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-800 transition">Patvirtinti</button>
+    <button onclick="verifyCode()" id="modalBtn" class="w-full bg-blue-700 text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-800 transition">Patvirtinti</button>
     <p id="codeError" class="text-red-600 text-sm mt-3 text-center hidden">Neteisingas kodas. Bandyk dar kartą.</p>
-    <p class="text-xs text-slate-500 mt-4 text-center">Kodas tikrinamas pagal tavo IP. Po 1 min naudojimo.</p>
+    <p class="text-xs text-slate-500 mt-4 text-center" id="modalNote">Kodas tikrinamas pagal tavo IP. Po 1 min naudojimo.</p>
   </div>
 </div>
 
@@ -295,7 +307,7 @@ function verifyCode() {
     localStorage.setItem('accessGranted', 'true');
     localStorage.setItem('accessIP', ip);
     hideCodeModal();
-    showNotification('Prieiga suteikta! Mokinamasi toliau.', 'success');
+    showNotification(getDalykas() === 'anglu' ? 'Access granted! Keep learning.' : 'Prieiga suteikta! Mokinamasi toliau.', 'success');
   } else {
     errorEl.classList.remove('hidden');
     document.getElementById('accessCode').classList.add('border-red-500');
@@ -355,31 +367,64 @@ function showNotification(msg, type) {
   setTimeout(() => notif.remove(), 3000);
 }
 
-// ===== DALYKO PASIRINKIMAS (Istorija / Pilietiškumas) =====
+// ===== DALYKO PASIRINKIMAS (Istorija / Anglų / Ekonomika / Biologija) =====
 function getDalykas() {
   const p = new URLSearchParams(window.location.search).get('dalykas');
-  if (p === 'pilietiskumas' || p === 'istorija') return p;
-  return localStorage.getItem('dalykas') === 'pilietiskumas' ? 'pilietiskumas' : 'istorija';
+  if (p === 'istorija' || p === 'anglu' || p === 'ekonomika' || p === 'biologija') return p;
+  const ls = localStorage.getItem('dalykas');
+  return (ls === 'anglu' || ls === 'ekonomika' || ls === 'biologija') ? ls : 'istorija';
 }
 function setDalykas(d) {
   localStorage.setItem('dalykas', d);
   applyDalykas();
 }
+function paintDalykasBtn(el, active, activeCls) {
+  el.className = 'px-5 py-2.5 rounded-full text-sm shadow ' + (active ? activeCls + ' font-extrabold' : 'bg-black/20 border border-white/30 text-white font-bold');
+}
 function applyDalykas() {
   const d = getDalykas();
-  const isPil = d === 'pilietiskumas';
-  document.getElementById('istorijaTemos').style.display = isPil ? 'none' : '';
-  document.getElementById('pilietiskumasTemos').style.display = isPil ? '' : 'none';
-  document.getElementById('temuAntraste').textContent = isPil ? 'Pilietiškumo tema' : 'Temos kontroliniam darbui';
+  const EN = d === 'anglu';
+  const show = function(id, visible) { document.getElementById(id).style.display = visible ? '' : 'none'; };
+  show('istorijaTemos', d === 'istorija');
+  show('angluTemos', d === 'anglu');
+  show('ekonomikaTemos', d === 'ekonomika');
+  show('biologijaTemos', d === 'biologija');
+  document.getElementById('temuAntraste').textContent = d === 'anglu' ? 'English topic' : (d === 'ekonomika' ? 'Ekonomikos tema' : (d === 'biologija' ? 'Biologijos tema' : 'Temos kontroliniam darbui'));
+  document.getElementById('kaRasiAntraste').textContent = EN ? "What's inside each topic" : 'Ką rasi kiekvienoje temoje';
   const grid = document.getElementById('kaRasiGrid');
   Array.from(grid.children).forEach(function(box) {
-    if (box.id === 'kaRasiPilietiskumas') box.style.display = isPil ? '' : 'none';
-    else box.style.display = isPil ? 'none' : '';
+    if (box.id === 'kaRasiAnglu') box.style.display = d === 'anglu' ? '' : 'none';
+    else if (box.id === 'kaRasiEkonomika') box.style.display = d === 'ekonomika' ? '' : 'none';
+    else if (box.id === 'kaRasiBiologija') box.style.display = d === 'biologija' ? '' : 'none';
+    else box.style.display = d === 'istorija' ? '' : 'none';
   });
-  const bI = document.getElementById('btnIstorija');
-  const bP = document.getElementById('btnPilietiskumas');
-  bI.className = 'px-5 py-2.5 rounded-full text-sm shadow ' + (!isPil ? 'bg-white text-blue-800 font-extrabold' : 'bg-black/20 border border-white/30 text-white font-bold');
-  bP.className = 'px-5 py-2.5 rounded-full text-sm shadow ' + (isPil ? 'bg-white text-violet-800 font-extrabold' : 'bg-black/20 border border-white/30 text-white font-bold');
+  paintDalykasBtn(document.getElementById('btnIstorija'), d === 'istorija', 'bg-white text-blue-800');
+  document.getElementById('btnIstorija').textContent = EN ? '📜 History' : '📜 Istorija';
+  paintDalykasBtn(document.getElementById('btnAnglu'), d === 'anglu', 'bg-white text-sky-800');
+  document.getElementById('btnAnglu').textContent = EN ? '🇬🇧 English' : '🇬🇧 Anglų';
+  paintDalykasBtn(document.getElementById('btnEkonomika'), d === 'ekonomika', 'bg-white text-emerald-800');
+  document.getElementById('btnEkonomika').textContent = '💰 Ekonomika';
+  paintDalykasBtn(document.getElementById('btnBiologija'), d === 'biologija', 'bg-white text-lime-800');
+  document.getElementById('btnBiologija').textContent = '🧬 Biologija';
+  const nav = EN ? ['📚 Topics', '🎯 Learn', '✅ Test', '🗺 Maps & Timeline'] : ['📚 Temų apžvalga', '🎯 Mokymasis', '✅ Testas', '🗺 Žemėlapiai & Chronologija'];
+  document.querySelectorAll('#navMenu a').forEach(function(a, i) { if (nav[i]) a.textContent = nav[i]; });
+  const T = function(id, lt, en) { document.getElementById(id).textContent = EN ? en : lt; };
+  T('heroBadge', '✨ Iš tavo užrašų (10 kl.)', '✨ From your notes');
+  T('heroTitle', 'Pasiruošk kontroliniam darbui', 'Get ready for your test');
+  T('heroSub', 'Pasirink dalyką, ko nori mokytis:', 'Choose what to learn:');
+  T('heroBtnLearn', 'Pradėti mokytis →', 'Start learning →');
+  T('heroBtnTest', 'Tiesiog testas', 'Just a test');
+  document.getElementById('heroStats').innerHTML = EN
+    ? '<span>📚 1 topic</span><span>🎯 Flashcards</span><span>✅ Questions</span><span>🧮 Practice</span><span>📊 Explanations</span>'
+    : '<span>📚 4 temos</span><span>🎯 Adaptyvus mokymasis</span><span>✅ 200+ klausimai</span><span>🗺 Žemėlapiai</span><span>📊 Progreso sekimas</span>';
+  T('footText', 'Mokykis iš Džionio užrašų • Istorija • Anglų • Ekonomika • Biologija • Veikia offline', "Džionis' notes • History • English • Economics • Biology • Works offline");
+  T('modalTitle', 'Prisijungimas', 'Login');
+  T('modalText', 'Įvesk prieigos kodą, kad toliau naudotum svetainę', 'Enter the access code to keep using the site');
+  T('modalLabel', 'Prieigos kodas', 'Access code');
+  T('modalBtn', 'Patvirtinti', 'Confirm');
+  T('modalNote', 'Kodas tikrinamas pagal tavo IP. Po 1 min naudojimo.', 'The code is checked against your IP. After 1 min of use.');
+  document.getElementById('codeError').textContent = EN ? 'Wrong code. Try again.' : 'Neteisingas kodas. Bandyk dar kartą.';
+  document.getElementById('accessCode').placeholder = EN ? 'Enter the code' : 'Įvesk kodą';
 }
 document.addEventListener('DOMContentLoaded', applyDalykas);
 

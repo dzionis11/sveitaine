@@ -14,7 +14,7 @@ body{font-family:'Inter',sans-serif}.hist-gradient{background:linear-gradient(13
 <nav class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-slate-200">
   <div class="max-w-6xl mx-auto px-4 py-3 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-3"><div class="w-9 h-9 hist-gradient rounded-xl flex items-center justify-center text-white font-black">🏛</div><div><div class="font-extrabold leading-none">Mokykis iš Džionio užrašų</div><div class="text-xs text-slate-500 -mt-0.5">Istorija</div></div></a>
-    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full">
+    <div class="flex items-center gap-1 bg-slate-100 p-1 rounded-full" id="navMenu">
       <a href="index.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">📖 Mokytis</a>
       <a href="korteles.html" class="px-4 py-1.5 rounded-full bg-white shadow font-bold text-sm">🃏 Kortelės</a>
       <a href="testas.html" class="px-4 py-1.5 rounded-full font-bold text-sm text-slate-600 hover:bg-white">✅ Testas</a>
@@ -24,132 +24,122 @@ body{font-family:'Inter',sans-serif}.hist-gradient{background:linear-gradient(13
 </nav>
 <main class="max-w-6xl mx-auto px-4 py-6">
 <div class="flex flex-wrap items-center justify-between gap-3 mb-4">
-  <h1 class="font-black text-2xl">🃏 Kortelės <span id="dalykasName" class="text-base font-bold text-slate-500">— istorija</span></h1>
-  <div class="flex items-center gap-2"><div class="flex gap-1 bg-slate-100 p-1 rounded-full text-sm font-bold" id="dalykasTabs"><button onclick="setDalykas('istorija')" id="tabIstorija" class="px-3 py-1.5 rounded-full">📜 Istorija</button><button onclick="setDalykas('pilietiskumas')" id="tabPilietiskumas" class="px-3 py-1.5 rounded-full">⚖️ Pilietiškumas</button></div><span class="text-sm">Kortelė <b id="cardNow">1</b> / <span id="cardTotal">24</span></span><button onclick="shuffleCards()" class="text-xs bg-white border px-3 py-1.5 rounded-full font-bold">🔀 Maišyti</button></div>
+  <h1 class="font-black text-2xl">🃏 <span id="pageName">Kortelės</span> <span id="dalykasName" class="text-base font-bold text-slate-500">— istorija</span></h1>
+  <div class="flex items-center gap-2"><div class="flex gap-1 bg-slate-100 p-1 rounded-full text-sm font-bold" id="dalykasTabs"><button onclick="setDalykas('istorija')" id="tabIstorija" class="px-3 py-1.5 rounded-full">📜 Istorija</button><button onclick="setDalykas('anglu')" id="tabAnglu" class="px-3 py-1.5 rounded-full">🇬🇧 Anglų</button><button onclick="setDalykas('ekonomika')" id="tabEkonomika" class="px-3 py-1.5 rounded-full">💰 Ekonomika</button><button onclick="setDalykas('biologija')" id="tabBiologija" class="px-3 py-1.5 rounded-full">🧬 Biologija</button></div><span class="text-sm"><span id="cardWord">Kortelė</span> <b id="cardNow">1</b> / <span id="cardTotal">24</span></span><button onclick="shuffleCards()" id="btnShuffle" class="text-xs bg-white border px-3 py-1.5 rounded-full font-bold">🔀 Maišyti</button></div>
 </div>
 <div class="max-w-2xl mx-auto">
   <div id="flashCard" class="card-3d cursor-pointer" onclick="flipCard()">
     <div class="card-inner relative">
       <div class="card-face bg-white border-2 border-blue-200 rounded-[20px] p-8 min-h-[280px] flex flex-col items-center justify-center text-center shadow-sm">
-        <div class="text-xs font-bold tracking-widest text-blue-600">KLAUSIMAS</div>
+        <div class="text-xs font-bold tracking-widest text-blue-600" id="cardQLabel">KLAUSIMAS</div>
         <div id="cardQ" class="text-lg font-extrabold mt-3 whitespace-pre-wrap leading-relaxed"></div>
-        <div class="text-xs text-slate-400 mt-4">Paspausk, kad pamatytum atsakymą ↻</div>
+        <div class="text-xs text-slate-400 mt-4" id="cardHint">Paspausk, kad pamatytum atsakymą ↻</div>
       </div>
       <div class="card-face card-back absolute inset-0 bg-blue-700 rounded-[20px] p-8 min-h-[280px] flex flex-col items-center justify-center text-center text-white">
-        <div class="text-xs font-bold tracking-widest text-blue-200">ATSAKYMAS</div>
+        <div class="text-xs font-bold tracking-widest text-blue-200" id="cardALabel">ATSAKYMAS</div>
         <div id="cardA" class="text-base font-bold mt-3 whitespace-pre-wrap leading-relaxed"></div>
         <div id="cardExtra" class="text-sm text-blue-100 mt-2 whitespace-pre-wrap"></div>
       </div>
     </div>
   </div>
   <div class="flex gap-3 mt-4">
-    <button onclick="nextCard(false)" class="flex-1 bg-white border-2 border-slate-200 py-3 rounded-full font-bold">❌ Nežinojau</button>
-    <button onclick="nextCard(true)" class="flex-1 bg-emerald-500 text-white py-3 rounded-full font-bold shadow">✓ Žinojau</button>
+    <button onclick="nextCard(false)" id="btnDontKnow" class="flex-1 bg-white border-2 border-slate-200 py-3 rounded-full font-bold">❌ Nežinojau</button>
+    <button onclick="nextCard(true)" id="btnKnow" class="flex-1 bg-emerald-500 text-white py-3 rounded-full font-bold shadow">✓ Žinojau</button>
   </div>
   <div class="flex justify-center gap-2 mt-3">
-    <button onclick="prevCard()" class="bg-white border px-4 py-1.5 rounded-full text-sm font-bold">← Atgal</button>
-    <button onclick="flipCard()" class="bg-slate-900 text-white px-4 py-1.5 rounded-full text-sm font-bold">Apversti ↻</button>
-    <button onclick="nextCard()" class="bg-white border px-4 py-1.5 rounded-full text-sm font-bold">Kita →</button>
+    <button onclick="prevCard()" id="btnBack" class="bg-white border px-4 py-1.5 rounded-full text-sm font-bold">← Atgal</button>
+    <button onclick="flipCard()" id="btnFlip" class="bg-slate-900 text-white px-4 py-1.5 rounded-full text-sm font-bold">Apversti ↻</button>
+    <button onclick="nextCard()" id="btnNext" class="bg-white border px-4 py-1.5 rounded-full text-sm font-bold">Kita →</button>
   </div>
   <div class="flex justify-center gap-1 mt-4" id="cardDots"></div>
   <div class="bg-white border rounded-2xl p-3 mt-4 flex justify-between text-sm">
-    <span>Žinau: <b id="knownCount" class="text-emerald-600">0</b></span>
-    <span>Mokausi: <b id="unknownCount" class="text-amber-600">0</b></span>
-    <span>Liko: <b id="leftCount">24</b></span>
+    <span><span id="statKnown">Žinau</span>: <b id="knownCount" class="text-emerald-600">0</b></span>
+    <span><span id="statLearning">Mokausi</span>: <b id="unknownCount" class="text-amber-600">0</b></span>
+    <span><span id="statLeft">Liko</span>: <b id="leftCount">24</b></span>
   </div>
   <div class="flex justify-center gap-3 mt-6">
-    <a href="index.html" class="bg-white border px-6 py-2 rounded-full font-bold">← Mokytis</a>
-    <a href="testas.html" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Testas →</a>
+    <a href="index.html" id="linkLearn" class="bg-white border px-6 py-2 rounded-full font-bold">← Mokytis</a>
+    <a href="testas.html" id="linkTest" class="bg-blue-700 text-white px-6 py-2 rounded-full font-bold">Testas →</a>
   </div>
 </div>
 </main>
 <script>
 const cards=[
-{q:"Kada vyko Pirmasis pasaulinis karas?",a:"1914–1918 m.",e:"Karas tarp dviejų karinių blokų"},
-{q:"Kokie du blokai kariavo I pasauliniame kare?",a:"Antantė vs Trilypės sąjunga (Centrinės valstybės)",e:"Antantė: Prancūzija, Britanija… Centrinės: Vokietija, Austrija…"},
-{q:"Kiek valstybių įtraukė karas ir kiek gyvybių nusinešė?",a:"Daugiau kaip 28 valstybės, ~20 mln gyvybių",e:"Į karą įsitraukė daugelis Europos ir pasaulio valstybių"},
-{q:"Kas buvo Paryžiaus taikos konferencija?",a:"1919 m. laimėtojų suorganizuota konferencija taikos sutartims nustatyti",e:"Joje pasirašyta Versalio sutartis"},
-{q:"Kas yra Versalio taikos sutartis?",a:"Taikos sutartis su Vokietija, pasirašyta Paryžiaus konferencijoje",e:"Nustatė teritorijas, reparacijas, kariuomenę, kaltę"},
-{q:"Kas yra Tautų Sąjunga? Kada veikė?",a:"Tarptautinė organizacija taikai saugoti, 1919–1946 m.",e:"Įkurta Paryžiaus konferencijoje"},
-{q:"Koks buvo Tautų Sąjungos tikslas?",a:"Išlaikyti taiką, kolektyvinis saugumas, ginčus spręsti derybomis",e:"Kolektyvinio saugumo sistema"},
-{q:"Kiek narių turėjo Tautų Sąjunga? Kodėl nestabili?",a:"58 narės. JAV nedalyvavo – Kongresas nepritarė",e:"Be JAV organizacija silpna – „plyšys tilte“"},
-{q:"Kas yra „Plyšys tilte“ / „The Gap in the Bridge“?",a:"1919 m. karikatūra: tilte trūksta lentos USA",e:"Reikšmė: be JAV taikos tiltas nesilaikys"},
-{q:"Kas buvo V. Vilsonas? Kokia jo idėja?",a:"JAV prezidentas Woodrow Wilson, Tautų Sąjungos idėjos autorius",e:"Idealizmas, teisingumas, taika be nugalėtojų"},
-{q:"Ką reiškia karikatūra „Vilsonas su balandžiu“?",a:"Vilsonas kaip taikos nešėjas (balandis + alyvos šakelė)",e:"Idealisto vaizdavimas"},
-{q:"Ką reiškia „Unlimited indemnity“?",a:"Neribotos reparacijos – didžiulė finansinė našta Vokietijai",e:"Viena Versalio sąlygų"},
-{q:"Kas yra demokratija?",a:"Visuotinės teisės, rinkimai, daugiapartiškumas, žodžio laisvė",e:"Pvz. Čekoslovakija 1920"},
-{q:"Kas yra autoritarizmas?",a:"Vieno asmens/grupės neribama valdžia, apribotos teisės, cenzūra",e:"Kontroliuojama tik politika, be masinio teroro"},
-{q:"Kas yra totalitarizmas?",a:"Visiška visos visuomenės kontrolė + masinis teroras",e:"Vado kultas, neapykanta demokratijai"},
-{q:"Kuo skiriasi autoritarizmas ir totalitarizmas?",a:"Autoritarizmas – tik politika be masinio teroro; totalitarizmas – viskas + teroras",e:"Autoritarizmas švelnesnis, totalitarizmas – visiška kontrolė"},
-{q:"Kas yra diktatūra?",a:"Vieno asmens ar grupės valdžia be demokratinių apribojimų",e:"Gali būti autoritarinė arba totalitarinė"},
-{q:"Kas yra Čekoslovakija tarpukariu?",a:"Demokratinė valstybė, konstitucija 1920 m.",e:"Prezidentas Tomašas Garigas Masaryk"},
-{q:"Kas buvo Čekoslovakijos prezidentas?",a:"Tomašas Garigas Masaryk (Tomáš Garrigue Masaryk)",e:"1920 m. konstitucija"},
-{q:"Kas yra pasaulinė ekonomikos krizė? Pasekmė?",a:"Skurdas, nedarbas, nestabilumas → palengvino diktatūrų iškilimą",e:"Schema: krizė → nepasitenkinimas → diktatoriai"},
-{q:"Rusija 1917 – kas atėjo į valdžią?",a:"Leninas (vėliau Stalinas)",e:"Bolševikų revoliucija"},
-{q:"Italija 1922 – kas atėjo į valdžią?",a:"Benitas Musolinis",e:"Fašistai"},
-{q:"Vokietija 1933 – kas atėjo į valdžią?",a:"Adolfas Hitleris",e:"Nacistai"},
-{q:"Kas yra militarizmas?",a:"Ginklavimosi politika, kariuomenės stiprinimas agresijai",e:"Būdingas visiems trims režimams"},
-{q:"Kada vyko Lietuvos Nepriklausomybės kovos?",a:"1918–1920 m.",e:"Po 1918-02-16 Nepriklausomybės paskelbimo Lietuva turėjo apginti valstybę nuo trijų priešų"},
-{q:"Su kuriais trimis priešais kovojo Lietuva 1918–1920 m.?",a:"Bolševikai (Sovietų Rusija), bermontininkai, lenkai",e:"Eiliškumas: pirma bolševikai, po to bermontininkai, galiausiai lenkai"},
-{q:"Kodėl Nepriklausomybės kovos prasidėjo?",a:"Vokietijai pralaimint karą, Sovietų Rusija anuliavo Bresto taiką ir puolė Lietuvą",e:"1918 m. pabaigoje Lietuva dar neturėjo stiprios kariuomenės – tik kuriamą savanorių armiją"},
-{q:"Kas 1918 m. vadovavo pirmajai Vyriausybei ir kariuomenės kūrimui?",a:"Augustinas Voldemaras",e:"1918-11-23 laikoma Lietuvos kariuomenės diena – tada pradėta kurti kariuomenė"},
-{q:"Kas vadovavo Lietuvos kariuomenei Nepriklausomybės kovose?",a:"Generolas Silvestras Žukauskas",e:"Taip pat svarbūs: Kazys Ladiga prie Radviliškio, Povilas Plechavičius – partizanai prieš bolševikus"},
-{q:"Kas yra Litbelas?",a:"1919 m. sukurta Lietuvos–Baltarusijos TSR – bolševikų marionetinė valstybė",e:"Bolševikai, užėmę Vilnių 1919-01-05, bandė per Litbelą pateisinti okupaciją"},
-{q:"Kas įvyko 1919 m. sausio 5 d.?",a:"Bolševikai užėmė Vilnių, Vyriausybė pasitraukė į Kauną",e:"Kaunas tapo laikinąja sostine beveik 20 metų – iki 1939 m."},
-{q:"Kaip baigėsi kovos su bolševikais?",a:"Iki 1919 m. rugpjūčio pabaigos bolševikai išvyti (Zarasų kraštas)",e:"Padėjo savanoriai, partizanai ir Vokietijos likę daliniai (saksų savanoriai)"},
-{q:"Kas buvo bermontininkai?",a:"Pavelo Bermondto-Avalovo vadovaujama Vakarų Rusijos savanorių armija",e:"Formaliai rusai, bet remiami Vokietijos – norėjo atkurti Rusijos imperiją ir kontroliuoti Baltiją"},
-{q:"Koks svarbiausias mūšis su bermontininkais?",a:"Radviliškio mūšis 1919 m. lapkričio 21–22 d.",e:"Lietuviai, vadovaujami Kazio Ladigos, sutriuškino bermontininkus. Iki gruodžio jie išvyti iš Lietuvos"},
-{q:"Kodėl Radviliškio pergalė svarbi?",a:"Apginta Šiaurės Lietuva ir Šiauliai, įrodyta, kad Lietuvos kariuomenė gali nugalėti",e:"Lapkričio 22-oji minima kaip kariuomenės pergalės diena"},
-{q:"Kas yra 1920 m. liepos 12 d. Maskvos taikos sutartis?",a:"Sovietų Rusija pripažino nepriklausomą Lietuvą su Vilniumi, Gardinu, Lyda",e:"Rusija atsisakė pretenzijų visiems laikams ir mokėjo karo nuostolius. Tai teisinis Lietuvos pripažinimas"},
-{q:"Dėl ko Lietuva konfliktavo su Lenkija?",a:"Dėl Vilniaus ir Rytų Lietuvos – abi valstybės laikė Vilnių savo",e:"Lenkijos vadovas Juzefas Pilsudskis norėjo atkurti Abiejų Tautų Respubliką su Vilniumi"},
-{q:"Kas yra Suvalkų sutartis?",a:"1920 m. spalio 7 d. Lietuvos ir Lenkijos sutartis, nustatanti demarkacinę liniją",e:"Vilnius paliktas Lietuvai, bet jau po 2 dienų Lenkija ją sulaužė"},
-{q:"Kas yra Želigovskio maištas?",a:"1920 m. spalio 9 d. Lenkijos generolas Liucjanas Želigovskis užėmė Vilnių",e:"Lenkija teigė, kad tai jo maištas, bet iš tikrųjų – Pilsudskio įsakymas. Sukurta Vidurinė Lietuva"},
-{q:"Koks mūšis sustabdė lenkų veržimąsi 1920 m.?",a:"Giedraičių mūšis 1920 m. lapkričio 17–21 d.",e:"Lietuviai sustabdė lenkus, po to – paliaubos 1920-11-29. Frontas sustojo, Vilnius liko okupuotas"},
-{q:"Kas yra demarkacinė linija ir nota?",a:"Demarkacinė linija – laikina skiriamoji linija tarp kariuomenių. Nota – oficialus diplomatinis raštas",e:"Tautų Sąjunga siuntė notas, bet Vilniaus klausimo neišsprendė – Vilnius Lietuvai grąžintas tik 1939 m."},
-{q:"Kuo baigėsi Nepriklausomybės kovos?",a:"Lietuva apgynė nepriklausomybę, bet neteko Vilniaus iki 1939 m.",e:"Išvada: 1918–1920 m. Lietuva laimėjo valstybę, bet Vilniaus klausimas liko skaudžiausias tarpukario klausimas"},
-{q:"Kokios 3 valstybės sudarė Antantės branduolį?",a:"Prancūzija, Rusija, Didžioji Britanija",e:"Prie jų jungėsi Serbija, Belgija, Japonija, vėliau Italija (1915) ir JAV (1917)"},
-{q:"Kokios 3 valstybės sudarė Trilypę sąjungą 1882 m.?",a:"Vokietija, Austrija-Vengrija, Italija",e:"Kare Italija perėjo pas Antantę, o prie Centrinių jungėsi Turkija ir Bulgarija"},
-{q:"Kurios valstybės priklausė Antantei?",a:"Prancūzija, Rusija, Britanija, Serbija, Belgija (+ JAV, Italija nuo 1915)",e:"Atsimink: PR + RU + GB yra pagrindas"},
-{q:"Kurios valstybės priklausė Trilypei / Centrinėms?",a:"Vokietija, Austrija-Vengrija, Osmanų imperija, Bulgarija",e:"Atsimink: VOK + AUS-VENG yra pagrindas"},
-{q:"Kuriai pusei priklausė Italija?",a:"Pradėjo Trilypėje, 1915 m. perėjo į Antantę",e:"Dažnas kontrolinio klausimas – Italija keitė pusę"},
-{q:"Kas yra bolševikai?",a:"Lenino vadovaujami Rusijos komunistai, 1917 m. užgrobę valdžią",e:"Siekė komunistinės santvarkos ir pasaulinės revoliucijos. Lietuvą puolė 1918–1919 m."},
-{q:"Ko siekė bolševikai Lietuvoje?",a:"Įvesti sovietų valdžią ir prijungti Lietuvą prie Sovietų Rusijos",e:"Užėmė Vilnių 1919-01-05, kūrė Litbelą. Išvyti 1919 m. rugpjūtį"},
-{q:"Kas vadovavo bolševikams?",a:"Vladimiras Leninas",e:"Spalio revoliucijos vadas. Nepainiok su Bermondtu (bermontininkai) ir Pilsudskiu (Lenkija)"},
-{q:"Kas yra bermontininkai?",a:"Bermondto-Avalovo Vakarų Rusijos savanorių armija",e:"Formaliai rusų baltagvardiečiai, bet ginkluoti ir remiami Vokietijos"},
-{q:"Ko siekė bermontininkai ir kuo baigėsi?",a:"Užimti Šiaurės Lietuvą, atkurti Rusijos imperiją. Sutriuškinti Radviliškyje 1919-11-21–22",e:"Vadas Bermondtas-Avalovas, rėmė Vokietija. Iki 1919 gruodžio išvyti"},
-{q:"Ką pripažino Rusija Maskvos taika (1920-07-12)?",a:"Nepriklausomą Lietuvą, atsisakė pretenzijų visiems laikams",e:"Pagrindas – tautų apsisprendimo teisė. Vilnius, Gardinas, Lyda pripažinti Lietuvai"},
-{q:"Kokios 4 Maskvos taikos sąlygos?",a:"Pripažinimas + sienos, 3 mln. aukso rublių, archyvų grąžinimas, belaisviai ir optacija",e:"Atsimink trumpiniu PSAB: Pripažinimas, Sienos, Auksas+Archyvai, Belaisviai"},
-{q:"Kiek aukso rublių Rusija mokėjo Lietuvai?",a:"3 milijonus – karo nuostoliams atlyginti",e:"Skaičius iš sutarties – dažnas kontrolinio klausimas"},
-{q:"Ką Rusija grąžino Lietuvai?",a:"Archyvus, bibliotekas, meno vertybes, išvežtas per karą",e:"Kultūros vertybės + mokslo įstaigų turtas"},
-{q:"Kas yra demarkacijos linija?",a:"Laikina linija, skirianti kariuomenes, kol siena nustatoma sutartimi",e:"Laikina – ne siena! Pvz. Suvalkų sutarties linija"},
-{q:"Kas yra nota?",a:"Oficialus valstybės vyriausybės raštas kitai valstybei",e:"Ja reiškiamas protestas ar reikalavimas"},
-{q:"Kas buvo S. Žukauskas?",a:"Lietuvos kariuomenės vadas Nepriklausomybės kovose",e:"Generolas – vadovavo kovoms su visais trimis priešais"},
-{q:"Kaip skaityti karo žemėlapį?",a:"Ribos = iki kur įsiveržė priešas, X = mūšiai, brūkšniavimas = okupacija",e:"Bolševikų riba, bermontininkų riba, Giedraičiai (X), Vokietijos zona"},
-{q:"Kas yra konstitucija?",a:"Pagrindinis valstybės įstatymas",e:"Įtvirtina piliečių laisves ir teises, nustato valdžios sąrangą",d:"p"},
-{q:"Ką nustato konstitucija? (2 dalykai)",a:"Piliečių laisves/teises ir valdžios sąrangą",e:"Abu punktai – dažnas atviras klausimas",d:"p"},
-{q:"Kokia konstitucijos galia?",a:"Aukščiausia – keičiama sunkiau nei paprasti įstatymai",e:"Referendumu arba kvalifikuota Seimo dauguma",d:"p"},
-{q:"Kada priimta LR Konstitucija?",a:"1992 m. spalio 25 d. referendume",e:"Data + būdas – mokėk abu",d:"p"},
-{q:"Kas yra referendumas?",a:"Visuotinė piliečių apklausa balsuojant dėl svarbiausių klausimų",e:"Tiesioginė demokratija veikloje",d:"p"},
-{q:"Pirmoji pasaulio konstitucija?",a:"JAV – 1787 m.",e:"Pirmoji rašytinė pasaulyje",d:"p"},
-{q:"Pirmoji Europos konstitucija?",a:"ATR Gegužės 3-iosios – 1791-05-03",e:"Antroji pasaulyje po JAV",d:"p"},
-{q:"Prancūzijos konstitucija – kada?",a:"1791 m. rugsėjo 3 d.",e:"Tais pačiais metais kaip ATR, tik 4 mėn. vėliau",d:"p"},
-{q:"Lietuvos konstitucijų seka?",a:"1922 demokratinė → 1928 autoritarinė → 1938 autoritarinė → 1992 demokratinė",e:"Raktas: D – A – A – D",d:"p"},
-{q:"1922 vs 1928/1938 konstitucijos?",a:"1922 demokratinė, 1928 ir 1938 autoritarinės (diktatūrinės)",e:"1928/1938 įtvirtino Smetonos režimą",d:"p"},
-{q:"Kas pirmas pasirašė JAV konstituciją?",a:"Džordžas Vašingtonas – Konvento pirmininkas",e:"Iš 39 signatarų jo parašas pirmas",d:"p"},
-{q:"Kas yra JAV Konstitucijos tėvas?",a:"Džeimsas Medisonas – pagrindinis projekto autorius",e:"Ne Vašingtonas (jis pirmininkavo), o Medisonas rašė",d:"p"},
-{q:"Kiek signatarų pasirašė JAV konstituciją?",a:"39 (iš 55 konvento delegatų)",e:"Nepainiok su 13 – tiek buvo pirmųjų valstijų",d:"p"},
-{q:"Kas rėmė ATR Gegužės 3-iosios konstituciją?",a:"Karalius Stanislovas Augustas Poniatovskis",e:"Kartu su Kolontajumi ir Potockiu",d:"p"},
-{q:"ATR konstitucijos autoriai?",a:"Hugas Kolontajus ir Ignotas Potockis",e:"Parengė projektą kartu su karaliumi",d:"p"},
-{q:"Kas patvirtino Prancūzijos 1791 konstituciją?",a:"Karalius Liudvikas XVI",e:"Pritarė ir prisiekė 1791-09-14",d:"p"},
-{q:"Kas priėmė 1922 m. LT konstituciją?",a:"Steigiamasis Seimas (pirmininkas A. Stulginskis)",e:"Demokratinė – priėmė Seimas, ne vienas žmogus",d:"p"},
-{q:"Kas paskelbė 1928 ir 1938 konstitucijas?",a:"Prezidentas Antanas Smetona",e:"Abi autoritarinės, po 1926 m. perversmo",d:"p"},
-{q:"Kas pasirašė 1992 m. Konstituciją?",a:"Niekas asmeniškai – priėmė tauta referendume",e:"Vienintelis atvejis be vieno signataro",d:"p"}
+{q:"They ___ be in Spain now. (I'm sure)",a:"must",e:"must = I'm sure",d:"a"},
+{q:"You ___ be serious! (impossible)",a:"can't",e:"can't = certainly NOT",d:"a"},
+{q:"He ___ be upset. (perhaps)",a:"may / might",e:"perhaps = may/might",d:"a"},
+{q:"Someone ___ changed my password. (I think so)",a:"must have changed",e:"sure → must + have + V3",d:"a"},
+{q:"You ___ have got a new phone. (impossible)",a:"can't have got",e:"impossible → can't have + V3",d:"a"},
+{q:"It ___ have been a burglar. (perhaps)",a:"might have been",e:"perhaps → might have + V3",d:"a"},
+{q:"You ___ drive here. (forbidden ⛔)",a:"mustn't",e:"forbidden = mustn't",d:"a"},
+{q:"You ___ stay. (not necessary ✅)",a:"don't have to",e:"no need, but you may",d:"a"},
+{q:"We ___ have lied. (useless!)",a:"needn't have lied",e:"done but useless → needn't have",d:"a"},
+{q:"He ___ solve it. (he succeeded)",a:"was able to",e:"one success = was able to",d:"a"},
+{q:"___ I sit here? (permission 🙋)",a:"May",e:"May I…? = is it OK?",d:"a"},
+{q:"The smuggler ___ arrested. (certain, passive)",a:"must have been",e:"certain passive → must have been + V3",d:"a"},
+{q:"Asking permission: informal → ?",a:"Can I…?",e:"Could = politer, May/Might = formal",d:"a"},
+{q:"Giving permission: spoken vs written?",a:"You can… (spoken) / You may… (formal, written)",e:"May = usually written notices",d:"a"},
+{q:"Refusing permission: spoken vs notice?",a:"You can't / mustn't… (spoken) / You may not… (notice)",e:"May not = formal written ban",d:"a"},
+{q:"Requests: informal → polite → very formal?",a:"Can/Will → Could/Would → May/Might",e:"Climbing politeness ladder 🪜",d:"a"},
+{q:"must (I decided) vs have to (…)?",a:"Have to = someone else decided",e:"I must = my decision / I have to = boss's decision",d:"a"},
+{q:"Advice: should vs MUST?",a:"Should/ought to = advice / Must = STRONG advice",e:"You must revise! = I strongly advise you",d:"a"},
+{q:"Suggestions: which three?",a:"Shall we…? / Why don't we…? / How about…?",e:"All make suggestions",d:"a"},
+{q:"Ability: present / past repeated / past single?",a:"can / could / was able to",e:"Tony was able to win = one managed win",d:"a"},
+{q:"No ability: present / past?",a:"can't / couldn't",e:"She couldn't reach it, though she tried",d:"a"},
+{q:"Offers: which modals?",a:"Shall / Can / Could I help…?",e:"Would you like me to…? = the same offer",d:"a"},
+{q:"Criticism of the past: ?",a:"should / ought to + have + V3",e:"He should have told = it would have been better",d:"a"},
+{q:"Kas yra alternatyvieji kaštai?",a:"Geriausia alternatyva, kurios atsisakome",e:"Ne visi pinigai – tik geriausia prarasta",d:"e"},
+{q:"Jonas renkas ekonomiką (norai: ekonomistų, krepšinio…). Kaštai?",a:"Krepšinio būrelis – antra pagal svarbumą",e:"Antra alternatyva = kaštai",d:"e"},
+{q:"Pica 4 eur vietoj mėsainio. Picos kaštai?",a:"Mėsainis",e:"Tik geriausia prarasta alternatyva",d:"e"},
+{q:"Kodėl stygius visur?",a:"Norai neriboti, ištekliai riboti",e:"Begaliniai norai vs ribotumas",d:"e"},
+{q:"4 gamybos ištekliai?",a:"Žmogiškieji, gamtos, kapitalo, verslumas",e:"Raktas ŽGKV",d:"e"},
+{q:"Pinigai – kapitalas?",a:"NE. Fabrikai, mašinos – taip",e:"Pinigai – ne fizinis kapitalas",d:"e"},
+{q:"Baldai – gamtos ištekliai?",a:"NE. Miškai, oras, nafta – taip",e:"Baldai jau pagaminti",d:"e"},
+{q:"3 sistemos vienu žodžiu?",a:"Tradicinė – tradicijos / Rinkos – pelnas / Komandinė – planas",e:"Kas sprendžia ir kaip",d:"e"},
+{q:"GGK: ant / po / virš?",a:"Efektyvi / neefektyvi / neįmanoma",e:"Ant = viskas panaudota",d:"e"},
+{q:"Pamoka 45 min: A 20+20, B 25+25?",a:"A – galima neefektyvi / B – neįmanoma",e:"40<45, bet švaistoma / 50>45",d:"e"},
+{q:"Rokas ir Simas: kas kur?",a:"Rokas → matematika, Simas → fizika (19 – geriausia)",e:"Palyginamasis pranašumas",d:"e"},
+{q:"Mikro vs makro?",a:"Tėtis bankrutavo – mikro / Nedarbas šalyje – makro",e:"Asmuo/įmonė vs visa šalis",d:"e"},
+{q:"Kas buvo Steigiamasis Seimas?",a:"1920–1922 Kaune dirbęs pirmasis parlamentas",e:"Sukūrė valstybės pagrindus ir valdymo formą"},
+{q:"Seimo pirmininkas ir prezidentas?",a:"Stulginskis (pirmininkas) / Smetona (prezidentas)",e:"Stulginskis vėliau antras prezidentas"},
+{q:"1920 rinkimai: kaip ir kiek?",a:"Tik partijų sąrašai, ne visur, bet ~90% rinkėjų",e:"Dabar mišri sistema ir ~50%"},
+{q:"Kiek aktų? Kokie svarbiausi?",a:"~300; proklamavimas 1920-05-15, litas, Tautų Sąjunga",e:"Iki 1922 rudens"},
+{q:"Kas yra de jure?",a:"Teisiškas oficialus pripažinimas + ambasados",e:"De jure = visam laikui teisiškai"},
+{q:"Žemės reformos tikslas?",a:"Tvirtas ūkis iš smulkių/vidutinių ūkių",e:"Ūkio pagrindas – valstiečiai"},
+{q:"Parlamentinis valdymas?",a:"Parlamentas – centras, renka prezidentą",e:"Seimas sudaro kitus organus"},
+{q:"Petkevičaitė-Bitė?",a:"Vyriausia parlamentarė, pirmasis posėdis",e:"Atidarė 1920-05-15 posėdį"},
+{q:"Stulginskis – kas?",a:"Seimo pirmininkas, skelbė proklamavimą",e:"Vėliau antras prezidentas"},
+{q:"4 partijos ir lyderiai?",a:"Krikdemai (Stulginskis), tautininkai (Smetona), liaudininkai (Sleževičius), socdemai (Kairys)",e:"K-L-T-S raktas"},
+{q:"Krikdemai vs tautininkai?",a:"Krikščionybė politikoje vs tautinė valstybė + nacionalizmas",e:"Tautininkai (Smetona, Voldemaras) – mažas palaikymas"},
+{q:"Kas yra koalicija?",a:"Partijų sąjunga bendram tikslui (kai ni viena neturi daugumos)",e:"Kaip I Seime"},
+{q:"I Seimas: kas laimėjo ir kas vadovavo?",a:"Krikdemų blokas; Stulginskis + Galvanauskas",e:"Be daugumos – koalicija"},
+{q:"II Seimas (1923–1926)?",a:"Stulginskis + Galvanauskas; cenzūra, karo padėtis, Klaipėda",e:"Dirbo visą kadenciją"},
+{q:"III Seimas (1926–1927)?",a:"Grinius; panaikinta karo padėtis, mirtis, cenzūra",e:"Po perversmo – Smetona"},
+{q:"IV Seimas (1936)?",a:"Nedemokratinis, nuo prezidento, be mažumų ir moterų",e:"Visiška priešingybė I Seimui"},
+{q:"Klaipėda: kaip atgauta?",a:"1923-01-10–15 sukilimu",e:"Prieš tai – Santarvė + prancūzai + direktorija"},
+{q:"Klaipėda: kodėl Lietuvai?",a:"Uostas, prekyba, etninės žemės",e:"Vandens keliai + lietuviai"},
+{q:"Ambasadorių konferencija ir direktorija?",a:"Santarvės organas + vietos administracija",e:"Sprendė krašto likimą"},
+{q:"Kas yra DNR?",a:"Paveldima genetinė informacija",e:"Deoksiribonukleorūgštis",d:"b"},
+{q:"Nukleotidas = ?",a:"Bazė + deoksiribozė + fosfatas (P)",e:"3 dalys – BCF raktas",d:"b"},
+{q:"Bazės ATCG?",a:"Adeninas, timinas, citozinas, guaninas",e:"Pirmos raidės ATCG",d:"b"},
+{q:"Poros DNR?",a:"A–T ir C–G (komplementarumas)",e:"A su T, C su G – visada",d:"b"},
+{q:"Purinai vs pirimidinai?",a:"A,G – ilgos (purinai) / C,T – trumpos (pirimidinai)",e:"Ilgos AG, trumpos CT",d:"b"},
+{q:"DNR forma?",a:"Susisukusi dviguba spiralė",e:"Kopėčios susisukusios",d:"b"},
+{q:"Helikazė vs polimerazė?",a:"Helikazė išvynioja, polimerazė sujungia",e:"H – atidaro, P – stato",d:"b"},
+{q:"Replikacija?",a:"3 etapai → 2 identiškos DNR",e:"Išsisukiojimas, poravimas, pabaiga",d:"b"},
+{q:"Chromosoma = ?",a:"DNR + baltymai (centromera, chromatidės)",e:"Susivyniojusi DNR",d:"b"},
+{q:"Kariotipas? Kiek?",a:"Visuma; 46 = 44 autosomos + XX/XY",e:"44 vienodos + 2 lytinės",d:"b"},
+{q:"2n vs n?",a:"2n diploidinis (somatinės 46) / n haploidinis (lytinės 23)",e:"Dvigubas vs viengubas",d:"b"},
+{q:"Mutacija? Mutagenai?",a:"Negrįžtamas pokytis; fiziniai/cheminiai/biologiniai",e:"UV, kancerogenai, virusai",d:"b"},
+{q:"Dauno, poliploidija, albinizmas?",a:"47 chromosomos / rinkinio padaugėjimas / genų mutacija",e:"Skaičiaus, rinkinio, geno",d:"b"},
+{q:"Ką paveldi vaikai?",a:"Tik lytinių ląstelių DNR (23+23)",e:"Po 23 iš kiekvieno tėvo",d:"b"}
 ];
 let cIdx=0, known=new Set(), unknown=new Set(), dalykas='istorija', view=[];
-function currentView(){return dalykas==='pilietiskumas'?cards.filter(c=>c.d==='p'):cards.filter(c=>!c.d);}
-function paintDalykasTabs(){document.getElementById('tabIstorija').className='px-3 py-1.5 rounded-full '+(dalykas==='istorija'?'bg-white shadow':'text-slate-500');document.getElementById('tabPilietiskumas').className='px-3 py-1.5 rounded-full '+(dalykas==='pilietiskumas'?'bg-white shadow':'text-slate-500');document.getElementById('dalykasName').textContent=dalykas==='pilietiskumas'?'— pilietiškumas':'— istorija';}
+function currentView(){if(dalykas==='anglu')return cards.filter(c=>c.d==='a');if(dalykas==='ekonomika')return cards.filter(c=>c.d==='e');if(dalykas==='biologija')return cards.filter(c=>c.d==='b');return cards.filter(c=>!c.d);}
+function paintDalykasTabs(){const names={istorija:'— istorija',anglu:'— English',ekonomika:'— ekonomika',biologija:'— biologija'};['istorija','anglu','ekonomika','biologija'].forEach(function(k){const btn=document.getElementById(k==='istorija'?'tabIstorija':(k==='anglu'?'tabAnglu':(k==='ekonomika'?'tabEkonomika':'tabBiologija')));btn.className='px-3 py-1.5 rounded-full '+(dalykas===k?'bg-white shadow':'text-slate-500');});document.getElementById('dalykasName').textContent=names[dalykas]||names.istorija;paintCardsLang();}
+function paintCardsLang(){const EN=dalykas==='anglu';const set=function(id,lt,en){document.getElementById(id).textContent=EN?en:lt;};set('cardQLabel','KLAUSIMAS','QUESTION');set('cardALabel','ATSAKYMAS','ANSWER');set('cardHint','Paspausk, kad pamatytum atsakymą ↻','Tap to see the answer ↻');set('btnDontKnow','❌ Nežinojau',"❌ I didn't know");set('btnKnow','✓ Žinojau','✓ I knew');set('btnBack','← Atgal','← Back');set('btnFlip','Apversti ↻','Flip ↻');set('btnNext','Kita →','Next →');set('statKnown','Žinau','I know');set('statLearning','Mokausi','Learning');set('statLeft','Liko','Left');set('linkLearn','← Mokytis','← Learn');set('linkTest','Testas →','Test →');set('pageName','Kortelės','Flashcards');set('cardWord','Kortelė','Card');set('btnShuffle','🔀 Maišyti','🔀 Shuffle');const tabNames=EN?{istorija:'📜 History',anglu:'🇬🇧 English',ekonomika:'💰 Economics',biologija:'🧬 Biology'}:{istorija:'📜 Istorija',anglu:'🇬🇧 Anglų',ekonomika:'💰 Ekonomika',biologija:'🧬 Biologija'};set('tabIstorija',tabNames.istorija,tabNames.istorija);set('tabAnglu',tabNames.anglu,tabNames.anglu);set('tabEkonomika',tabNames.ekonomika,tabNames.ekonomika);set('tabBiologija',tabNames.biologija,tabNames.biologija);const nav=EN?{'index.html':'📖 Learn','korteles.html':'🃏 Flashcards','testas.html':'✅ Test','praktika.html':'🧮 Practice'}:{'index.html':'📖 Mokytis','korteles.html':'🃏 Kortelės','testas.html':'✅ Testas','praktika.html':'🧮 Praktika'};document.querySelectorAll('#navMenu a').forEach(function(a){const f=a.getAttribute('href');if(nav[f])a.textContent=nav[f];});}
 function setDalykas(d){dalykas=d;localStorage.setItem('dalykas',d);view=currentView();cIdx=0;known.clear();unknown.clear();paintDalykasTabs();renderCard();}
-function initDalykas(){const p=new URLSearchParams(window.location.search);const d=p.get('dalykas');const t=p.get('topic');if(d==='pilietiskumas'){dalykas='pilietiskumas';localStorage.setItem('dalykas','pilietiskumas');}else if(d==='istorija'||t){dalykas='istorija';localStorage.setItem('dalykas','istorija');}else if(localStorage.getItem('dalykas')==='pilietiskumas'){dalykas='pilietiskumas';}view=currentView();paintDalykasTabs();}
+function initDalykas(){const p=new URLSearchParams(window.location.search);const d=p.get('dalykas');const t=p.get('topic');if(d==='anglu'||d==='ekonomika'||d==='biologija'){dalykas=d;localStorage.setItem('dalykas',d);}else if(d==='istorija'||t){dalykas='istorija';localStorage.setItem('dalykas','istorija');}else{const ls=localStorage.getItem('dalykas');dalykas=(ls==='anglu'||ls==='ekonomika'||ls==='biologija')?ls:'istorija';}view=currentView();paintDalykasTabs();}
 function renderCard(){
   if(!view.length)view=currentView();
   document.getElementById('cardQ').textContent=view[cIdx].q;
